@@ -35,6 +35,7 @@ type Guest struct {
 	Resource
 	Cpu       int
 	Mem       int64
+	Storage   int64
 	ImageID   int64
 	ImageName string
 	Networks  map[string]string
