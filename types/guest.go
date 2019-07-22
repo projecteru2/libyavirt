@@ -2,6 +2,7 @@ package types
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -27,7 +28,22 @@ func (r GuestReq) VirtID() string {
 	if strings.HasPrefix(id, MagicPrefix) {
 		id = id[len(MagicPrefix):]
 	}
+
+	id = r.checkOldVersionID(id)
+
 	return id
+}
+
+func (r GuestReq) checkOldVersionID(id string) string {
+	var i64, err = strconv.ParseInt(id, 10, 64)
+	switch {
+	case err != nil:
+		fallthrough
+	case i64 > 999999:
+		return id
+	default:
+		return fmt.Sprintf("guest-%06d", i64)
+	}
 }
 
 type Guest struct {
