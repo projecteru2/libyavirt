@@ -1,4 +1,4 @@
-package client
+package httpclient
 
 import (
 	"context"
@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func (c *Client) procReqErr(err error) error {
+func (c *httpClient) procReqErr(err error) error {
 	switch {
 	case err == context.Canceled:
 		fallthrough
@@ -27,10 +27,10 @@ func (c *Client) procReqErr(err error) error {
 	return fmt.Errorf("error during request: %v", err)
 }
 
-func (c *Client) isConnRefusedErr(err error) bool {
+func (c *httpClient) isConnRefusedErr(err error) bool {
 	return strings.Contains(err.Error(), "connection refused")
 }
 
-func (c *Client) isDeadlineExceededErr(err error) bool {
+func (c *httpClient) isDeadlineExceededErr(err error) bool {
 	return strings.HasSuffix(err.Error(), "context deadline exceeded")
 }

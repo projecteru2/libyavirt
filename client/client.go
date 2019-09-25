@@ -1,79 +1,35 @@
 package client
 
 import (
-	"fmt"
-	"net"
-	"net/http"
-	"runtime"
-	"time"
+	"context"
+	"errors"
+	"net/url"
+
+	"github.com/projecteru2/libyavirt/client/grpcclient"
+	"github.com/projecteru2/libyavirt/client/httpclient"
+	"github.com/projecteru2/libyavirt/types"
 )
 
-type Client struct {
-	addr   string
-	scheme string
-	ver    string
-
-	http *http.Client
-
-	defaultHeaders map[string]string
+type Client interface {
+	Info(context.Context) (types.HostInfo, error)
+	GetGuest(ctx context.Context, ID string) (types.Guest, error)
+	CreateGuest(ctx context.Context, args types.CreateGuestReq) (types.Guest, error)
+	StartGuest(ctx context.Context, ID string) (types.Msg, error)
+	StopGuest(ctx context.Context, ID string) (types.Msg, error)
+	DestroyGuest(ctx context.Context, ID string) (types.Msg, error)
 }
 
-func New(addr, ver string) (*Client, error) {
-	if len(addr) < 1 {
-		return nil, fmt.Errorf("invalid addr")
-	}
-	if len(ver) < 1 {
-		return nil, fmt.Errorf("invalid ver")
+func NewClient(yavirtdURI string) (Client, error) {
+	u, err := url.Parse(yavirtdURI)
+	if err != nil {
+		return nil, err
 	}
 
-	return &Client{
-		addr:   addr,
-		scheme: "http",
-		ver:    ver,
-
-		http: defaultHttpClient(),
-
-		defaultHeaders: map[string]string{
-			"Content-Type": "application/json",
-		},
-	}, nil
-}
-
-func (c *Client) Close() error {
-	if tr, ok := c.http.Transport.(*http.Transport); ok {
-		tr.CloseIdleConnections()
+	switch u.Scheme {
+	case "http":
+		return httpclient.New(u.Host, u.Path[1:])
+	case "grpc":
+		return grpcclient.New(u.Host)
 	}
-
-	return fmt.Errorf("invalid *http.Transport")
-}
-
-func defaultHttpClient() *http.Client {
-	return &http.Client{
-		CheckRedirect: func(req *http.Request, via []*http.Request) error {
-			if via[0].Method == http.MethodGet {
-				return http.ErrUseLastResponse
-			}
-			return fmt.Errorf("unexpected redirect")
-		},
-
-		Transport: defaultPoolTransport(),
-	}
-}
-
-func defaultPoolTransport() *http.Transport {
-	return &http.Transport{
-		DialContext: (&net.Dialer{
-			KeepAlive: time.Second * 30,
-			Timeout:   time.Second * 30,
-		}).DialContext,
-
-		ExpectContinueTimeout: time.Second,
-		IdleConnTimeout:       time.Second * 90,
-		TLSHandshakeTimeout:   time.Second * 10,
-
-		MaxIdleConnsPerHost: runtime.GOMAXPROCS(0) + 1,
-		MaxIdleConns:        16,
-
-		Proxy: http.ProxyFromEnvironment,
-	}
+	return nil, errors.New("invalid yavirtdURI: " + yavirtdURI)
 }

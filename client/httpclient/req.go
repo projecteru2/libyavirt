@@ -1,4 +1,4 @@
-package client
+package httpclient
 
 import (
 	"bytes"
@@ -11,7 +11,7 @@ import (
 
 type headers = map[string][]string
 
-func (c *Client) Post(ctx context.Context, path string, obj, reply interface{}) (*Resp, error) {
+func (c *httpClient) Post(ctx context.Context, path string, obj, reply interface{}) (*Resp, error) {
 	return c.send(&queryOption{
 		ctx:    ctx,
 		path:   path,
@@ -20,7 +20,7 @@ func (c *Client) Post(ctx context.Context, path string, obj, reply interface{}) 
 	}, reply)
 }
 
-func (c *Client) Get(ctx context.Context, path string, reply interface{}) (*Resp, error) {
+func (c *httpClient) Get(ctx context.Context, path string, reply interface{}) (*Resp, error) {
 	return c.send(&queryOption{
 		ctx:    ctx,
 		path:   path,
@@ -28,7 +28,7 @@ func (c *Client) Get(ctx context.Context, path string, reply interface{}) (*Resp
 	}, reply)
 }
 
-func (c *Client) send(q *queryOption, reply interface{}) (*Resp, error) {
+func (c *httpClient) send(q *queryOption, reply interface{}) (*Resp, error) {
 	req, err := c.buildReq(q)
 	if err != nil {
 		return nil, err
@@ -48,7 +48,7 @@ func (c *Client) send(q *queryOption, reply interface{}) (*Resp, error) {
 	return resp, decode(resp, reply)
 }
 
-func (c *Client) req(ctx context.Context, req *http.Request) (*Resp, error) {
+func (c *httpClient) req(ctx context.Context, req *http.Request) (*Resp, error) {
 	req = req.WithContext(ctx)
 
 	var rawResp, err = c.http.Do(req)
@@ -65,7 +65,7 @@ func (c *Client) req(ctx context.Context, req *http.Request) (*Resp, error) {
 	return resp, nil
 }
 
-func (c *Client) buildReq(q *queryOption) (*http.Request, error) {
+func (c *httpClient) buildReq(q *queryOption) (*http.Request, error) {
 	body, err := q.body()
 	if err != nil {
 		return nil, err
@@ -84,7 +84,7 @@ func (c *Client) buildReq(q *queryOption) (*http.Request, error) {
 	return req, nil
 }
 
-func (c *Client) withDefaultHeaders(req *http.Request, hdrs headers) {
+func (c *httpClient) withDefaultHeaders(req *http.Request, hdrs headers) {
 	for k, v := range c.defaultHeaders {
 		req.Header.Set(k, v)
 	}
@@ -96,7 +96,7 @@ func (c *Client) withDefaultHeaders(req *http.Request, hdrs headers) {
 	}
 }
 
-func (c *Client) requireOK(resp *Resp, err error) error {
+func (c *httpClient) requireOK(resp *Resp, err error) error {
 	if err != nil {
 		return err
 	}
@@ -111,6 +111,6 @@ func (c *Client) requireOK(resp *Resp, err error) error {
 	return fmt.Errorf("unexpected status code: %d (%s)", resp.statusCode, buf.Bytes())
 }
 
-func (c *Client) getPath(path string) string {
+func (c *httpClient) getPath(path string) string {
 	return fmt.Sprintf("/%s/%s", c.ver, strings.Trim(path, "/"))
 }
