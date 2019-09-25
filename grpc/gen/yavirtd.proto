@@ -57,7 +57,7 @@ message CreateGuestMessage {
   int64 transit_time = 5;
   int64 update_time = 6;
   int64 cpu = 7;
-  int64 mem = 8;
+  int64 memory = 8;
   int64 storage = 9;
   int64 image_id = 10;
   string image_name = 11;
