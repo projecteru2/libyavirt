@@ -19,7 +19,7 @@ type Client interface {
 	DestroyGuest(ctx context.Context, ID string) (types.Msg, error)
 }
 
-func NewClient(yavirtdURI string) (Client, error) {
+func New(yavirtdURI string) (Client, error) {
 	u, err := url.Parse(yavirtdURI)
 	if err != nil {
 		return nil, err
