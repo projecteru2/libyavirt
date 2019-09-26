@@ -2,6 +2,7 @@ package grpcclient
 
 import (
 	"context"
+	"io"
 
 	yavpb "github.com/projecteru2/libyavirt/grpc/gen"
 	"github.com/projecteru2/libyavirt/types"
@@ -114,4 +115,8 @@ func (c *grpcClient) controlGuest(ctx context.Context, ID, operation string) (ms
 	}
 
 	return types.Msg{Msg: m.Msg}, nil
+}
+
+func (c *grpcClient) ExecuteGuest(ctx context.Context, ID string, cmd []string) (io.ReadCloser, io.WriteCloser, error) {
+	return nil, nil, nil
 }

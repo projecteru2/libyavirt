@@ -3,6 +3,7 @@ package client
 import (
 	"context"
 	"errors"
+	"io"
 	"net/url"
 
 	"github.com/projecteru2/libyavirt/client/grpcclient"
@@ -17,6 +18,7 @@ type Client interface {
 	StartGuest(ctx context.Context, ID string) (types.Msg, error)
 	StopGuest(ctx context.Context, ID string) (types.Msg, error)
 	DestroyGuest(ctx context.Context, ID string) (types.Msg, error)
+	ExecuteGuest(ctx context.Context, ID string, cmd []string) (io.ReadCloser, io.WriteCloser, error)
 }
 
 func New(yavirtdURI string) (Client, error) {
