@@ -3,13 +3,13 @@ package grpcclient
 import (
 	"context"
 
-	pb "github.com/projecteru2/libyavirt/grpc/gen"
+	yavpb "github.com/projecteru2/libyavirt/grpc/gen"
 	"github.com/projecteru2/libyavirt/types"
 	"google.golang.org/grpc"
 )
 
 type grpcClient struct {
-	client pb.YavirtdRPCClient
+	client yavpb.YavirtdRPCClient
 }
 
 func New(addr string) (*grpcClient, error) {
@@ -19,12 +19,12 @@ func New(addr string) (*grpcClient, error) {
 		return nil, err
 	}
 
-	client := pb.NewYavirtdRPCClient(conn)
+	client := yavpb.NewYavirtdRPCClient(conn)
 	return &grpcClient{client}, nil
 }
 
 func (c *grpcClient) Info(ctx context.Context) (info types.HostInfo, err error) {
-	msg, err := c.client.GetInfo(ctx, &pb.Empty{})
+	msg, err := c.client.GetInfo(ctx, &yavpb.Empty{})
 	if err != nil {
 		return
 	}
@@ -38,7 +38,7 @@ func (c *grpcClient) Info(ctx context.Context) (info types.HostInfo, err error) 
 }
 
 func (c *grpcClient) GetGuest(ctx context.Context, ID string) (guest types.Guest, err error) {
-	msg, err := c.client.GetGuest(ctx, &pb.GetGuestOptions{Id: ID})
+	msg, err := c.client.GetGuest(ctx, &yavpb.GetGuestOptions{Id: ID})
 	if err != nil {
 		return
 	}
@@ -62,7 +62,7 @@ func (c *grpcClient) GetGuest(ctx context.Context, ID string) (guest types.Guest
 }
 
 func (c *grpcClient) CreateGuest(ctx context.Context, args types.CreateGuestReq) (guest types.Guest, err error) {
-	opts := &pb.CreateGuestOptions{
+	opts := &yavpb.CreateGuestOptions{
 		Cpu:       int64(args.Cpu),
 		Memory:    args.Mem,
 		ImageName: args.ImageName,
@@ -104,7 +104,7 @@ func (c *grpcClient) DestroyGuest(ctx context.Context, ID string) (msg types.Msg
 }
 
 func (c *grpcClient) controlGuest(ctx context.Context, ID, operation string) (msg types.Msg, err error) {
-	opts := &pb.ControlGuestOptions{
+	opts := &yavpb.ControlGuestOptions{
 		Id:        ID,
 		Operation: operation,
 	}
