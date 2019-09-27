@@ -55,3 +55,8 @@ type Guest struct {
 	ImageName string
 	Networks  map[string]string
 }
+
+type ExecuteGuestFlag struct {
+	Safe  bool
+	Force bool
+}

@@ -3,6 +3,7 @@ package grpcclient
 import (
 	"context"
 	"io"
+	"io/ioutil"
 
 	yavpb "github.com/projecteru2/libyavirt/grpc/gen"
 	"github.com/projecteru2/libyavirt/types"
@@ -117,6 +118,62 @@ func (c *grpcClient) controlGuest(ctx context.Context, ID, operation string) (ms
 	return types.Msg{Msg: m.Msg}, nil
 }
 
-func (c *grpcClient) ExecuteGuest(ctx context.Context, ID string, cmd []string) (io.ReadCloser, io.WriteCloser, error) {
-	return nil, nil, nil
+type ExecuteGuestMessage struct {
+	ID   string
+	Data []byte
+	Err  error
+}
+
+type GuestConsoleClient struct {
+	ID     string
+	client yavpb.YavirtdRPC_ExecuteGuestClient
+}
+
+func (c *GuestConsoleClient) Read(p []byte) (n int, err error) {
+	msg, err := c.client.Recv()
+	if err != nil {
+		return
+	}
+	p = append(p, msg.Data...)
+	return len(msg.Data), err
+}
+
+func (c *GuestConsoleClient) Write(p []byte) (n int, err error) {
+	msg := &yavpb.ExecuteGuestOptions{
+		Id:      c.ID,
+		ReplCmd: p,
+	}
+	if err = c.client.Send(msg); err != nil {
+		return
+	}
+	return len(p), nil
+}
+
+// Close used for WriteCloser only
+func (c *GuestConsoleClient) Close() error {
+	return c.client.CloseSend()
+}
+
+func (c *grpcClient) ExecuteGuest(ctx context.Context, ID string, commands []string, flag types.ExecuteGuestFlag) (outStream io.ReadCloser, inputStream io.WriteCloser, err error) {
+	resp, err := c.client.ExecuteGuest(ctx)
+	if err != nil {
+		return
+	}
+
+	opts := &yavpb.ExecuteGuestOptions{
+		Id:       ID,
+		Commands: commands,
+		Force:    flag.Force,
+		Safe:     flag.Safe,
+	}
+	if err = resp.Send(opts); err != nil {
+		return
+	}
+
+	consoleClient := &GuestConsoleClient{
+		ID:     ID,
+		client: resp,
+	}
+
+	return ioutil.NopCloser(consoleClient), consoleClient, nil
 }
