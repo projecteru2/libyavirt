@@ -36,6 +36,6 @@ func (c *httpClient) GetGuest(ctx context.Context, id string) (reply types.Guest
 	return
 }
 
-func (c *httpClient) ExecuteGuest(ctx context.Context, id string, cmds []string) (io.ReadCloser, io.WriteCloser, error) {
-	return nil, nil, fmt.Errorf("ExecuteGuest not implemented for httpclient")
+func (c *httpClient) ExecuteGuest(ctx context.Context, id string, cmds []string, flag types.ExecuteGuestFlags) (io.ReadWriteCloser, error) {
+	return nil, fmt.Errorf("ExecuteGuest not implemented for httpclient")
 }

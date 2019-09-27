@@ -56,7 +56,7 @@ type Guest struct {
 	Networks  map[string]string
 }
 
-type ExecuteGuestFlag struct {
+type ExecuteGuestFlags struct {
 	Safe  bool
 	Force bool
 }
