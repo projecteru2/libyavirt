@@ -38,17 +38,18 @@ func (c *GuestConsoleClient) Close() error {
 	return c.client.CloseSend()
 }
 
-func (c *grpcClient) ExecuteGuest(ctx context.Context, ID string, commands []string, flag types.ExecuteGuestFlags) (stream io.ReadWriteCloser, err error) {
+func (c *grpcClient) ExecuteGuest(ctx context.Context, ID string, commands []string, interactive bool, flag types.ExecuteGuestFlags) (stream io.ReadWriteCloser, err error) {
 	resp, err := c.client.ExecuteGuest(ctx)
 	if err != nil {
 		return
 	}
 
 	opts := &yavpb.ExecuteGuestOptions{
-		Id:       ID,
-		Commands: commands,
-		Force:    flag.Force,
-		Safe:     flag.Safe,
+		Id:          ID,
+		Commands:    commands,
+		Interactive: interactive,
+		Force:       flag.Force,
+		Safe:        flag.Safe,
 	}
 	if err = resp.Send(opts); err != nil {
 		return

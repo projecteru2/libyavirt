@@ -18,7 +18,7 @@ type Client interface {
 	StartGuest(ctx context.Context, ID string) (types.Msg, error)
 	StopGuest(ctx context.Context, ID string) (types.Msg, error)
 	DestroyGuest(ctx context.Context, ID string) (types.Msg, error)
-	ExecuteGuest(ctx context.Context, ID string, cmd []string, flag types.ExecuteGuestFlags) (io.ReadWriteCloser, error)
+	ExecuteGuest(ctx context.Context, ID string, cmd []string, interactive bool, flag types.ExecuteGuestFlags) (io.ReadWriteCloser, error)
 }
 
 func New(yavirtdURI string) (Client, error) {

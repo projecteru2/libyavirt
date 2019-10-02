@@ -77,9 +77,10 @@ message ControlGuestMessage {
 message ExecuteGuestOptions {
     string id = 1;
     repeated string commands = 2;
-    bytes repl_cmd = 3;
-    bool force = 4;
-    bool safe = 5;
+    bool interactive = 3;
+    bytes repl_cmd = 4;
+    bool force = 5;
+    bool safe = 6;
 }
 
 message ExecuteGuestMessage {
