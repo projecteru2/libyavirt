@@ -8,7 +8,8 @@ service YavirtdRPC {
     rpc GetGuest(GetGuestOptions) returns (GetGuestMessage) {};
     rpc CreateGuest(CreateGuestOptions) returns (CreateGuestMessage) {};
     rpc ControlGuest(ControlGuestOptions) returns (ControlGuestMessage) {};
-    rpc ExecuteGuest(stream ExecuteGuestOptions) returns (stream ExecuteGuestMessage) {};
+    rpc AttachGuest(stream AttachGuestOptions) returns (stream AttachGuestMessage) {};
+    rpc ExecuteGuest(ExecuteGuestOptions) returns (ExecuteGuestMessage) {};
 }
 
 message Empty {}
@@ -74,16 +75,25 @@ message ControlGuestMessage {
     string msg = 1;
 }
 
+message AttachGuestOptions {
+    string id = 1;
+    bytes repl_cmd = 2;
+    bool force = 3;
+    bool safe = 4;
+}
+
+message AttachGuestMessage {
+    string id = 1;
+    bytes data = 2;
+}
+
 message ExecuteGuestOptions {
     string id = 1;
     repeated string commands = 2;
-    bool interactive = 3;
-    bytes repl_cmd = 4;
-    bool force = 5;
-    bool safe = 6;
 }
 
 message ExecuteGuestMessage {
     string id = 1;
     bytes data = 2;
+    int64 exit_code = 3;
 }

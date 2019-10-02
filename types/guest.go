@@ -56,7 +56,13 @@ type Guest struct {
 	Networks  map[string]string
 }
 
-type ExecuteGuestFlags struct {
+type AttachGuestFlags struct {
 	Safe  bool
 	Force bool
+}
+
+type ExecuteGuestMessage struct {
+	ID       string
+	Data     []byte
+	ExitCode int
 }
