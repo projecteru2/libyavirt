@@ -18,8 +18,7 @@ func (c *AttachGuestClient) Read(p []byte) (n int, err error) {
 	if err != nil {
 		return
 	}
-	copy(p, msg.Data)
-	return len(msg.Data), nil
+	return copy(p, msg.Data), nil
 }
 
 func (c *AttachGuestClient) Write(p []byte) (n int, err error) {
@@ -27,10 +26,7 @@ func (c *AttachGuestClient) Write(p []byte) (n int, err error) {
 		Id:      c.ID,
 		ReplCmd: p,
 	}
-	if err = c.client.Send(msg); err != nil {
-		return
-	}
-	return len(p), nil
+	return len(p), c.client.Send(msg)
 }
 
 // Close used for WriteCloser only
@@ -49,14 +45,9 @@ func (c *grpcClient) AttachGuest(ctx context.Context, ID string, flags types.Att
 		Force: flags.Force,
 		Safe:  flags.Safe,
 	}
-	if err = resp.Send(opts); err != nil {
-		return
-	}
 
-	consoleClient := &AttachGuestClient{
+	return &AttachGuestClient{
 		ID:     ID,
 		client: resp,
-	}
-
-	return consoleClient, nil
+	}, resp.Send(opts)
 }
