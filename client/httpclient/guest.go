@@ -3,6 +3,7 @@ package httpclient
 import (
 	"context"
 	"fmt"
+	"io"
 
 	"github.com/projecteru2/libyavirt/types"
 )
@@ -32,5 +33,14 @@ func (c *httpClient) ctrl(ctx context.Context, path, id string) (reply types.Msg
 
 func (c *httpClient) GetGuest(ctx context.Context, id string) (reply types.Guest, err error) {
 	_, err = c.Get(ctx, fmt.Sprintf("/guests/%s", id), &reply)
+	return
+}
+
+func (c *httpClient) AttachGuest(ctx context.Context, id string, flag types.AttachGuestFlags) (io.ReadWriteCloser, error) {
+	return nil, fmt.Errorf("AttachGuest not implemented for httpclient")
+}
+
+func (c *httpClient) ExecuteGuest(ctx context.Context, id string, cmd []string) (msg types.ExecuteGuestMessage, err error) {
+	err = fmt.Errorf("ExecuteGuest not implemented for httpclient")
 	return
 }

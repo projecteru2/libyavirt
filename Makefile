@@ -4,7 +4,7 @@ TEST := $(GO) test -count=1 -race -cover
 
 PKGS := $$($(GO) list ./... | grep -v vendor/)
 
-.PHONY: all test build
+.PHONY: all test build grpc
 
 default: build
 
@@ -13,6 +13,9 @@ lint: format
 format:
 	$(GO) vet $(PKGS)
 	$(GO) fmt $(PKGS)
+
+grpc:
+	protoc --go_out=plugins=grpc:. grpc/gen/yavirtd.proto
 
 deps:
 	GO111MODULE=on GOPATH=$(GOPATH) go mod download

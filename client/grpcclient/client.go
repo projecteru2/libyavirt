@@ -115,3 +115,19 @@ func (c *grpcClient) controlGuest(ctx context.Context, ID, operation string) (ms
 
 	return types.Msg{Msg: m.Msg}, nil
 }
+
+func (c *grpcClient) ExecuteGuest(ctx context.Context, ID string, cmd []string) (msg types.ExecuteGuestMessage, err error) {
+	opts := &yavpb.ExecuteGuestOptions{
+		Id:       ID,
+		Commands: cmd,
+	}
+	m, err := c.client.ExecuteGuest(ctx, opts)
+	if err != nil {
+		return
+	}
+	return types.ExecuteGuestMessage{
+		ID:       ID,
+		Data:     m.Data,
+		ExitCode: int(m.ExitCode),
+	}, nil
+}
