@@ -17,6 +17,7 @@ type CreateGuestReq struct {
 	Mem       int64
 	ImageName string
 	Volumes   map[string]int64
+	DmiUuid   string
 }
 
 type GuestReq struct {
