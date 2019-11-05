@@ -49,6 +49,7 @@ message CreateGuestOptions {
     int64 memory = 2;
     string image_name = 3;
     map<string, int64> volumes = 4;
+    string dmi_uuid = 5;
 }
 
 message CreateGuestMessage {

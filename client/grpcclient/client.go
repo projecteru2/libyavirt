@@ -67,6 +67,7 @@ func (c *grpcClient) CreateGuest(ctx context.Context, args types.CreateGuestReq)
 		Memory:    args.Mem,
 		ImageName: args.ImageName,
 		Volumes:   args.Volumes,
+		DmiUuid:   args.DmiUuid,
 	}
 	msg, err := c.client.CreateGuest(ctx, opts)
 	if err != nil {
