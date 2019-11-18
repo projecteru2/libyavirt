@@ -14,6 +14,7 @@ import (
 type Client interface {
 	Info(context.Context) (types.HostInfo, error)
 	GetGuest(ctx context.Context, ID string) (types.Guest, error)
+	GetGuestUUID(ctx context.Context, ID string) (string, error)
 	CreateGuest(ctx context.Context, args types.CreateGuestReq) (types.Guest, error)
 	StartGuest(ctx context.Context, ID string) (types.Msg, error)
 	StopGuest(ctx context.Context, ID string) (types.Msg, error)

@@ -6,6 +6,7 @@ service YavirtdRPC {
     rpc Ping(Empty) returns (PingMessage) {};
     rpc GetInfo(Empty) returns (InfoMessage) {};
     rpc GetGuest(GetGuestOptions) returns (GetGuestMessage) {};
+    rpc GetGuestUUID(GetGuestOptions) returns (GetGuestUUIDMessage) {};
     rpc CreateGuest(CreateGuestOptions) returns (CreateGuestMessage) {};
     rpc ControlGuest(ControlGuestOptions) returns (ControlGuestMessage) {};
     rpc AttachGuest(stream AttachGuestOptions) returns (stream AttachGuestMessage) {};
@@ -42,6 +43,10 @@ message GetGuestMessage {
   int64 image_id = 10;
   string image_name = 11;
   map<string, string> networks = 12;
+}
+
+message GetGuestUUIDMessage {
+  string uuid = 1;
 }
 
 message CreateGuestOptions {
