@@ -36,6 +36,11 @@ func (c *httpClient) GetGuest(ctx context.Context, id string) (reply types.Guest
 	return
 }
 
+func (c *httpClient) GetGuestUUID(ctx context.Context, id string) (uuid string, err error) {
+	_, err = c.Get(ctx, fmt.Sprintf("/guests/%s/uuid", id), &uuid)
+	return
+}
+
 func (c *httpClient) AttachGuest(ctx context.Context, id string, flag types.AttachGuestFlags) (io.ReadWriteCloser, error) {
 	return nil, fmt.Errorf("AttachGuest not implemented for httpclient")
 }

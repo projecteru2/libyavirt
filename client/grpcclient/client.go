@@ -61,6 +61,14 @@ func (c *grpcClient) GetGuest(ctx context.Context, ID string) (guest types.Guest
 	}, nil
 }
 
+func (c *grpcClient) GetGuestUUID(ctx context.Context, ID string) (uuid string, err error) {
+	msg, err := c.client.GetGuestUUID(ctx, &yavpb.GetGuestOptions{Id: ID})
+	if err != nil {
+		return
+	}
+	return msg.Uuid, nil
+}
+
 func (c *grpcClient) CreateGuest(ctx context.Context, args types.CreateGuestReq) (guest types.Guest, err error) {
 	opts := &yavpb.CreateGuestOptions{
 		Cpu:       int64(args.Cpu),
