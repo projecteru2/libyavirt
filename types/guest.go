@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"time"
 )
 
 const MagicPrefix = "SHOPEE-YET-ANOTHER-VIRT-20190429"
@@ -66,4 +67,22 @@ type ExecuteGuestMessage struct {
 	ID       string
 	Data     []byte
 	ExitCode int
+}
+
+type EruGuestStatus struct {
+	ID         string
+	EruGuestID string
+	Running    bool
+	TTL        time.Duration
+	CIDRs      []string
+}
+
+func NewEruGuestStatus(id string) (st EruGuestStatus) {
+	st.ID = id
+	st.EruGuestID = EruID(id)
+	return
+}
+
+func (s EruGuestStatus) GetIPAddrs() string {
+	return strings.Join(s.CIDRs, ", ")
 }
