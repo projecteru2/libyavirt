@@ -86,3 +86,8 @@ func NewEruGuestStatus(id string) (st EruGuestStatus) {
 func (s EruGuestStatus) GetIPAddrs() string {
 	return strings.Join(s.CIDRs, ", ")
 }
+
+type ExecuteGuestReq struct {
+	GuestReq
+	Commands []string
+}
