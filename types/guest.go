@@ -10,6 +10,9 @@ import (
 const MagicPrefix = "SHOPEE-YET-ANOTHER-VIRT-20190429"
 
 func EruID(id string) string {
+	if strings.HasPrefix(id, "guest-") {
+		id = id[6:]
+	}
 	return fmt.Sprintf("%s%032s", MagicPrefix, id)
 }
 
