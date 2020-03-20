@@ -18,7 +18,7 @@ type Client interface {
 	CreateGuest(ctx context.Context, args types.CreateGuestReq) (types.Guest, error)
 	StartGuest(ctx context.Context, ID string) (types.Msg, error)
 	StopGuest(ctx context.Context, ID string) (types.Msg, error)
-	DestroyGuest(ctx context.Context, ID string) (types.Msg, error)
+	DestroyGuest(ctx context.Context, ID string, force bool) (types.Msg, error)
 	AttachGuest(ctx context.Context, ID string, flag types.AttachGuestFlags) (io.ReadWriteCloser, error)
 	ExecuteGuest(ctx context.Context, ID string, cmd []string) (types.ExecuteGuestMessage, error)
 }

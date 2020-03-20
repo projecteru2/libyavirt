@@ -25,7 +25,8 @@ type CreateGuestReq struct {
 }
 
 type GuestReq struct {
-	ID string `uri:"id" binding:"required"`
+	ID    string `uri:"id" binding:"required"`
+	Force bool   `uri:"force"`
 }
 
 func (r GuestReq) VirtID() string {
