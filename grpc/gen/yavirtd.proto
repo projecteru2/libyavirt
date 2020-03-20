@@ -75,6 +75,7 @@ message CreateGuestMessage {
 message ControlGuestOptions {
     string id = 1;
     string operation = 2;
+	bool force = 3;
 }
 
 message ControlGuestMessage {

@@ -13,20 +13,20 @@ func (c *httpClient) CreateGuest(ctx context.Context, arg types.CreateGuestReq) 
 	return
 }
 
-func (c *httpClient) DestroyGuest(ctx context.Context, id string) (types.Msg, error) {
-	return c.ctrl(ctx, "/guests/destroy", id)
+func (c *httpClient) DestroyGuest(ctx context.Context, id string, force bool) (types.Msg, error) {
+	return c.ctrl(ctx, "/guests/destroy", id, force)
 }
 
 func (c *httpClient) StopGuest(ctx context.Context, id string) (types.Msg, error) {
-	return c.ctrl(ctx, "/guests/stop", id)
+	return c.ctrl(ctx, "/guests/stop", id, false)
 }
 
 func (c *httpClient) StartGuest(ctx context.Context, id string) (types.Msg, error) {
-	return c.ctrl(ctx, "/guests/start", id)
+	return c.ctrl(ctx, "/guests/start", id, false)
 }
 
-func (c *httpClient) ctrl(ctx context.Context, path, id string) (reply types.Msg, err error) {
-	var args = types.GuestReq{ID: id}
+func (c *httpClient) ctrl(ctx context.Context, path, id string, force bool) (reply types.Msg, err error) {
+	var args = types.GuestReq{ID: id, Force: force}
 	_, err = c.Post(ctx, path, args, &reply)
 	return
 }

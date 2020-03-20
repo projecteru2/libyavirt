@@ -101,21 +101,22 @@ func (c *grpcClient) CreateGuest(ctx context.Context, args types.CreateGuestReq)
 }
 
 func (c *grpcClient) StartGuest(ctx context.Context, ID string) (msg types.Msg, err error) {
-	return c.controlGuest(ctx, ID, "start")
+	return c.controlGuest(ctx, ID, "start", false)
 }
 
 func (c *grpcClient) StopGuest(ctx context.Context, ID string) (msg types.Msg, err error) {
-	return c.controlGuest(ctx, ID, "stop")
+	return c.controlGuest(ctx, ID, "stop", false)
 }
 
-func (c *grpcClient) DestroyGuest(ctx context.Context, ID string) (msg types.Msg, err error) {
-	return c.controlGuest(ctx, ID, "destroy")
+func (c *grpcClient) DestroyGuest(ctx context.Context, ID string, force bool) (msg types.Msg, err error) {
+	return c.controlGuest(ctx, ID, "destroy", force)
 }
 
-func (c *grpcClient) controlGuest(ctx context.Context, ID, operation string) (msg types.Msg, err error) {
+func (c *grpcClient) controlGuest(ctx context.Context, ID, operation string, force bool) (msg types.Msg, err error) {
 	opts := &yavpb.ControlGuestOptions{
 		Id:        ID,
 		Operation: operation,
+		Force:     force,
 	}
 	m, err := c.client.ControlGuest(ctx, opts)
 	if err != nil {
