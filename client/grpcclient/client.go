@@ -126,6 +126,14 @@ func (c *grpcClient) controlGuest(ctx context.Context, ID, operation string, for
 	return types.Msg{Msg: m.Msg}, nil
 }
 
+func (c *grpcClient) ResizeGuest(ctx context.Context, args types.ResizeGuestReq) (msg types.Msg, err error) {
+	var m *yavpb.ControlGuestMessage
+	if m, err = c.client.ResizeGuest(ctx, args.GetGrpcOpts()); err == nil {
+		msg.Msg = m.Msg
+	}
+	return
+}
+
 func (c *grpcClient) ExecuteGuest(ctx context.Context, ID string, cmd []string) (msg types.ExecuteGuestMessage, err error) {
 	opts := &yavpb.ExecuteGuestOptions{
 		Id:       ID,
