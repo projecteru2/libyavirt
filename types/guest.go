@@ -5,6 +5,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	yavpb "github.com/projecteru2/libyavirt/grpc/gen"
 )
 
 const MagicPrefix = "SHOPEE-YET-ANOTHER-VIRT-20190429"
@@ -94,4 +96,20 @@ func (s EruGuestStatus) GetIPAddrs() string {
 type ExecuteGuestReq struct {
 	GuestReq
 	Commands []string
+}
+
+type ResizeGuestReq struct {
+	GuestReq
+	Cpu     int
+	Mem     int64
+	Volumes map[string]int64
+}
+
+func (r ResizeGuestReq) GetGrpcOpts() *yavpb.ResizeGuestOptions {
+	return &yavpb.ResizeGuestOptions{
+		Id:      r.ID,
+		Cpu:     int64(r.Cpu),
+		Memory:  r.Mem,
+		Volumes: r.Volumes,
+	}
 }

@@ -52,3 +52,8 @@ func (c *httpClient) ExecuteGuest(ctx context.Context, id string, cmds []string)
 	_, err = c.Post(ctx, "/guests/execute", args, &reply)
 	return
 }
+
+func (c *httpClient) ResizeGuest(ctx context.Context, args types.ResizeGuestReq) (reply types.Msg, err error) {
+	_, err = c.Post(ctx, "/guests/resize", args, &reply)
+	return
+}

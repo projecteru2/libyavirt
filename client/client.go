@@ -21,6 +21,7 @@ type Client interface {
 	DestroyGuest(ctx context.Context, ID string, force bool) (types.Msg, error)
 	AttachGuest(ctx context.Context, ID string, flag types.AttachGuestFlags) (io.ReadWriteCloser, error)
 	ExecuteGuest(ctx context.Context, ID string, cmd []string) (types.ExecuteGuestMessage, error)
+	ResizeGuest(context.Context, types.ResizeGuestReq) (types.Msg, error)
 }
 
 func New(yavirtdURI string) (Client, error) {
