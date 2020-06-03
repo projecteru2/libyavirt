@@ -9,8 +9,10 @@ import (
 	yavpb "github.com/projecteru2/libyavirt/grpc/gen"
 )
 
+// MagicPrefix .
 const MagicPrefix = "SHOPEE-YET-ANOTHER-VIRT-20190429"
 
+// EruID .
 func EruID(id string) string {
 	if strings.HasPrefix(id, "guest-") {
 		id = id[6:]
@@ -18,6 +20,7 @@ func EruID(id string) string {
 	return fmt.Sprintf("%s%032s", MagicPrefix, id)
 }
 
+// CreateGuestReq .
 type CreateGuestReq struct {
 	Cpu       int
 	Mem       int64
@@ -26,11 +29,24 @@ type CreateGuestReq struct {
 	DmiUuid   string
 }
 
+// GetGrpcOpts .
+func (r CreateGuestReq) GetGrpcOpts() *yavpb.CreateGuestOptions {
+	return &yavpb.CreateGuestOptions{
+		Cpu:       int64(r.Cpu),
+		Memory:    r.Mem,
+		ImageName: r.ImageName,
+		Volumes:   r.Volumes,
+		DmiUuid:   r.DmiUuid,
+	}
+}
+
+// GuestReq .
 type GuestReq struct {
 	ID    string `uri:"id" binding:"required"`
 	Force bool   `uri:"force"`
 }
 
+// VirtID .
 func (r GuestReq) VirtID() string {
 	var id = r.ID
 	if strings.HasPrefix(id, MagicPrefix) {
@@ -54,6 +70,7 @@ func (r GuestReq) checkOldVersionID(id string) string {
 	}
 }
 
+// Guest .
 type Guest struct {
 	Resource
 	Cpu       int
@@ -64,17 +81,20 @@ type Guest struct {
 	Networks  map[string]string
 }
 
+// AttachGuestFlags .
 type AttachGuestFlags struct {
 	Safe  bool
 	Force bool
 }
 
+// ExecuteGuestMessage .
 type ExecuteGuestMessage struct {
 	ID       string
 	Data     []byte
 	ExitCode int
 }
 
+// EruGuestStatus .
 type EruGuestStatus struct {
 	ID         string
 	EruGuestID string
@@ -83,21 +103,39 @@ type EruGuestStatus struct {
 	CIDRs      []string
 }
 
+// NewEruGuestStatus .
 func NewEruGuestStatus(id string) (st EruGuestStatus) {
 	st.ID = id
 	st.EruGuestID = EruID(id)
 	return
 }
 
+// GetIPAddrs .
 func (s EruGuestStatus) GetIPAddrs() string {
 	return strings.Join(s.CIDRs, ", ")
 }
 
+// ExecuteGuestReq .
 type ExecuteGuestReq struct {
 	GuestReq
 	Commands []string
 }
 
+// CaptureGuestReq .
+type CaptureGuestReq struct {
+	GuestReq
+	Name string
+}
+
+// GetGrpcOpts .
+func (r CaptureGuestReq) GetGrpcOpts() *yavpb.CaptureGuestOptions {
+	return &yavpb.CaptureGuestOptions{
+		Id:   r.ID,
+		Name: r.Name,
+	}
+}
+
+// ResizeGuestReq .
 type ResizeGuestReq struct {
 	GuestReq
 	Cpu     int
@@ -105,6 +143,7 @@ type ResizeGuestReq struct {
 	Volumes map[string]int64
 }
 
+// GetGrpcOpts .
 func (r ResizeGuestReq) GetGrpcOpts() *yavpb.ResizeGuestOptions {
 	return &yavpb.ResizeGuestOptions{
 		Id:      r.ID,

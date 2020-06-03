@@ -70,14 +70,7 @@ func (c *grpcClient) GetGuestUUID(ctx context.Context, ID string) (uuid string, 
 }
 
 func (c *grpcClient) CreateGuest(ctx context.Context, args types.CreateGuestReq) (guest types.Guest, err error) {
-	opts := &yavpb.CreateGuestOptions{
-		Cpu:       int64(args.Cpu),
-		Memory:    args.Mem,
-		ImageName: args.ImageName,
-		Volumes:   args.Volumes,
-		DmiUuid:   args.DmiUuid,
-	}
-	msg, err := c.client.CreateGuest(ctx, opts)
+	msg, err := c.client.CreateGuest(ctx, args.GetGrpcOpts())
 	if err != nil {
 		return
 	}
@@ -148,4 +141,17 @@ func (c *grpcClient) ExecuteGuest(ctx context.Context, ID string, cmd []string) 
 		Data:     m.Data,
 		ExitCode: int(m.ExitCode),
 	}, nil
+}
+
+func (c *grpcClient) CaptureGuest(ctx context.Context, args types.CaptureGuestReq) (uimg types.UserImage, err error) {
+	msg := &yavpb.UserImageMessage{}
+	if msg, err = c.client.CaptureGuest(ctx, args.GetGrpcOpts()); err != nil {
+		return
+	}
+
+	uimg.Name = msg.Name
+	uimg.Distro = msg.Distro
+	uimg.LatestVersion = msg.LatestVersion
+
+	return
 }

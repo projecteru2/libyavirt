@@ -57,3 +57,8 @@ func (c *httpClient) ResizeGuest(ctx context.Context, args types.ResizeGuestReq)
 	_, err = c.Post(ctx, "/guests/resize", args, &reply)
 	return
 }
+
+func (c *httpClient) CaptureGuest(ctx context.Context, args types.CaptureGuestReq) (reply types.UserImage, err error) {
+	_, err = c.Post(ctx, "/guests/capture", args, &reply)
+	return
+}
