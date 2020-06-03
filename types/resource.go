@@ -1,5 +1,6 @@
 package types
 
+// Resource .
 type Resource struct {
 	ID            string
 	Status        string
