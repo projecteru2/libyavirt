@@ -8,11 +8,13 @@ import (
 	"google.golang.org/grpc"
 )
 
-type grpcClient struct {
+// GRPCClient .
+type GRPCClient struct {
 	client yavpb.YavirtdRPCClient
 }
 
-func New(addr string) (*grpcClient, error) {
+// New .
+func New(addr string) (*GRPCClient, error) {
 	opts := []grpc.DialOption{grpc.WithInsecure()}
 	conn, err := grpc.Dial(addr, opts...)
 	if err != nil {
@@ -20,10 +22,11 @@ func New(addr string) (*grpcClient, error) {
 	}
 
 	client := yavpb.NewYavirtdRPCClient(conn)
-	return &grpcClient{client}, nil
+	return &GRPCClient{client}, nil
 }
 
-func (c *grpcClient) Info(ctx context.Context) (info types.HostInfo, err error) {
+// Info .
+func (c *GRPCClient) Info(ctx context.Context) (info types.HostInfo, err error) {
 	msg, err := c.client.GetInfo(ctx, &yavpb.Empty{})
 	if err != nil {
 		return
@@ -31,13 +34,14 @@ func (c *grpcClient) Info(ctx context.Context) (info types.HostInfo, err error) 
 
 	return types.HostInfo{
 		ID:      msg.Id,
-		Cpu:     int(msg.Cpu),
+		CPU:     int(msg.Cpu),
 		Mem:     msg.Memory,
 		Storage: msg.Memory,
 	}, nil
 }
 
-func (c *grpcClient) GetGuest(ctx context.Context, ID string) (guest types.Guest, err error) {
+// GetGuest .
+func (c *GRPCClient) GetGuest(ctx context.Context, ID string) (guest types.Guest, err error) {
 	msg, err := c.client.GetGuest(ctx, &yavpb.GetGuestOptions{Id: ID})
 	if err != nil {
 		return
@@ -52,7 +56,7 @@ func (c *grpcClient) GetGuest(ctx context.Context, ID string) (guest types.Guest
 			TransitTime:   msg.TransitTime,
 			UpdateTime:    msg.UpdateTime,
 		},
-		Cpu:       int(msg.Cpu),
+		CPU:       int(msg.Cpu),
 		Mem:       msg.Memory,
 		Storage:   msg.Storage,
 		ImageID:   msg.ImageId,
@@ -61,7 +65,8 @@ func (c *grpcClient) GetGuest(ctx context.Context, ID string) (guest types.Guest
 	}, nil
 }
 
-func (c *grpcClient) GetGuestUUID(ctx context.Context, ID string) (uuid string, err error) {
+// GetGuestUUID .
+func (c *GRPCClient) GetGuestUUID(ctx context.Context, ID string) (uuid string, err error) {
 	msg, err := c.client.GetGuestUUID(ctx, &yavpb.GetGuestOptions{Id: ID})
 	if err != nil {
 		return
@@ -69,7 +74,8 @@ func (c *grpcClient) GetGuestUUID(ctx context.Context, ID string) (uuid string, 
 	return msg.Uuid, nil
 }
 
-func (c *grpcClient) CreateGuest(ctx context.Context, args types.CreateGuestReq) (guest types.Guest, err error) {
+// CreateGuest .
+func (c *GRPCClient) CreateGuest(ctx context.Context, args types.CreateGuestReq) (guest types.Guest, err error) {
 	msg, err := c.client.CreateGuest(ctx, args.GetGrpcOpts())
 	if err != nil {
 		return
@@ -84,7 +90,7 @@ func (c *grpcClient) CreateGuest(ctx context.Context, args types.CreateGuestReq)
 			TransitTime:   msg.TransitTime,
 			UpdateTime:    msg.UpdateTime,
 		},
-		Cpu:       int(msg.Cpu),
+		CPU:       int(msg.Cpu),
 		Mem:       msg.Memory,
 		Storage:   msg.Storage,
 		ImageID:   msg.ImageId,
@@ -93,19 +99,22 @@ func (c *grpcClient) CreateGuest(ctx context.Context, args types.CreateGuestReq)
 	}, nil
 }
 
-func (c *grpcClient) StartGuest(ctx context.Context, ID string) (msg types.Msg, err error) {
+// StartGuest .
+func (c *GRPCClient) StartGuest(ctx context.Context, ID string) (msg types.Msg, err error) {
 	return c.controlGuest(ctx, ID, "start", false)
 }
 
-func (c *grpcClient) StopGuest(ctx context.Context, ID string) (msg types.Msg, err error) {
+// StopGuest .
+func (c *GRPCClient) StopGuest(ctx context.Context, ID string) (msg types.Msg, err error) {
 	return c.controlGuest(ctx, ID, "stop", false)
 }
 
-func (c *grpcClient) DestroyGuest(ctx context.Context, ID string, force bool) (msg types.Msg, err error) {
+// DestroyGuest .
+func (c *GRPCClient) DestroyGuest(ctx context.Context, ID string, force bool) (msg types.Msg, err error) {
 	return c.controlGuest(ctx, ID, "destroy", force)
 }
 
-func (c *grpcClient) controlGuest(ctx context.Context, ID, operation string, force bool) (msg types.Msg, err error) {
+func (c *GRPCClient) controlGuest(ctx context.Context, ID, operation string, force bool) (msg types.Msg, err error) {
 	opts := &yavpb.ControlGuestOptions{
 		Id:        ID,
 		Operation: operation,
@@ -119,7 +128,8 @@ func (c *grpcClient) controlGuest(ctx context.Context, ID, operation string, for
 	return types.Msg{Msg: m.Msg}, nil
 }
 
-func (c *grpcClient) ResizeGuest(ctx context.Context, args types.ResizeGuestReq) (msg types.Msg, err error) {
+// ResizeGuest .
+func (c *GRPCClient) ResizeGuest(ctx context.Context, args types.ResizeGuestReq) (msg types.Msg, err error) {
 	var m *yavpb.ControlGuestMessage
 	if m, err = c.client.ResizeGuest(ctx, args.GetGrpcOpts()); err == nil {
 		msg.Msg = m.Msg
@@ -127,7 +137,8 @@ func (c *grpcClient) ResizeGuest(ctx context.Context, args types.ResizeGuestReq)
 	return
 }
 
-func (c *grpcClient) ExecuteGuest(ctx context.Context, ID string, cmd []string) (msg types.ExecuteGuestMessage, err error) {
+// ExecuteGuest .
+func (c *GRPCClient) ExecuteGuest(ctx context.Context, ID string, cmd []string) (msg types.ExecuteGuestMessage, err error) {
 	opts := &yavpb.ExecuteGuestOptions{
 		Id:       ID,
 		Commands: cmd,
@@ -143,7 +154,8 @@ func (c *grpcClient) ExecuteGuest(ctx context.Context, ID string, cmd []string) 
 	}, nil
 }
 
-func (c *grpcClient) CaptureGuest(ctx context.Context, args types.CaptureGuestReq) (uimg types.UserImage, err error) {
+// CaptureGuest .
+func (c *GRPCClient) CaptureGuest(ctx context.Context, args types.CaptureGuestReq) (uimg types.UserImage, err error) {
 	msg := &yavpb.UserImageMessage{}
 	if msg, err = c.client.CaptureGuest(ctx, args.GetGrpcOpts()); err != nil {
 		return

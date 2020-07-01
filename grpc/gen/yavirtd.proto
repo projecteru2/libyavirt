@@ -69,6 +69,7 @@ message CreateGuestOptions {
     string image_name = 3;
     map<string, int64> volumes = 4;
     string dmi_uuid = 5;
+	map<string, string> labels = 6;
 }
 
 message ResizeGuestOptions {

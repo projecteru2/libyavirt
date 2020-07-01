@@ -8,6 +8,7 @@ import (
 	"github.com/projecteru2/libyavirt/types"
 )
 
+// AttachGuestClient .
 type AttachGuestClient struct {
 	ID     string
 	client yavpb.YavirtdRPC_AttachGuestClient
@@ -34,7 +35,8 @@ func (c *AttachGuestClient) Close() error {
 	return c.client.CloseSend()
 }
 
-func (c *grpcClient) AttachGuest(ctx context.Context, ID string, flags types.AttachGuestFlags) (stream io.ReadWriteCloser, err error) {
+// AttachGuest .
+func (c *GRPCClient) AttachGuest(ctx context.Context, ID string, flags types.AttachGuestFlags) (stream io.ReadWriteCloser, err error) {
 	resp, err := c.client.AttachGuest(ctx)
 	if err != nil {
 		return

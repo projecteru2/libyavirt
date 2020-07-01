@@ -22,21 +22,23 @@ func EruID(id string) string {
 
 // CreateGuestReq .
 type CreateGuestReq struct {
-	Cpu       int
+	CPU       int
 	Mem       int64
 	ImageName string
 	Volumes   map[string]int64
-	DmiUuid   string
+	DmiUUID   string
+	Labels    map[string]string
 }
 
 // GetGrpcOpts .
 func (r CreateGuestReq) GetGrpcOpts() *yavpb.CreateGuestOptions {
 	return &yavpb.CreateGuestOptions{
-		Cpu:       int64(r.Cpu),
+		Cpu:       int64(r.CPU),
 		Memory:    r.Mem,
 		ImageName: r.ImageName,
 		Volumes:   r.Volumes,
-		DmiUuid:   r.DmiUuid,
+		DmiUuid:   r.DmiUUID,
+		Labels:    r.Labels,
 	}
 }
 
@@ -73,7 +75,7 @@ func (r GuestReq) checkOldVersionID(id string) string {
 // Guest .
 type Guest struct {
 	Resource
-	Cpu       int
+	CPU       int
 	Mem       int64
 	Storage   int64
 	ImageID   int64
@@ -99,6 +101,7 @@ type EruGuestStatus struct {
 	ID         string
 	EruGuestID string
 	Running    bool
+	Healthy    bool
 	TTL        time.Duration
 	CIDRs      []string
 }
@@ -138,7 +141,7 @@ func (r CaptureGuestReq) GetGrpcOpts() *yavpb.CaptureGuestOptions {
 // ResizeGuestReq .
 type ResizeGuestReq struct {
 	GuestReq
-	Cpu     int
+	CPU     int
 	Mem     int64
 	Volumes map[string]int64
 }
@@ -147,7 +150,7 @@ type ResizeGuestReq struct {
 func (r ResizeGuestReq) GetGrpcOpts() *yavpb.ResizeGuestOptions {
 	return &yavpb.ResizeGuestOptions{
 		Id:      r.ID,
-		Cpu:     int64(r.Cpu),
+		Cpu:     int64(r.CPU),
 		Memory:  r.Mem,
 		Volumes: r.Volumes,
 	}

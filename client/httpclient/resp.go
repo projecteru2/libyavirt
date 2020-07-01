@@ -6,6 +6,7 @@ import (
 	"net/http"
 )
 
+// Resp .
 type Resp struct {
 	body       io.ReadCloser
 	header     http.Header

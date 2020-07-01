@@ -11,6 +11,7 @@ import (
 	"github.com/projecteru2/libyavirt/types"
 )
 
+// Client .
 type Client interface {
 	Info(context.Context) (types.HostInfo, error)
 	GetGuest(ctx context.Context, ID string) (types.Guest, error)
@@ -25,6 +26,7 @@ type Client interface {
 	CaptureGuest(context.Context, types.CaptureGuestReq) (types.UserImage, error)
 }
 
+// New .
 func New(yavirtdURI string) (Client, error) {
 	u, err := url.Parse(yavirtdURI)
 	if err != nil {
