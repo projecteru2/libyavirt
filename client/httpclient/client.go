@@ -8,7 +8,8 @@ import (
 	"time"
 )
 
-type httpClient struct {
+// HTTPClient .
+type HTTPClient struct {
 	addr   string
 	scheme string
 	ver    string
@@ -18,7 +19,8 @@ type httpClient struct {
 	defaultHeaders map[string]string
 }
 
-func New(addr, ver string) (*httpClient, error) {
+// New .
+func New(addr, ver string) (*HTTPClient, error) {
 	if len(addr) < 1 {
 		return nil, fmt.Errorf("invalid addr")
 	}
@@ -26,7 +28,7 @@ func New(addr, ver string) (*httpClient, error) {
 		return nil, fmt.Errorf("invalid ver")
 	}
 
-	return &httpClient{
+	return &HTTPClient{
 		addr:   addr,
 		scheme: "http",
 		ver:    ver,
@@ -39,7 +41,8 @@ func New(addr, ver string) (*httpClient, error) {
 	}, nil
 }
 
-func (c *httpClient) Close() error {
+// Close .
+func (c *HTTPClient) Close() error {
 	if tr, ok := c.http.Transport.(*http.Transport); ok {
 		tr.CloseIdleConnections()
 	}
