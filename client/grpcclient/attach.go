@@ -36,16 +36,17 @@ func (c *AttachGuestClient) Close() error {
 }
 
 // AttachGuest .
-func (c *GRPCClient) AttachGuest(ctx context.Context, ID string, flags types.AttachGuestFlags) (stream io.ReadWriteCloser, err error) {
+func (c *GRPCClient) AttachGuest(ctx context.Context, ID string, cmds []string, flags types.AttachGuestFlags) (stream io.ReadWriteCloser, err error) {
 	resp, err := c.client.AttachGuest(ctx)
 	if err != nil {
 		return
 	}
 
 	opts := &yavpb.AttachGuestOptions{
-		Id:    ID,
-		Force: flags.Force,
-		Safe:  flags.Safe,
+		Id:       ID,
+		Force:    flags.Force,
+		Safe:     flags.Safe,
+		Commands: cmds,
 	}
 
 	return &AttachGuestClient{
