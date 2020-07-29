@@ -48,7 +48,7 @@ func (c *HTTPClient) GetGuestUUID(ctx context.Context, id string) (uuid string, 
 }
 
 // AttachGuest .
-func (c *HTTPClient) AttachGuest(ctx context.Context, id string, flag types.AttachGuestFlags) (io.ReadWriteCloser, error) {
+func (c *HTTPClient) AttachGuest(ctx context.Context, id string, cmds []string, flag types.AttachGuestFlags) (io.ReadWriteCloser, error) {
 	return nil, fmt.Errorf("AttachGuest not implemented for httpclient")
 }
 
