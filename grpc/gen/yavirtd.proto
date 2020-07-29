@@ -109,6 +109,7 @@ message AttachGuestOptions {
     bytes repl_cmd = 2;
     bool force = 3;
     bool safe = 4;
+    repeated string commands =5;
 }
 
 message AttachGuestMessage {
