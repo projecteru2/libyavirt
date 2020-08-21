@@ -24,6 +24,7 @@ type Client interface {
 	ExecuteGuest(ctx context.Context, ID string, cmd []string) (types.ExecuteGuestMessage, error)
 	ResizeGuest(context.Context, types.ResizeGuestReq) (types.Msg, error)
 	CaptureGuest(context.Context, types.CaptureGuestReq) (types.UserImage, error)
+	ConnectNetwork(context.Context, types.ConnectNetworkReq) (string, error)
 }
 
 // New .

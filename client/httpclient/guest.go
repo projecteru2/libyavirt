@@ -72,3 +72,9 @@ func (c *HTTPClient) CaptureGuest(ctx context.Context, args types.CaptureGuestRe
 	_, err = c.Post(ctx, "/guests/capture", args, &reply)
 	return
 }
+
+// ConnectNetwork .
+func (c *HTTPClient) ConnectNetwork(ctx context.Context, args types.ConnectNetworkReq) (cidr string, err error) {
+	_, err = c.Post(ctx, "/guests/connect", args, &cidr)
+	return
+}
