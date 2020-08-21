@@ -155,3 +155,19 @@ func (r ResizeGuestReq) GetGrpcOpts() *yavpb.ResizeGuestOptions {
 		Volumes: r.Volumes,
 	}
 }
+
+// ConnectNetworkReq .
+type ConnectNetworkReq struct {
+	GuestReq
+	Network string
+	IPv4    string
+}
+
+// GetGrpcOpts .
+func (r ConnectNetworkReq) GetGrpcOpts() *yavpb.ConnectNetworkOptions {
+	return &yavpb.ConnectNetworkOptions{
+		Id:      r.ID,
+		Network: r.Network,
+		Ipv4:    r.IPv4,
+	}
+}
