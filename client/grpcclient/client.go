@@ -167,3 +167,15 @@ func (c *GRPCClient) CaptureGuest(ctx context.Context, args types.CaptureGuestRe
 
 	return
 }
+
+// ConnectNetwork .
+func (c *GRPCClient) ConnectNetwork(ctx context.Context, args types.ConnectNetworkReq) (cidr string, err error) {
+	msg := &yavpb.ConnectNetworkMessage{}
+	if msg, err = c.client.ConnectNetwork(ctx, args.GetGrpcOpts()); err != nil {
+		return
+	}
+
+	cidr = msg.Cidr
+
+	return
+}
