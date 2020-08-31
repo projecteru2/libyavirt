@@ -171,3 +171,14 @@ func (r ConnectNetworkReq) GetGrpcOpts() *yavpb.ConnectNetworkOptions {
 		Ipv4:    r.IPv4,
 	}
 }
+
+// DisconnectNetworkReq .
+type DisconnectNetworkReq ConnectNetworkReq
+
+// GetGrpcOpts .
+func (r DisconnectNetworkReq) GetGrpcOpts() *yavpb.DisconnectNetworkOptions {
+	return &yavpb.DisconnectNetworkOptions{
+		Id:      r.ID,
+		Network: r.Network,
+	}
+}

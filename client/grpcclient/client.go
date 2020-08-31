@@ -179,3 +179,15 @@ func (c *GRPCClient) ConnectNetwork(ctx context.Context, args types.ConnectNetwo
 
 	return
 }
+
+// DisconnectNetwork .
+func (c *GRPCClient) DisconnectNetwork(ctx context.Context, args types.DisconnectNetworkReq) (message string, err error) {
+	msg := &yavpb.DisconnectNetworkMessage{}
+	if msg, err = c.client.DisconnectNetwork(ctx, args.GetGrpcOpts()); err != nil {
+		return
+	}
+
+	message = msg.Msg
+
+	return
+}
