@@ -73,6 +73,12 @@ func (c *HTTPClient) CaptureGuest(ctx context.Context, args types.CaptureGuestRe
 	return
 }
 
+// DisconnectNetwork .
+func (c *HTTPClient) DisconnectNetwork(ctx context.Context, args types.DisconnectNetworkReq) (msg string, err error) {
+	_, err = c.Post(ctx, "/guests/disconnect", args, &msg)
+	return
+}
+
 // ConnectNetwork .
 func (c *HTTPClient) ConnectNetwork(ctx context.Context, args types.ConnectNetworkReq) (cidr string, err error) {
 	_, err = c.Post(ctx, "/guests/connect", args, &cidr)

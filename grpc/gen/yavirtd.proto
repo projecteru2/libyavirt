@@ -14,9 +14,15 @@ service YavirtdRPC {
     rpc ResizeGuest(ResizeGuestOptions) returns (ControlGuestMessage) {};
     rpc CaptureGuest(CaptureGuestOptions) returns (UserImageMessage) {};
     rpc ConnectNetwork(ConnectNetworkOptions) returns (ConnectNetworkMessage) {};
+	rpc DisconnectNetwork(DisconnectNetworkOptions) returns (DisconnectNetworkMessage) {};
 }
 
 message Empty {}
+
+message DisconnectNetworkOptions {
+    string id = 1;
+    string network = 2;
+}
 
 message ConnectNetworkOptions {
     string id = 1;
@@ -138,4 +144,8 @@ message ExecuteGuestMessage {
 
 message ConnectNetworkMessage {
     string cidr = 1;
+}
+
+message DisconnectNetworkMessage {
+    string msg = 1;
 }
