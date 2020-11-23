@@ -52,6 +52,11 @@ func (c *HTTPClient) AttachGuest(ctx context.Context, id string, cmds []string, 
 	return nil, fmt.Errorf("AttachGuest not implemented for httpclient")
 }
 
+// Cat .
+func (c *HTTPClient) Cat(context.Context, string, string) (io.ReadCloser, error) {
+	return nil, fmt.Errorf("Cat not implemented for httpclient")
+}
+
 // ExecuteGuest .
 func (c *HTTPClient) ExecuteGuest(ctx context.Context, id string, cmds []string) (reply types.ExecuteGuestMessage, err error) {
 	var args = types.ExecuteGuestReq{}
