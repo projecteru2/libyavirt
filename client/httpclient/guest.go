@@ -52,6 +52,19 @@ func (c *HTTPClient) AttachGuest(ctx context.Context, id string, cmds []string, 
 	return nil, fmt.Errorf("AttachGuest not implemented for httpclient")
 }
 
+// ResizeConsoleWindow .
+func (c *HTTPClient) ResizeConsoleWindow(ctx context.Context, id string, height, width uint) error {
+	args := types.ResizeConsoleWindowReq{
+		GuestReq: types.GuestReq{
+			ID: id,
+		},
+		Height: height,
+		Width:  width,
+	}
+	_, err := c.Post(ctx, "/guests/resize_window", args, nil)
+	return err
+}
+
 // ExecuteGuest .
 func (c *HTTPClient) ExecuteGuest(ctx context.Context, id string, cmds []string) (reply types.ExecuteGuestMessage, err error) {
 	var args = types.ExecuteGuestReq{}
