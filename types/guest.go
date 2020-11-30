@@ -118,6 +118,13 @@ func (s EruGuestStatus) GetIPAddrs() string {
 	return strings.Join(s.CIDRs, ", ")
 }
 
+// ResizeConsoleWindowReq .
+type ResizeConsoleWindowReq struct {
+	GuestReq
+	Height uint
+	Width  uint
+}
+
 // ExecuteGuestReq .
 type ExecuteGuestReq struct {
 	GuestReq

@@ -54,3 +54,13 @@ func (c *GRPCClient) AttachGuest(ctx context.Context, ID string, cmds []string, 
 		client: resp,
 	}, resp.Send(opts)
 }
+
+// ResizeConsoleWindow .
+func (c *GRPCClient) ResizeConsoleWindow(ctx context.Context, ID string, height, width uint) error {
+	_, err := c.client.ResizeConsoleWindow(ctx, &yavpb.ResizeWindowOptions{
+		Id:     ID,
+		Height: int64(height),
+		Width:  int64(width),
+	})
+	return err
+}
