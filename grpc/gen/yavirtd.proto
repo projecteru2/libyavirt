@@ -16,9 +16,19 @@ service YavirtdRPC {
     rpc CaptureGuest(CaptureGuestOptions) returns (UserImageMessage) {};
     rpc ConnectNetwork(ConnectNetworkOptions) returns (ConnectNetworkMessage) {};
 	rpc DisconnectNetwork(DisconnectNetworkOptions) returns (DisconnectNetworkMessage) {};
+	rpc Cat(CatOptions) returns (stream CatMessage) {};
 }
 
 message Empty {}
+
+message CatOptions {
+    string id = 1;
+    string path = 2;
+}
+
+message CatMessage {
+    bytes data = 1;
+}
 
 message DisconnectNetworkOptions {
     string id = 1;

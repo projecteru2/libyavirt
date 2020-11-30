@@ -27,6 +27,7 @@ type Client interface {
 	CaptureGuest(context.Context, types.CaptureGuestReq) (types.UserImage, error)
 	ConnectNetwork(context.Context, types.ConnectNetworkReq) (string, error)
 	DisconnectNetwork(context.Context, types.DisconnectNetworkReq) (string, error)
+	Cat(context.Context, string, string) (io.ReadCloser, error)
 }
 
 // New .

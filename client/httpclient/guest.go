@@ -63,6 +63,10 @@ func (c *HTTPClient) ResizeConsoleWindow(ctx context.Context, id string, height,
 	}
 	_, err := c.Post(ctx, "/guests/resize_window", args, nil)
 	return err
+
+// Cat .
+func (c *HTTPClient) Cat(context.Context, string, string) (io.ReadCloser, error) {
+	return nil, fmt.Errorf("Cat not implemented for httpclient")
 }
 
 // ExecuteGuest .
