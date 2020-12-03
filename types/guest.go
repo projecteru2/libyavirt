@@ -22,23 +22,30 @@ func EruID(id string) string {
 
 // CreateGuestReq .
 type CreateGuestReq struct {
-	CPU       int
-	Mem       int64
-	ImageName string
-	Volumes   map[string]int64
-	DmiUUID   string
-	Labels    map[string]string
+	CPU        int
+	Mem        int64
+	ImageName  string
+	Volumes    map[string]int64
+	DmiUUID    string
+	Labels     map[string]string
+	AncestorID string
+}
+
+// AncestorVirtID .
+func (r CreateGuestReq) AncestorVirtID() string {
+	return (GuestReq{ID: r.AncestorID}).VirtID()
 }
 
 // GetGrpcOpts .
 func (r CreateGuestReq) GetGrpcOpts() *yavpb.CreateGuestOptions {
 	return &yavpb.CreateGuestOptions{
-		Cpu:       int64(r.CPU),
-		Memory:    r.Mem,
-		ImageName: r.ImageName,
-		Volumes:   r.Volumes,
-		DmiUuid:   r.DmiUUID,
-		Labels:    r.Labels,
+		Cpu:        int64(r.CPU),
+		Memory:     r.Mem,
+		ImageName:  r.ImageName,
+		Volumes:    r.Volumes,
+		DmiUuid:    r.DmiUUID,
+		Labels:     r.Labels,
+		AncestorId: r.AncestorID,
 	}
 }
 
