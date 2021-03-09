@@ -45,6 +45,8 @@ message ConnectNetworkOptions {
 message CaptureGuestOptions {
     string id = 1;
     string name = 2;
+    string user = 3;
+    bool overridden = 4;
 }
 
 message UserImageMessage {

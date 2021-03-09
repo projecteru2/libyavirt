@@ -141,7 +141,9 @@ type ExecuteGuestReq struct {
 // CaptureGuestReq .
 type CaptureGuestReq struct {
 	GuestReq
-	Name string
+	User       string
+	Name       string
+	Overridden bool
 }
 
 // GetGrpcOpts .
