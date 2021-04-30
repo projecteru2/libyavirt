@@ -20,8 +20,8 @@ func (c *HTTPClient) DestroyGuest(ctx context.Context, id string, force bool) (t
 }
 
 // StopGuest .
-func (c *HTTPClient) StopGuest(ctx context.Context, id string) (types.Msg, error) {
-	return c.ctrl(ctx, "/guests/stop", id, false)
+func (c *HTTPClient) StopGuest(ctx context.Context, id string, force bool) (types.Msg, error) {
+	return c.ctrl(ctx, "/guests/stop", id, force)
 }
 
 // StartGuest .

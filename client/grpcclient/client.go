@@ -105,8 +105,8 @@ func (c *GRPCClient) StartGuest(ctx context.Context, ID string) (msg types.Msg, 
 }
 
 // StopGuest .
-func (c *GRPCClient) StopGuest(ctx context.Context, ID string) (msg types.Msg, err error) {
-	return c.controlGuest(ctx, ID, "stop", false)
+func (c *GRPCClient) StopGuest(ctx context.Context, ID string, force bool) (msg types.Msg, err error) {
+	return c.controlGuest(ctx, ID, "stop", force)
 }
 
 // DestroyGuest .
