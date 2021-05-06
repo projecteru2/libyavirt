@@ -25,6 +25,7 @@ type CreateGuestReq struct {
 	CPU        int
 	Mem        int64
 	ImageName  string
+	ImageUser  string
 	Volumes    map[string]int64
 	DmiUUID    string
 	Labels     map[string]string
@@ -42,6 +43,7 @@ func (r CreateGuestReq) GetGrpcOpts() *yavpb.CreateGuestOptions {
 		Cpu:        int64(r.CPU),
 		Memory:     r.Mem,
 		ImageName:  r.ImageName,
+		ImageUser:  r.ImageUser,
 		Volumes:    r.Volumes,
 		DmiUuid:    r.DmiUUID,
 		Labels:     r.Labels,
@@ -87,6 +89,7 @@ type Guest struct {
 	Storage   int64
 	ImageID   int64
 	ImageName string
+	ImageUser string
 	Networks  map[string]string
 }
 
