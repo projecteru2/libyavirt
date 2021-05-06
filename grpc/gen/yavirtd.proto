@@ -98,6 +98,7 @@ message CreateGuestOptions {
     string dmi_uuid = 5;
 	map<string, string> labels = 6;
 	string ancestor_id = 7;
+	string image_user = 8;
 }
 
 message ResizeGuestOptions {
@@ -120,6 +121,7 @@ message CreateGuestMessage {
     int64 image_id = 10;
     string image_name = 11;
     map<string, string> networks = 12;
+	string image_user = 13;
 }
 
 message ControlGuestOptions {
