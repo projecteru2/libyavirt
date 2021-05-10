@@ -152,8 +152,10 @@ type CaptureGuestReq struct {
 // GetGrpcOpts .
 func (r CaptureGuestReq) GetGrpcOpts() *yavpb.CaptureGuestOptions {
 	return &yavpb.CaptureGuestOptions{
-		Id:   r.ID,
-		Name: r.Name,
+		Id:         r.ID,
+		Name:       r.Name,
+		User:       r.User,
+		Overridden: r.Overridden,
 	}
 }
 
