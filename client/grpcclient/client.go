@@ -162,6 +162,7 @@ func (c *GRPCClient) CaptureGuest(ctx context.Context, args types.CaptureGuestRe
 		return
 	}
 
+	uimg.ID = msg.Id
 	uimg.Name = msg.Name
 	uimg.Distro = msg.Distro
 	uimg.LatestVersion = msg.LatestVersion
