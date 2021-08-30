@@ -2,74 +2,90 @@ syntax = "proto3";
 
 package yavpb;
 
+option go_package = "grpc/gen;yavpb";
+
 service YavirtdRPC {
-    rpc Ping(Empty) returns (PingMessage) {};
-    rpc GetInfo(Empty) returns (InfoMessage) {};
-    rpc GetGuest(GetGuestOptions) returns (GetGuestMessage) {};
-    rpc GetGuestUUID(GetGuestOptions) returns (GetGuestUUIDMessage) {};
-    rpc CreateGuest(CreateGuestOptions) returns (CreateGuestMessage) {};
-    rpc ControlGuest(ControlGuestOptions) returns (ControlGuestMessage) {};
-    rpc AttachGuest(stream AttachGuestOptions) returns (stream AttachGuestMessage) {};
-    rpc ResizeConsoleWindow(ResizeWindowOptions) returns (Empty) {};
-    rpc ExecuteGuest(ExecuteGuestOptions) returns (ExecuteGuestMessage) {};
-    rpc ResizeGuest(ResizeGuestOptions) returns (ControlGuestMessage) {};
-    rpc CaptureGuest(CaptureGuestOptions) returns (UserImageMessage) {};
-    rpc ConnectNetwork(ConnectNetworkOptions) returns (ConnectNetworkMessage) {};
-	rpc DisconnectNetwork(DisconnectNetworkOptions) returns (DisconnectNetworkMessage) {};
-	rpc Cat(CatOptions) returns (stream CatMessage) {};
+  rpc Ping(Empty) returns (PingMessage) {};
+  rpc GetInfo(Empty) returns (InfoMessage) {};
+  rpc GetGuest(GetGuestOptions) returns (GetGuestMessage) {};
+  rpc GetGuestUUID(GetGuestOptions) returns (GetGuestUUIDMessage) {};
+  rpc CreateGuest(CreateGuestOptions) returns (CreateGuestMessage) {};
+  rpc ControlGuest(ControlGuestOptions) returns (ControlGuestMessage) {};
+  rpc AttachGuest(stream AttachGuestOptions) returns (stream AttachGuestMessage) {};
+  rpc ResizeConsoleWindow(ResizeWindowOptions) returns (Empty) {};
+  rpc ExecuteGuest(ExecuteGuestOptions) returns (ExecuteGuestMessage) {};
+  rpc ResizeGuest(ResizeGuestOptions) returns (ControlGuestMessage) {};
+  rpc CaptureGuest(CaptureGuestOptions) returns (UserImageMessage) {};
+  rpc ConnectNetwork(ConnectNetworkOptions) returns (ConnectNetworkMessage) {};
+  rpc DisconnectNetwork(DisconnectNetworkOptions) returns (DisconnectNetworkMessage) {};
+  rpc Cat(CatOptions) returns (stream CatMessage) {};
+  rpc CopyToGuest(stream CopyOptions) returns (CopyMessage) {};
 }
 
 message Empty {}
 
+message CopyOptions{
+  string id = 1;
+  string dest = 2;
+  bytes content = 3;
+  bool override = 4;
+  int64 uid = 5;
+  int64 gid = 6;
+}
+
+message CopyMessage{
+  string msg = 1;
+}
+
 message CatOptions {
-    string id = 1;
-    string path = 2;
+  string id = 1;
+  string path = 2;
 }
 
 message CatMessage {
-    bytes data = 1;
+  bytes data = 1;
 }
 
 message DisconnectNetworkOptions {
-    string id = 1;
-    string network = 2;
+  string id = 1;
+  string network = 2;
 }
 
 message ConnectNetworkOptions {
-    string id = 1;
-    string network = 2;
-    string ipv4 = 3;
-    string ipv6 = 4;
+  string id = 1;
+  string network = 2;
+  string ipv4 = 3;
+  string ipv6 = 4;
 }
 
 message CaptureGuestOptions {
-    string id = 1;
-    string name = 2;
-    string user = 3;
-    bool overridden = 4;
+  string id = 1;
+  string name = 2;
+  string user = 3;
+  bool overridden = 4;
 }
 
 message UserImageMessage {
-    string id = 1;
-    string name = 2;
-    string distro = 3;
-    int64 latest_version = 4;
-    int64 size = 5;
+  string id = 1;
+  string name = 2;
+  string distro = 3;
+  int64 latest_version = 4;
+  int64 size = 5;
 }
 
 message PingMessage {
-    string version = 1;
+  string version = 1;
 }
 
 message InfoMessage {
-    string id = 1;
-    int64 cpu = 2;
-    int64 memory = 3;
-    int64 storage = 4;
+  string id = 1;
+  int64 cpu = 2;
+  int64 memory = 3;
+  int64 storage = 4;
 }
 
 message GetGuestOptions {
-    string id = 1;
+  string id = 1;
 }
 
 message GetGuestMessage {
@@ -92,83 +108,83 @@ message GetGuestUUIDMessage {
 }
 
 message CreateGuestOptions {
-    int64 cpu = 1;
-    int64 memory = 2;
-    string image_name = 3;
-    map<string, int64> volumes = 4;
-    string dmi_uuid = 5;
-	map<string, string> labels = 6;
-	string ancestor_id = 7;
-	string image_user = 8;
+  int64 cpu = 1;
+  int64 memory = 2;
+  string image_name = 3;
+  map<string, int64> volumes = 4;
+  string dmi_uuid = 5;
+  map<string, string> labels = 6;
+  string ancestor_id = 7;
+  string image_user = 8;
 }
 
 message ResizeGuestOptions {
-    string id = 1;
-    int64 cpu = 2;
-    int64 memory = 3;
-    map<string, int64> volumes = 4;
+  string id = 1;
+  int64 cpu = 2;
+  int64 memory = 3;
+  map<string, int64> volumes = 4;
 }
 
 message CreateGuestMessage {
-    string id = 1;
-    string status = 2;
-    string transit_status = 3;
-    int64 create_time = 4;
-    int64 transit_time = 5;
-    int64 update_time = 6;
-    int64 cpu = 7;
-    int64 memory = 8;
-    int64 storage = 9;
-    int64 image_id = 10;
-    string image_name = 11;
-    map<string, string> networks = 12;
-	string image_user = 13;
+  string id = 1;
+  string status = 2;
+  string transit_status = 3;
+  int64 create_time = 4;
+  int64 transit_time = 5;
+  int64 update_time = 6;
+  int64 cpu = 7;
+  int64 memory = 8;
+  int64 storage = 9;
+  int64 image_id = 10;
+  string image_name = 11;
+  map<string, string> networks = 12;
+  string image_user = 13;
 }
 
 message ControlGuestOptions {
-    string id = 1;
-    string operation = 2;
-	bool force = 3;
+  string id = 1;
+  string operation = 2;
+  bool force = 3;
 }
 
 message ControlGuestMessage {
-    string msg = 1;
+  string msg = 1;
 }
 
 message AttachGuestOptions {
-    string id = 1;
-    bytes repl_cmd = 2;
-    bool force = 3;
-    bool safe = 4;
-    repeated string commands =5;
+  string id = 1;
+  bytes repl_cmd = 2;
+  bool force = 3;
+  bool safe = 4;
+  repeated string commands = 5;
 }
 
 message AttachGuestMessage {
-    string id = 1;
-    bytes data = 2;
+  string id = 1;
+  bytes data = 2;
 }
 
 message ResizeWindowOptions {
-    string id = 1;
-    int64 height = 2;
-    int64 width = 3;
+  string id = 1;
+  int64 height = 2;
+  int64 width = 3;
 }
 
 message ExecuteGuestOptions {
-    string id = 1;
-    repeated string commands = 2;
+  string id = 1;
+  repeated string commands = 2;
 }
 
 message ExecuteGuestMessage {
-    string id = 1;
-    bytes data = 2;
-    int64 exit_code = 3;
+  string id = 1;
+  bytes data = 2;
+  int64 exit_code = 3;
 }
 
 message ConnectNetworkMessage {
-    string cidr = 1;
+  string cidr = 1;
 }
 
 message DisconnectNetworkMessage {
-    string msg = 1;
+  string msg = 1;
 }

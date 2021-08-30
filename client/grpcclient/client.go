@@ -2,6 +2,7 @@ package grpcclient
 
 import (
 	"context"
+	"io"
 
 	yavpb "github.com/projecteru2/libyavirt/grpc/gen"
 	"github.com/projecteru2/libyavirt/types"
@@ -192,4 +193,34 @@ func (c *GRPCClient) DisconnectNetwork(ctx context.Context, args types.Disconnec
 	message = msg.Msg
 
 	return
+}
+
+// CopyToGuest .
+func (c *GRPCClient) CopyToGuest(ctx context.Context, ID, dest string, content io.Reader, AllowOverwriteDirWithFile, CopyUIDGID bool) error {
+	resp, err := c.client.CopyToGuest(ctx)
+	if err != nil {
+		return err
+	}
+
+	opts := &yavpb.CopyOptions{
+		Id:       ID,
+		Dest:     dest,
+		Override: AllowOverwriteDirWithFile,
+	}
+
+	buf := make([]byte, 1024*1024) //nolint // 1MB
+	for {
+		n, err := content.Read(buf)
+		opts.Content = buf[:n]
+		if n == 0 {
+			if err != nil && err != io.EOF {
+				return err
+			}
+			return nil
+		}
+		err = resp.Send(opts)
+		if err != nil {
+			return err
+		}
+	}
 }
