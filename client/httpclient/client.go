@@ -1,7 +1,10 @@
 package httpclient
 
 import (
+	"context"
+	"errors"
 	"fmt"
+	"io"
 	"net"
 	"net/http"
 	"runtime"
@@ -17,6 +20,11 @@ type HTTPClient struct {
 	http *http.Client
 
 	defaultHeaders map[string]string
+}
+
+// CopyToGuest .
+func (c *HTTPClient) CopyToGuest(ctx context.Context, ID, dest string, content io.Reader, AllowOverwriteDirWithFile, CopyUIDGID bool) error {
+	return errors.New("not and will not implemented")
 }
 
 // New .
