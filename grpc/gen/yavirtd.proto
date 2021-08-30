@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package yavpb;
+option go_package = "grpc/gen;yavpb";
 
 service YavirtdRPC {
   rpc Ping(Empty) returns (PingMessage) {};
@@ -18,10 +18,24 @@ service YavirtdRPC {
   rpc ConnectNetwork(ConnectNetworkOptions) returns (ConnectNetworkMessage) {};
   rpc DisconnectNetwork(DisconnectNetworkOptions) returns (DisconnectNetworkMessage) {};
   rpc Cat(CatOptions) returns (stream CatMessage) {};
+  rpc CopyToGuest(stream CopyOptions) returns (CopyMessage) {};
   rpc Events(Empty) returns (stream EventMessage) {};
 }
 
 message Empty {}
+
+message CopyOptions{
+  string id = 1;
+  string dest = 2;
+  bytes content = 3;
+  bool override = 4;
+  int64 uid = 5;
+  int64 gid = 6;
+}
+
+message CopyMessage{
+  string msg = 1;
+}
 
 message CatOptions {
   string id = 1;
