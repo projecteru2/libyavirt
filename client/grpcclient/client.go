@@ -206,7 +206,7 @@ func (c *GRPCClient) DisconnectNetwork(ctx context.Context, args types.Disconnec
 
 // CopyToGuest .
 func (c *GRPCClient) CopyToGuest(ctx context.Context, ID, dest string, content io.Reader, AllowOverwriteDirWithFile, CopyUIDGID bool) error {
-	resp, err := c.client.CopyToGuest(ctx)
+	copyClient, err := c.client.CopyToGuest(ctx)
 	if err != nil {
 		return err
 	}
@@ -220,14 +220,16 @@ func (c *GRPCClient) CopyToGuest(ctx context.Context, ID, dest string, content i
 	buf := make([]byte, 1024*1024) //nolint // 1MB
 	for {
 		n, err := content.Read(buf)
-		opts.Content = buf[:n]
-		if n == 0 {
-			if err != nil && err != io.EOF {
+		if n > 0 {
+			opts.Content = buf[:n]
+			err := copyClient.Send(opts)
+			if err != nil {
 				return err
 			}
+		}
+		if err == io.EOF {
 			return nil
 		}
-		err = resp.Send(opts)
 		if err != nil {
 			return err
 		}
