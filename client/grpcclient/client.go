@@ -150,7 +150,7 @@ func (c *GRPCClient) ExecuteGuest(ctx context.Context, ID string, cmd []string) 
 		return
 	}
 	return types.ExecuteGuestMessage{
-		ID:       ID,
+		ID:       m.Id, // pid
 		Data:     m.Data,
 		ExitCode: int(m.ExitCode),
 	}, nil
