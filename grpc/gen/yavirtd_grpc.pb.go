@@ -27,6 +27,7 @@ type YavirtdRPCClient interface {
 	AttachGuest(ctx context.Context, opts ...grpc.CallOption) (YavirtdRPC_AttachGuestClient, error)
 	ResizeConsoleWindow(ctx context.Context, in *ResizeWindowOptions, opts ...grpc.CallOption) (*Empty, error)
 	ExecuteGuest(ctx context.Context, in *ExecuteGuestOptions, opts ...grpc.CallOption) (*ExecuteGuestMessage, error)
+	ExecExitCode(ctx context.Context, in *ExecExitCodeOptions, opts ...grpc.CallOption) (*ExecExitCodeMessage, error)
 	ResizeGuest(ctx context.Context, in *ResizeGuestOptions, opts ...grpc.CallOption) (*ControlGuestMessage, error)
 	CaptureGuest(ctx context.Context, in *CaptureGuestOptions, opts ...grpc.CallOption) (*UserImageMessage, error)
 	ConnectNetwork(ctx context.Context, in *ConnectNetworkOptions, opts ...grpc.CallOption) (*ConnectNetworkMessage, error)
@@ -140,6 +141,15 @@ func (c *yavirtdRPCClient) ResizeConsoleWindow(ctx context.Context, in *ResizeWi
 func (c *yavirtdRPCClient) ExecuteGuest(ctx context.Context, in *ExecuteGuestOptions, opts ...grpc.CallOption) (*ExecuteGuestMessage, error) {
 	out := new(ExecuteGuestMessage)
 	err := c.cc.Invoke(ctx, "/yavpb.YavirtdRPC/ExecuteGuest", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *yavirtdRPCClient) ExecExitCode(ctx context.Context, in *ExecExitCodeOptions, opts ...grpc.CallOption) (*ExecExitCodeMessage, error) {
+	out := new(ExecExitCodeMessage)
+	err := c.cc.Invoke(ctx, "/yavpb.YavirtdRPC/ExecExitCode", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -261,6 +271,7 @@ type YavirtdRPCServer interface {
 	AttachGuest(YavirtdRPC_AttachGuestServer) error
 	ResizeConsoleWindow(context.Context, *ResizeWindowOptions) (*Empty, error)
 	ExecuteGuest(context.Context, *ExecuteGuestOptions) (*ExecuteGuestMessage, error)
+	ExecExitCode(context.Context, *ExecExitCodeOptions) (*ExecExitCodeMessage, error)
 	ResizeGuest(context.Context, *ResizeGuestOptions) (*ControlGuestMessage, error)
 	CaptureGuest(context.Context, *CaptureGuestOptions) (*UserImageMessage, error)
 	ConnectNetwork(context.Context, *ConnectNetworkOptions) (*ConnectNetworkMessage, error)
@@ -300,6 +311,9 @@ func (UnimplementedYavirtdRPCServer) ResizeConsoleWindow(context.Context, *Resiz
 }
 func (UnimplementedYavirtdRPCServer) ExecuteGuest(context.Context, *ExecuteGuestOptions) (*ExecuteGuestMessage, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ExecuteGuest not implemented")
+}
+func (UnimplementedYavirtdRPCServer) ExecExitCode(context.Context, *ExecExitCodeOptions) (*ExecExitCodeMessage, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ExecExitCode not implemented")
 }
 func (UnimplementedYavirtdRPCServer) ResizeGuest(context.Context, *ResizeGuestOptions) (*ControlGuestMessage, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ResizeGuest not implemented")
@@ -502,6 +516,24 @@ func _YavirtdRPC_ExecuteGuest_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _YavirtdRPC_ExecExitCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ExecExitCodeOptions)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(YavirtdRPCServer).ExecExitCode(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/yavpb.YavirtdRPC/ExecExitCode",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(YavirtdRPCServer).ExecExitCode(ctx, req.(*ExecExitCodeOptions))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _YavirtdRPC_ResizeGuest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ResizeGuestOptions)
 	if err := dec(in); err != nil {
@@ -659,6 +691,10 @@ var YavirtdRPC_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ExecuteGuest",
 			Handler:    _YavirtdRPC_ExecuteGuest_Handler,
+		},
+		{
+			MethodName: "ExecExitCode",
+			Handler:    _YavirtdRPC_ExecExitCode_Handler,
 		},
 		{
 			MethodName: "ResizeGuest",

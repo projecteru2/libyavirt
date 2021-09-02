@@ -156,6 +156,19 @@ func (c *GRPCClient) ExecuteGuest(ctx context.Context, ID string, cmd []string) 
 	}, nil
 }
 
+// ExecExitCode .
+func (c *GRPCClient) ExecExitCode(ctx context.Context, id, pid string) (exitCode int, err error) {
+	opts := &yavpb.ExecExitCodeOptions{
+		Id:  id,
+		Pid: pid,
+	}
+	m, err := c.client.ExecExitCode(ctx, opts)
+	if err != nil {
+		return
+	}
+	return int(m.ExitCode), err
+}
+
 // CaptureGuest .
 func (c *GRPCClient) CaptureGuest(ctx context.Context, args types.CaptureGuestReq) (uimg types.UserImage, err error) {
 	msg := &yavpb.UserImageMessage{}
