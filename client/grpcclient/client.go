@@ -150,16 +150,16 @@ func (c *GRPCClient) ExecuteGuest(ctx context.Context, ID string, cmd []string) 
 		return
 	}
 	return types.ExecuteGuestMessage{
-		ID:       m.Id, // pid
+		Pid:      int(m.Pid),
 		Data:     m.Data,
 		ExitCode: int(m.ExitCode),
 	}, nil
 }
 
 // ExecExitCode .
-func (c *GRPCClient) ExecExitCode(ctx context.Context, id string, pid int) (exitCode int, err error) {
+func (c *GRPCClient) ExecExitCode(ctx context.Context, ID string, pid int) (exitCode int, err error) {
 	opts := &yavpb.ExecExitCodeOptions{
-		Id:  id,
+		Id:  ID,
 		Pid: int64(pid),
 	}
 	m, err := c.client.ExecExitCode(ctx, opts)

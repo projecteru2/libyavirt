@@ -177,7 +177,7 @@ message ExecuteGuestOptions {
 }
 
 message ExecuteGuestMessage {
-  string id = 1;
+  int64 pid = 1;
   bytes data = 2;
   int64 exit_code = 3;
 }

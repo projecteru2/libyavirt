@@ -23,7 +23,7 @@ type Client interface {
 	AttachGuest(ctx context.Context, ID string, cmd []string, flag types.AttachGuestFlags) (io.ReadWriteCloser, error)
 	ResizeConsoleWindow(ctx context.Context, ID string, height, width uint) error
 	ExecuteGuest(ctx context.Context, ID string, cmd []string) (types.ExecuteGuestMessage, error)
-	ExecExitCode(ctx context.Context, id string, pid int) (exitCode int, err error)
+	ExecExitCode(ctx context.Context, ID string, pid int) (exitCode int, err error)
 	ResizeGuest(context.Context, types.ResizeGuestReq) (types.Msg, error)
 	CaptureGuest(context.Context, types.CaptureGuestReq) (types.UserImage, error)
 	ConnectNetwork(context.Context, types.ConnectNetworkReq) (string, error)

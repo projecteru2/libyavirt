@@ -22,7 +22,7 @@ type HTTPClient struct {
 	defaultHeaders map[string]string
 }
 
-func (c *HTTPClient) ExecExitCode(ctx context.Context, id string, pid int) (exitCode int, err error) {
+func (c *HTTPClient) ExecExitCode(ctx context.Context, ID string, pid int) (exitCode int, err error) {
 	return
 }
 
