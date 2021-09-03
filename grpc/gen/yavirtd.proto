@@ -184,7 +184,7 @@ message ExecuteGuestMessage {
 
 message ExecExitCodeOptions{
   string id = 1;
-  string pid = 2;
+  int64 pid = 2;
 }
 
 message ExecExitCodeMessage{

@@ -157,10 +157,10 @@ func (c *GRPCClient) ExecuteGuest(ctx context.Context, ID string, cmd []string) 
 }
 
 // ExecExitCode .
-func (c *GRPCClient) ExecExitCode(ctx context.Context, id, pid string) (exitCode int, err error) {
+func (c *GRPCClient) ExecExitCode(ctx context.Context, id string, pid int) (exitCode int, err error) {
 	opts := &yavpb.ExecExitCodeOptions{
 		Id:  id,
-		Pid: pid,
+		Pid: int64(pid),
 	}
 	m, err := c.client.ExecExitCode(ctx, opts)
 	if err != nil {
@@ -209,7 +209,7 @@ func (c *GRPCClient) DisconnectNetwork(ctx context.Context, args types.Disconnec
 }
 
 // CopyToGuest .
-func (c *GRPCClient) CopyToGuest(ctx context.Context, ID, dest string, content io.Reader, AllowOverwriteDirWithFile, CopyUIDGID bool) error {
+func (c *GRPCClient) CopyToGuest(ctx context.Context, ID, dest string, content io.Reader, AllowOverwriteDirWithFile, _ bool) error {
 	copyClient, err := c.client.CopyToGuest(ctx)
 	if err != nil {
 		return err
