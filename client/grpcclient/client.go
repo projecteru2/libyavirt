@@ -2,11 +2,10 @@ package grpcclient
 
 import (
 	"context"
-	"io"
-
 	yavpb "github.com/projecteru2/libyavirt/grpc/gen"
 	"github.com/projecteru2/libyavirt/types"
 	"google.golang.org/grpc"
+	"io"
 )
 
 // GRPCClient .
@@ -217,23 +216,27 @@ func (c *GRPCClient) CopyToGuest(ctx context.Context, ID, dest string, content i
 		Override: AllowOverwriteDirWithFile,
 	}
 
-	buf := make([]byte, 8*1024*1024) //nolint // 8MB
+	buf := make([]byte, 1024*1024) //nolint // 1MB
 	for {
 		n, err := content.Read(buf)
 		if n > 0 {
+			opts.Size = int64(n)
 			opts.Content = buf[:n]
-			err := copyClient.Send(opts)
-			if err != nil {
+			if err := copyClient.Send(opts); err != nil {
 				return err
 			}
 		}
 		if err == io.EOF {
-			return nil
+			break
 		}
 		if err != nil {
 			return err
 		}
 	}
+	if _, err := copyClient.CloseAndRecv(); err != nil {
+		return err
+	} // wait for transmission complete
+	return nil
 }
 
 func (c *GRPCClient) Events(ctx context.Context) (<-chan types.EventMessage, <-chan error) {
