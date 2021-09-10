@@ -234,7 +234,7 @@ type yavirtdRPCCopyToGuestClient struct {
 }
 
 func (x *yavirtdRPCCopyToGuestClient) Send(m *CopyOptions) error {
-	return x.ClientStream.SexndMsg(m)
+	return x.ClientStream.SendMsg(m)
 }
 
 func (x *yavirtdRPCCopyToGuestClient) CloseAndRecv() (*CopyMessage, error) {
