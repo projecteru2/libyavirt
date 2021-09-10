@@ -9,8 +9,13 @@ import (
 	yavpb "github.com/projecteru2/libyavirt/grpc/gen"
 )
 
-// MagicPrefix .
-const MagicPrefix = "SHOPEE-YET-ANOTHER-VIRT-20190429"
+const (
+	// MagicPrefix .
+	MagicPrefix = "SHOPEE-YET-ANOTHER-VIRT-20190429"
+
+	// BufferSize for grpc send file 1 MB
+	BufferSize = 1024 * 1024
+)
 
 // EruID .
 func EruID(id string) string {
