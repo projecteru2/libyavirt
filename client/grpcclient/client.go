@@ -216,7 +216,7 @@ func (c *GRPCClient) CopyToGuest(ctx context.Context, ID, dest string, content i
 		Override: AllowOverwriteDirWithFile,
 	}
 
-	buf := make([]byte, 1024*1024) //nolint // 1MB
+	buf := make([]byte, types.BufferSize)
 	for {
 		n, err := content.Read(buf)
 		if n > 0 {
