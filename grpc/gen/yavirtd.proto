@@ -19,7 +19,7 @@ service YavirtdRPC {
   rpc DisconnectNetwork(DisconnectNetworkOptions) returns (DisconnectNetworkMessage) {};
   rpc Cat(CatOptions) returns (stream CatMessage) {};
   rpc CopyToGuest(stream CopyOptions) returns (CopyMessage) {};
-  rpc Events(Empty) returns (stream EventMessage) {};
+  rpc Events(EventsOptions) returns (stream EventMessage) {};
 }
 
 message Empty {}
@@ -101,11 +101,13 @@ message GetGuestMessage {
   string image_name = 11;
   map<string, string> networks = 12;
   map<string, string> labels = 13;
+  repeated string ip_list = 14;
+  string hostname = 15;
+  bool running = 16;
 }
 
 message GetGuestIDListOptions {
-  bool all = 1;
-  map<string, string> filters = 2;
+  map<string, string> filters = 1;
 }
 
 message GetGuestIDListMessage {
@@ -196,6 +198,10 @@ message ConnectNetworkMessage {
 
 message DisconnectNetworkMessage {
   string msg = 1;
+}
+
+message EventsOptions {
+  map<string, string> filters = 1;
 }
 
 message EventMessage {

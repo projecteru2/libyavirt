@@ -110,7 +110,7 @@ func (c *HTTPClient) GetGuestIDList(ctx context.Context, args types.GetGuestIDLi
 }
 
 // Events not implemented for http client
-func (c *HTTPClient) Events(ctx context.Context) (<-chan types.EventMessage, <-chan error) {
+func (c *HTTPClient) Events(ctx context.Context, filters map[string]string) (<-chan types.EventMessage, <-chan error) {
 	msgChan := make(chan types.EventMessage)
 	errChan := make(chan error)
 

@@ -63,6 +63,9 @@ func (c *GRPCClient) GetGuest(ctx context.Context, ID string) (guest types.Guest
 		ImageName: msg.ImageName,
 		Networks:  msg.Networks,
 		Labels:    msg.Labels,
+		IPList:    msg.IpList,
+		Hostname:  msg.Hostname,
+		Running:   msg.Running,
 	}, nil
 }
 
@@ -76,7 +79,7 @@ func (c *GRPCClient) GetGuestUUID(ctx context.Context, ID string) (uuid string, 
 }
 
 func (c *GRPCClient) GetGuestIDList(ctx context.Context, args types.GetGuestIDListReq) ([]string, error) {
-	resp, err := c.client.GetGuestIDList(ctx, &yavpb.GetGuestIDListOptions{Filters: args.Filters, All: args.All})
+	resp, err := c.client.GetGuestIDList(ctx, &yavpb.GetGuestIDListOptions{Filters: args.Filters})
 	if err != nil {
 		return nil, err
 	}
@@ -239,14 +242,14 @@ func (c *GRPCClient) CopyToGuest(ctx context.Context, ID, dest string, content i
 	return nil
 }
 
-func (c *GRPCClient) Events(ctx context.Context) (<-chan types.EventMessage, <-chan error) {
+func (c *GRPCClient) Events(ctx context.Context, filters map[string]string) (<-chan types.EventMessage, <-chan error) {
 	msgChan := make(chan types.EventMessage)
 	errChan := make(chan error)
 	go func() {
 		defer close(errChan)
 		defer close(msgChan)
 
-		client, err := c.client.Events(ctx, &yavpb.Empty{})
+		client, err := c.client.Events(ctx, &yavpb.EventsOptions{Filters: filters})
 		if err != nil {
 			errChan <- err
 			return
