@@ -2,7 +2,6 @@ package grpcclient
 
 import (
 	"context"
-
 	yavpb "github.com/projecteru2/libyavirt/grpc/gen"
 	"github.com/projecteru2/libyavirt/types"
 	"google.golang.org/grpc"
@@ -62,6 +61,7 @@ func (c *GRPCClient) GetGuest(ctx context.Context, ID string) (guest types.Guest
 		ImageID:   msg.ImageId,
 		ImageName: msg.ImageName,
 		Networks:  msg.Networks,
+		Labels:    msg.Labels,
 	}, nil
 }
 
@@ -72,6 +72,14 @@ func (c *GRPCClient) GetGuestUUID(ctx context.Context, ID string) (uuid string, 
 		return
 	}
 	return msg.Uuid, nil
+}
+
+func (c *GRPCClient) GetGuestIDList(ctx context.Context, args types.GetGuestIDListReq) ([]string, error) {
+	resp, err := c.client.GetGuestIDList(ctx, &yavpb.GetGuestIDListOptions{Filters: args.Filters, All: args.All})
+	if err != nil {
+		return nil, err
+	}
+	return resp.Ids, nil
 }
 
 // CreateGuest .
@@ -192,4 +200,34 @@ func (c *GRPCClient) DisconnectNetwork(ctx context.Context, args types.Disconnec
 	message = msg.Msg
 
 	return
+}
+
+func (c *GRPCClient) Events(ctx context.Context) (<-chan types.EventMessage, <-chan error) {
+	msgChan := make(chan types.EventMessage)
+	errChan := make(chan error)
+	go func() {
+		defer close(errChan)
+		defer close(msgChan)
+
+		client, err := c.client.Events(ctx, &yavpb.Empty{})
+		if err != nil {
+			errChan <- err
+			return
+		}
+		for {
+			msg, err := client.Recv()
+			if err != nil {
+				errChan <- err
+				return
+			}
+			msgChan <- types.EventMessage{
+				ID:       msg.Id,
+				Type:     msg.Type,
+				Action:   msg.Action,
+				TimeNano: msg.TimeNano,
+			}
+		}
+	}()
+
+	return msgChan, errChan
 }

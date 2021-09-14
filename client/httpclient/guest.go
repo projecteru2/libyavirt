@@ -2,6 +2,7 @@ package httpclient
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io"
 
@@ -101,4 +102,22 @@ func (c *HTTPClient) DisconnectNetwork(ctx context.Context, args types.Disconnec
 func (c *HTTPClient) ConnectNetwork(ctx context.Context, args types.ConnectNetworkReq) (cidr string, err error) {
 	_, err = c.Post(ctx, "/guests/connect", args, &cidr)
 	return
+}
+
+func (c *HTTPClient) GetGuestIDList(ctx context.Context, args types.GetGuestIDListReq) (ids []string, err error) {
+	_, err = c.Post(ctx, "guests/list/id", args, &ids)
+	return
+}
+
+// Events not implemented for http client
+func (c *HTTPClient) Events(ctx context.Context) (<-chan types.EventMessage, <-chan error) {
+	msgChan := make(chan types.EventMessage)
+	errChan := make(chan error)
+
+	go func() {
+		defer close(errChan)
+		defer close(msgChan)
+		errChan <- errors.New("events not implemented for http client")
+	}()
+	return msgChan, errChan
 }

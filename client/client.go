@@ -16,6 +16,7 @@ type Client interface {
 	Info(context.Context) (types.HostInfo, error)
 	GetGuest(ctx context.Context, ID string) (types.Guest, error)
 	GetGuestUUID(ctx context.Context, ID string) (string, error)
+	GetGuestIDList(ctx context.Context, args types.GetGuestIDListReq) ([]string, error)
 	CreateGuest(ctx context.Context, args types.CreateGuestReq) (types.Guest, error)
 	StartGuest(ctx context.Context, ID string) (types.Msg, error)
 	StopGuest(ctx context.Context, ID string, force bool) (types.Msg, error)
@@ -28,6 +29,7 @@ type Client interface {
 	ConnectNetwork(context.Context, types.ConnectNetworkReq) (string, error)
 	DisconnectNetwork(context.Context, types.DisconnectNetworkReq) (string, error)
 	Cat(context.Context, string, string) (io.ReadCloser, error)
+	Events(ctx context.Context) (<-chan types.EventMessage, <-chan error)
 }
 
 // New .
