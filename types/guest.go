@@ -91,6 +91,7 @@ type Guest struct {
 	ImageName string
 	ImageUser string
 	Networks  map[string]string
+	Labels    map[string]string
 }
 
 // AttachGuestFlags .
@@ -202,4 +203,10 @@ func (r DisconnectNetworkReq) GetGrpcOpts() *yavpb.DisconnectNetworkOptions {
 		Id:      r.ID,
 		Network: r.Network,
 	}
+}
+
+// GetGuestIDListReq .
+type GetGuestIDListReq struct {
+	Filters map[string]string
+	All     bool
 }
