@@ -4,8 +4,6 @@ PKGS := $$(go list ./... | grep -v vendor/)
 
 .PHONY: all test build grpc
 
-default: build
-
 lint: format
 	golint $(PKGS)
 
