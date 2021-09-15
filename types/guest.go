@@ -110,7 +110,7 @@ type AttachGuestFlags struct {
 
 // ExecuteGuestMessage .
 type ExecuteGuestMessage struct {
-	ID       string
+	Pid      int
 	Data     []byte
 	ExitCode int
 }
