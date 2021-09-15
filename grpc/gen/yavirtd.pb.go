@@ -637,22 +637,22 @@ func (m *GetGuestOptions) GetId() string {
 }
 
 type GetGuestMessage struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Id            string            `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Status        string            `protobuf:"bytes,2,opt,name=status,proto3" json:"status,omitempty"`
-	TransitStatus string            `protobuf:"bytes,3,opt,name=transit_status,json=transitStatus,proto3" json:"transit_status,omitempty"`
-	CreateTime    int64             `protobuf:"varint,4,opt,name=create_time,json=createTime,proto3" json:"create_time,omitempty"`
-	TransitTime   int64             `protobuf:"varint,5,opt,name=transit_time,json=transitTime,proto3" json:"transit_time,omitempty"`
-	UpdateTime    int64             `protobuf:"varint,6,opt,name=update_time,json=updateTime,proto3" json:"update_time,omitempty"`
-	Cpu           int64             `protobuf:"varint,7,opt,name=cpu,proto3" json:"cpu,omitempty"`
-	Memory        int64             `protobuf:"varint,8,opt,name=memory,proto3" json:"memory,omitempty"`
-	Storage       int64             `protobuf:"varint,9,opt,name=storage,proto3" json:"storage,omitempty"`
-	ImageId       int64             `protobuf:"varint,10,opt,name=image_id,json=imageId,proto3" json:"image_id,omitempty"`
-	ImageName     string            `protobuf:"bytes,11,opt,name=image_name,json=imageName,proto3" json:"image_name,omitempty"`
-	Networks      map[string]string `protobuf:"bytes,12,rep,name=networks,proto3" json:"networks,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Id                   string            `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Status               string            `protobuf:"bytes,2,opt,name=status,proto3" json:"status,omitempty"`
+	TransitStatus        string            `protobuf:"bytes,3,opt,name=transit_status,json=transitStatus,proto3" json:"transit_status,omitempty"`
+	CreateTime           int64             `protobuf:"varint,4,opt,name=create_time,json=createTime,proto3" json:"create_time,omitempty"`
+	TransitTime          int64             `protobuf:"varint,5,opt,name=transit_time,json=transitTime,proto3" json:"transit_time,omitempty"`
+	UpdateTime           int64             `protobuf:"varint,6,opt,name=update_time,json=updateTime,proto3" json:"update_time,omitempty"`
+	Cpu                  int64             `protobuf:"varint,7,opt,name=cpu,proto3" json:"cpu,omitempty"`
+	Memory               int64             `protobuf:"varint,8,opt,name=memory,proto3" json:"memory,omitempty"`
+	Storage              int64             `protobuf:"varint,9,opt,name=storage,proto3" json:"storage,omitempty"`
+	ImageId              int64             `protobuf:"varint,10,opt,name=image_id,json=imageId,proto3" json:"image_id,omitempty"`
+	ImageName            string            `protobuf:"bytes,11,opt,name=image_name,json=imageName,proto3" json:"image_name,omitempty"`
+	Networks             map[string]string `protobuf:"bytes,12,rep,name=networks,proto3" json:"networks,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Labels               map[string]string `protobuf:"bytes,13,rep,name=labels,proto3" json:"labels,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
+	XXX_unrecognized     []byte            `json:"-"`
+	XXX_sizecache        int32             `json:"-"`
 }
 
 func (m *GetGuestMessage) Reset()         { *m = GetGuestMessage{} }
@@ -783,7 +783,7 @@ func (m *GetGuestIDListOptions) Reset()         { *m = GetGuestIDListOptions{} }
 func (m *GetGuestIDListOptions) String() string { return proto.CompactTextString(m) }
 func (*GetGuestIDListOptions) ProtoMessage()    {}
 func (*GetGuestIDListOptions) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c4336cf6cb1ddfbb, []int{11}
+	return fileDescriptor_c4336cf6cb1ddfbb, []int{13}
 }
 
 func (m *GetGuestIDListOptions) XXX_Unmarshal(b []byte) error {
@@ -829,7 +829,7 @@ func (m *GetGuestIDListMessage) Reset()         { *m = GetGuestIDListMessage{} }
 func (m *GetGuestIDListMessage) String() string { return proto.CompactTextString(m) }
 func (*GetGuestIDListMessage) ProtoMessage()    {}
 func (*GetGuestIDListMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c4336cf6cb1ddfbb, []int{12}
+	return fileDescriptor_c4336cf6cb1ddfbb, []int{14}
 }
 
 func (m *GetGuestIDListMessage) XXX_Unmarshal(b []byte) error {
@@ -868,7 +868,7 @@ func (m *GetGuestUUIDMessage) Reset()         { *m = GetGuestUUIDMessage{} }
 func (m *GetGuestUUIDMessage) String() string { return proto.CompactTextString(m) }
 func (*GetGuestUUIDMessage) ProtoMessage()    {}
 func (*GetGuestUUIDMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c4336cf6cb1ddfbb, []int{13}
+	return fileDescriptor_c4336cf6cb1ddfbb, []int{15}
 }
 
 func (m *GetGuestUUIDMessage) XXX_Unmarshal(b []byte) error {
@@ -914,7 +914,7 @@ func (m *CreateGuestOptions) Reset()         { *m = CreateGuestOptions{} }
 func (m *CreateGuestOptions) String() string { return proto.CompactTextString(m) }
 func (*CreateGuestOptions) ProtoMessage()    {}
 func (*CreateGuestOptions) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c4336cf6cb1ddfbb, []int{14}
+	return fileDescriptor_c4336cf6cb1ddfbb, []int{16}
 }
 
 func (m *CreateGuestOptions) XXX_Unmarshal(b []byte) error {
@@ -1005,7 +1005,7 @@ func (m *ResizeGuestOptions) Reset()         { *m = ResizeGuestOptions{} }
 func (m *ResizeGuestOptions) String() string { return proto.CompactTextString(m) }
 func (*ResizeGuestOptions) ProtoMessage()    {}
 func (*ResizeGuestOptions) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c4336cf6cb1ddfbb, []int{15}
+	return fileDescriptor_c4336cf6cb1ddfbb, []int{17}
 }
 
 func (m *ResizeGuestOptions) XXX_Unmarshal(b []byte) error {
@@ -1077,7 +1077,7 @@ func (m *CreateGuestMessage) Reset()         { *m = CreateGuestMessage{} }
 func (m *CreateGuestMessage) String() string { return proto.CompactTextString(m) }
 func (*CreateGuestMessage) ProtoMessage()    {}
 func (*CreateGuestMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c4336cf6cb1ddfbb, []int{16}
+	return fileDescriptor_c4336cf6cb1ddfbb, []int{18}
 }
 
 func (m *CreateGuestMessage) XXX_Unmarshal(b []byte) error {
@@ -1202,7 +1202,7 @@ func (m *ControlGuestOptions) Reset()         { *m = ControlGuestOptions{} }
 func (m *ControlGuestOptions) String() string { return proto.CompactTextString(m) }
 func (*ControlGuestOptions) ProtoMessage()    {}
 func (*ControlGuestOptions) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c4336cf6cb1ddfbb, []int{17}
+	return fileDescriptor_c4336cf6cb1ddfbb, []int{19}
 }
 
 func (m *ControlGuestOptions) XXX_Unmarshal(b []byte) error {
@@ -1255,7 +1255,7 @@ func (m *ControlGuestMessage) Reset()         { *m = ControlGuestMessage{} }
 func (m *ControlGuestMessage) String() string { return proto.CompactTextString(m) }
 func (*ControlGuestMessage) ProtoMessage()    {}
 func (*ControlGuestMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c4336cf6cb1ddfbb, []int{18}
+	return fileDescriptor_c4336cf6cb1ddfbb, []int{20}
 }
 
 func (m *ControlGuestMessage) XXX_Unmarshal(b []byte) error {
@@ -1298,7 +1298,7 @@ func (m *AttachGuestOptions) Reset()         { *m = AttachGuestOptions{} }
 func (m *AttachGuestOptions) String() string { return proto.CompactTextString(m) }
 func (*AttachGuestOptions) ProtoMessage()    {}
 func (*AttachGuestOptions) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c4336cf6cb1ddfbb, []int{19}
+	return fileDescriptor_c4336cf6cb1ddfbb, []int{21}
 }
 
 func (m *AttachGuestOptions) XXX_Unmarshal(b []byte) error {
@@ -1366,7 +1366,7 @@ func (m *AttachGuestMessage) Reset()         { *m = AttachGuestMessage{} }
 func (m *AttachGuestMessage) String() string { return proto.CompactTextString(m) }
 func (*AttachGuestMessage) ProtoMessage()    {}
 func (*AttachGuestMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c4336cf6cb1ddfbb, []int{20}
+	return fileDescriptor_c4336cf6cb1ddfbb, []int{22}
 }
 
 func (m *AttachGuestMessage) XXX_Unmarshal(b []byte) error {
@@ -1414,7 +1414,7 @@ func (m *ResizeWindowOptions) Reset()         { *m = ResizeWindowOptions{} }
 func (m *ResizeWindowOptions) String() string { return proto.CompactTextString(m) }
 func (*ResizeWindowOptions) ProtoMessage()    {}
 func (*ResizeWindowOptions) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c4336cf6cb1ddfbb, []int{21}
+	return fileDescriptor_c4336cf6cb1ddfbb, []int{23}
 }
 
 func (m *ResizeWindowOptions) XXX_Unmarshal(b []byte) error {
@@ -1468,7 +1468,7 @@ func (m *ExecuteGuestOptions) Reset()         { *m = ExecuteGuestOptions{} }
 func (m *ExecuteGuestOptions) String() string { return proto.CompactTextString(m) }
 func (*ExecuteGuestOptions) ProtoMessage()    {}
 func (*ExecuteGuestOptions) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c4336cf6cb1ddfbb, []int{22}
+	return fileDescriptor_c4336cf6cb1ddfbb, []int{24}
 }
 
 func (m *ExecuteGuestOptions) XXX_Unmarshal(b []byte) error {
@@ -1516,7 +1516,7 @@ func (m *ExecuteGuestMessage) Reset()         { *m = ExecuteGuestMessage{} }
 func (m *ExecuteGuestMessage) String() string { return proto.CompactTextString(m) }
 func (*ExecuteGuestMessage) ProtoMessage()    {}
 func (*ExecuteGuestMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c4336cf6cb1ddfbb, []int{23}
+	return fileDescriptor_c4336cf6cb1ddfbb, []int{25}
 }
 
 func (m *ExecuteGuestMessage) XXX_Unmarshal(b []byte) error {
@@ -1569,7 +1569,7 @@ func (m *ConnectNetworkMessage) Reset()         { *m = ConnectNetworkMessage{} }
 func (m *ConnectNetworkMessage) String() string { return proto.CompactTextString(m) }
 func (*ConnectNetworkMessage) ProtoMessage()    {}
 func (*ConnectNetworkMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c4336cf6cb1ddfbb, []int{24}
+	return fileDescriptor_c4336cf6cb1ddfbb, []int{26}
 }
 
 func (m *ConnectNetworkMessage) XXX_Unmarshal(b []byte) error {
@@ -1608,7 +1608,7 @@ func (m *DisconnectNetworkMessage) Reset()         { *m = DisconnectNetworkMessa
 func (m *DisconnectNetworkMessage) String() string { return proto.CompactTextString(m) }
 func (*DisconnectNetworkMessage) ProtoMessage()    {}
 func (*DisconnectNetworkMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c4336cf6cb1ddfbb, []int{25}
+	return fileDescriptor_c4336cf6cb1ddfbb, []int{27}
 }
 
 func (m *DisconnectNetworkMessage) XXX_Unmarshal(b []byte) error {
@@ -1636,91 +1636,203 @@ func (m *DisconnectNetworkMessage) GetMsg() string {
 	return ""
 }
 
-var File_grpc_gen_yavirtd_proto protoreflect.FileDescriptor
+type EventMessage struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Type                 string   `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
+	Action               string   `protobuf:"bytes,3,opt,name=action,proto3" json:"action,omitempty"`
+	TimeNano             int64    `protobuf:"varint,4,opt,name=time_nano,json=timeNano,proto3" json:"time_nano,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *EventMessage) Reset()         { *m = EventMessage{} }
+func (m *EventMessage) String() string { return proto.CompactTextString(m) }
+func (*EventMessage) ProtoMessage()    {}
+func (*EventMessage) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c4336cf6cb1ddfbb, []int{28}
+}
+
+func (m *EventMessage) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_EventMessage.Unmarshal(m, b)
+}
+func (m *EventMessage) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_EventMessage.Marshal(b, m, deterministic)
+}
+func (m *EventMessage) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_EventMessage.Merge(m, src)
+}
+func (m *EventMessage) XXX_Size() int {
+	return xxx_messageInfo_EventMessage.Size(m)
+}
+func (m *EventMessage) XXX_DiscardUnknown() {
+	xxx_messageInfo_EventMessage.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_EventMessage proto.InternalMessageInfo
+
+func (m *EventMessage) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *EventMessage) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *EventMessage) GetAction() string {
+	if m != nil {
+		return m.Action
+	}
+	return ""
+}
+
+func (m *EventMessage) GetTimeNano() int64 {
+	if m != nil {
+		return m.TimeNano
+	}
+	return 0
+}
+
+func init() {
+	proto.RegisterType((*Empty)(nil), "Empty")
+	proto.RegisterType((*CopyOptions)(nil), "CopyOptions")
+	proto.RegisterType((*CopyMessage)(nil), "CopyMessage")
+	proto.RegisterType((*CatOptions)(nil), "CatOptions")
+	proto.RegisterType((*CatMessage)(nil), "CatMessage")
+	proto.RegisterType((*DisconnectNetworkOptions)(nil), "DisconnectNetworkOptions")
+	proto.RegisterType((*ConnectNetworkOptions)(nil), "ConnectNetworkOptions")
+	proto.RegisterType((*CaptureGuestOptions)(nil), "CaptureGuestOptions")
+	proto.RegisterType((*UserImageMessage)(nil), "UserImageMessage")
+	proto.RegisterType((*PingMessage)(nil), "PingMessage")
+	proto.RegisterType((*InfoMessage)(nil), "InfoMessage")
+	proto.RegisterType((*GetGuestOptions)(nil), "GetGuestOptions")
+	proto.RegisterType((*GetGuestMessage)(nil), "GetGuestMessage")
+	proto.RegisterMapType((map[string]string)(nil), "GetGuestMessage.LabelsEntry")
+	proto.RegisterMapType((map[string]string)(nil), "GetGuestMessage.NetworksEntry")
+	proto.RegisterType((*GetGuestIDListOptions)(nil), "GetGuestIDListOptions")
+	proto.RegisterMapType((map[string]string)(nil), "GetGuestIDListOptions.FiltersEntry")
+	proto.RegisterType((*GetGuestIDListMessage)(nil), "GetGuestIDListMessage")
+	proto.RegisterType((*GetGuestUUIDMessage)(nil), "GetGuestUUIDMessage")
+	proto.RegisterType((*CreateGuestOptions)(nil), "CreateGuestOptions")
+	proto.RegisterMapType((map[string]string)(nil), "CreateGuestOptions.LabelsEntry")
+	proto.RegisterMapType((map[string]int64)(nil), "CreateGuestOptions.VolumesEntry")
+	proto.RegisterType((*ResizeGuestOptions)(nil), "ResizeGuestOptions")
+	proto.RegisterMapType((map[string]int64)(nil), "ResizeGuestOptions.VolumesEntry")
+	proto.RegisterType((*CreateGuestMessage)(nil), "CreateGuestMessage")
+	proto.RegisterMapType((map[string]string)(nil), "CreateGuestMessage.NetworksEntry")
+	proto.RegisterType((*ControlGuestOptions)(nil), "ControlGuestOptions")
+	proto.RegisterType((*ControlGuestMessage)(nil), "ControlGuestMessage")
+	proto.RegisterType((*AttachGuestOptions)(nil), "AttachGuestOptions")
+	proto.RegisterType((*AttachGuestMessage)(nil), "AttachGuestMessage")
+	proto.RegisterType((*ResizeWindowOptions)(nil), "ResizeWindowOptions")
+	proto.RegisterType((*ExecuteGuestOptions)(nil), "ExecuteGuestOptions")
+	proto.RegisterType((*ExecuteGuestMessage)(nil), "ExecuteGuestMessage")
+	proto.RegisterType((*ConnectNetworkMessage)(nil), "ConnectNetworkMessage")
+	proto.RegisterType((*DisconnectNetworkMessage)(nil), "DisconnectNetworkMessage")
+	proto.RegisterType((*EventMessage)(nil), "EventMessage")
+}
+
+func init() {
+	proto.RegisterFile("grpc/gen/yavirtd.proto", fileDescriptor_c4336cf6cb1ddfbb)
+}
 
 var fileDescriptor_c4336cf6cb1ddfbb = []byte{
-	// 1295 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x58, 0x5b, 0x73, 0xdb, 0x44,
-	0x14, 0x8e, 0xac, 0xc4, 0x97, 0x63, 0x27, 0xa4, 0x1b, 0x30, 0x8a, 0x28, 0xc4, 0xdd, 0xa1, 0xd4,
-	0xdc, 0xd2, 0x4e, 0x61, 0x3a, 0xbd, 0xc0, 0x0c, 0xc5, 0x09, 0x25, 0x33, 0x50, 0x3a, 0x6a, 0xd3,
-	0x4e, 0x79, 0xf1, 0xa8, 0xd2, 0xd6, 0xd9, 0xa9, 0xa5, 0xd5, 0x48, 0x6b, 0xb7, 0x86, 0x67, 0x1e,
-	0xf8, 0x37, 0xfc, 0x06, 0x9e, 0xf9, 0x1f, 0xfc, 0x05, 0x1e, 0x99, 0xbd, 0xc9, 0xb2, 0x2d, 0xb9,
-	0x2d, 0x7d, 0xe5, 0x6d, 0xcf, 0xd9, 0xd5, 0xb9, 0x7c, 0xe7, 0xb2, 0x67, 0x05, 0xdd, 0x51, 0x9a,
-	0x04, 0x97, 0x47, 0x24, 0xbe, 0x3c, 0xf3, 0xa7, 0x34, 0xe5, 0xe1, 0x61, 0x92, 0x32, 0xce, 0xd0,
-	0xd6, 0xcc, 0x9f, 0x26, 0x4f, 0x70, 0x03, 0xb6, 0x8e, 0xa3, 0x84, 0xcf, 0xf0, 0xaf, 0xd0, 0x1e,
-	0xb0, 0x64, 0xf6, 0x53, 0xc2, 0x29, 0x8b, 0x33, 0xb4, 0x03, 0x35, 0x1a, 0x3a, 0x56, 0xcf, 0xea,
-	0xb7, 0xbc, 0x1a, 0x0d, 0x11, 0x82, 0xcd, 0x90, 0x64, 0xdc, 0xa9, 0x49, 0x8e, 0x5c, 0x23, 0x07,
-	0x1a, 0x01, 0x8b, 0x39, 0x89, 0xb9, 0x63, 0xf7, 0xac, 0x7e, 0xc7, 0x33, 0x24, 0x72, 0xa1, 0xc9,
-	0xa6, 0x24, 0x4d, 0x69, 0x48, 0x9c, 0xcd, 0x9e, 0xd5, 0x6f, 0x7a, 0x39, 0x2d, 0x24, 0x65, 0xf4,
-	0x17, 0xe2, 0x6c, 0xf5, 0xac, 0xbe, 0xed, 0xc9, 0x35, 0x3e, 0x50, 0xca, 0x7f, 0x24, 0x59, 0xe6,
-	0x8f, 0x08, 0xda, 0x05, 0x3b, 0xca, 0x46, 0x5a, 0xbb, 0x58, 0xe2, 0x2b, 0x00, 0x03, 0x9f, 0xaf,
-	0x31, 0x2e, 0xf1, 0xf9, 0x99, 0x31, 0x4e, 0xac, 0x71, 0x4f, 0x7e, 0x61, 0x24, 0x0a, 0xf3, 0x7d,
-	0xee, 0xcb, 0x6f, 0x3a, 0x9e, 0x5c, 0xe3, 0x23, 0x70, 0x8e, 0x68, 0x16, 0xb0, 0x38, 0x26, 0x01,
-	0xbf, 0x4b, 0xf8, 0x73, 0x96, 0x3e, 0xab, 0xd2, 0xe0, 0x40, 0x23, 0x56, 0x27, 0xb4, 0x12, 0x43,
-	0x62, 0x0a, 0xef, 0x0c, 0xde, 0x4c, 0x84, 0x30, 0x8e, 0x26, 0xd3, 0x2f, 0x25, 0x88, 0x2d, 0x4f,
-	0xae, 0x35, 0xef, 0x9a, 0x44, 0x4f, 0xf1, 0xae, 0xe1, 0x08, 0xf6, 0x06, 0x7e, 0xc2, 0x27, 0x29,
-	0xb9, 0x33, 0x21, 0xd9, 0x3a, 0x34, 0x62, 0x3f, 0x22, 0x06, 0x0d, 0xb1, 0x16, 0xbc, 0x49, 0x46,
-	0x52, 0xa3, 0x42, 0xac, 0xd1, 0x07, 0x00, 0x3a, 0x28, 0x21, 0x89, 0x75, 0x98, 0x0a, 0x1c, 0xfc,
-	0xbb, 0x05, 0xbb, 0xa7, 0x19, 0x49, 0x4f, 0x22, 0x7f, 0x44, 0x0c, 0x90, 0xaf, 0xa2, 0xac, 0x0b,
-	0xf5, 0x90, 0x66, 0x3c, 0x65, 0x5a, 0x9d, 0xa6, 0xd0, 0x45, 0xd8, 0x19, 0xfb, 0x9c, 0x64, 0x7c,
-	0x38, 0x25, 0x69, 0x46, 0x99, 0x52, 0x6a, 0x7b, 0xdb, 0x8a, 0xfb, 0x50, 0x31, 0x4b, 0x13, 0xe4,
-	0x12, 0xb4, 0xef, 0xd1, 0x78, 0x64, 0xac, 0x70, 0xa0, 0x61, 0x44, 0x28, 0x53, 0x0c, 0x89, 0x7d,
-	0x68, 0x9f, 0xc4, 0x4f, 0x59, 0x95, 0xb9, 0xbb, 0x60, 0x07, 0xc9, 0x44, 0x5a, 0x6b, 0x7b, 0x62,
-	0x29, 0x8c, 0x8d, 0x48, 0xc4, 0xd2, 0x99, 0x34, 0xd6, 0xf6, 0x34, 0x25, 0x54, 0x64, 0x9c, 0xa5,
-	0xfe, 0x88, 0x68, 0x2b, 0x0d, 0x89, 0x2f, 0xc0, 0x5b, 0x77, 0x08, 0x5f, 0x17, 0x02, 0xfc, 0xa7,
-	0x3d, 0x3f, 0x53, 0x65, 0x4a, 0x17, 0xea, 0x19, 0xf7, 0xf9, 0x24, 0xd3, 0xd8, 0x69, 0x4a, 0xa0,
-	0xc4, 0x53, 0x3f, 0xce, 0x28, 0x1f, 0xea, 0x7d, 0x85, 0xe2, 0xb6, 0xe6, 0xde, 0x57, 0xc7, 0x0e,
-	0xa0, 0x1d, 0xa4, 0xc4, 0xe7, 0x64, 0xc8, 0x69, 0x64, 0x6c, 0x04, 0xc5, 0x7a, 0x40, 0x23, 0x82,
-	0x2e, 0x40, 0xc7, 0xc8, 0x91, 0x27, 0x14, 0x9c, 0x6d, 0xcd, 0x93, 0x47, 0x0e, 0xa0, 0x3d, 0x49,
-	0xc2, 0x5c, 0x46, 0x5d, 0xc9, 0x50, 0x2c, 0x79, 0x40, 0xc3, 0xd5, 0x28, 0x83, 0xab, 0x59, 0x05,
-	0x57, 0x6b, 0x01, 0x2e, 0xb4, 0x0f, 0x4d, 0x2a, 0x32, 0x68, 0x48, 0x43, 0x07, 0xd4, 0x96, 0xa4,
-	0x4f, 0x42, 0xf4, 0x3e, 0x80, 0xda, 0x92, 0x29, 0xd4, 0x96, 0x6e, 0xb6, 0x24, 0xe7, 0xae, 0xc8,
-	0xa3, 0x6f, 0xa0, 0xa9, 0x4b, 0x24, 0x73, 0x3a, 0x3d, 0xbb, 0xdf, 0xbe, 0xfa, 0xe1, 0xa1, 0xec,
-	0x5a, 0x87, 0x4b, 0xd8, 0x1e, 0xea, 0xd2, 0xcb, 0x8e, 0x63, 0x9e, 0xce, 0xbc, 0xfc, 0x2b, 0xf7,
-	0x16, 0x6c, 0x2f, 0x6c, 0x09, 0x87, 0x9e, 0x91, 0x99, 0xe9, 0x2c, 0xcf, 0xc8, 0x0c, 0xbd, 0x0d,
-	0x5b, 0x53, 0x7f, 0x3c, 0x31, 0x19, 0xac, 0x88, 0x9b, 0xb5, 0xeb, 0x16, 0xfe, 0x18, 0xf6, 0x8c,
-	0x9e, 0xd3, 0xd3, 0x93, 0xa3, 0x42, 0x2b, 0x99, 0x4c, 0xf2, 0x48, 0xca, 0x35, 0xfe, 0xc3, 0x06,
-	0x34, 0x90, 0xd0, 0x2f, 0xa4, 0x85, 0x86, 0xcf, 0x2a, 0x83, 0xaf, 0xb6, 0x00, 0xdf, 0x22, 0x12,
-	0xf6, 0x2a, 0x12, 0x8d, 0x29, 0x1b, 0x4f, 0x22, 0x92, 0x39, 0x9b, 0x12, 0x88, 0x8f, 0x34, 0x10,
-	0xab, 0x4a, 0x0f, 0x1f, 0xaa, 0x83, 0x0a, 0x0a, 0xf3, 0x99, 0x88, 0x42, 0x18, 0xd1, 0xa1, 0xb4,
-	0x7c, 0x4b, 0x95, 0x4c, 0x18, 0xd1, 0xd3, 0x09, 0x0d, 0xd1, 0xd7, 0x50, 0x1f, 0xfb, 0x4f, 0xc8,
-	0x38, 0x73, 0xea, 0x52, 0xf6, 0xc5, 0x6a, 0xd9, 0x3f, 0xc8, 0x73, 0x4a, 0xb4, 0xfe, 0x48, 0x24,
-	0x91, 0x1f, 0x07, 0x44, 0x84, 0x5b, 0x84, 0xb8, 0x21, 0x85, 0x83, 0x61, 0x15, 0xa3, 0x2c, 0x3b,
-	0x50, 0xb3, 0xe0, 0x9b, 0xe8, 0x2e, 0xee, 0x4d, 0xe8, 0x14, 0x4d, 0x7e, 0x59, 0x88, 0xec, 0x42,
-	0x88, 0xdc, 0x1b, 0xd0, 0x2e, 0x98, 0xf4, 0x5a, 0xd1, 0xfd, 0xcb, 0x02, 0xe4, 0x11, 0xd1, 0x5c,
-	0xd6, 0x36, 0xd3, 0x57, 0x6f, 0x18, 0x95, 0x31, 0x5a, 0xd5, 0x52, 0x1e, 0xa3, 0x37, 0x41, 0x02,
-	0xff, 0xbd, 0x98, 0x81, 0xff, 0x37, 0x9d, 0xff, 0xda, 0x74, 0x06, 0x2b, 0x4d, 0xe7, 0xd2, 0x6a,
-	0x3d, 0xbc, 0xa4, 0xef, 0x2c, 0xa5, 0xfc, 0xf6, 0x72, 0xca, 0xbf, 0x51, 0x5b, 0x7a, 0x0c, 0x7b,
-	0x03, 0x16, 0xf3, 0x94, 0x8d, 0xd7, 0x26, 0xee, 0x79, 0x68, 0xb1, 0x84, 0xa4, 0xbe, 0xd8, 0xd5,
-	0x42, 0xe6, 0x0c, 0x21, 0xfe, 0x29, 0x4b, 0x03, 0xd5, 0x6a, 0x9a, 0x9e, 0x22, 0xf0, 0xa5, 0x45,
-	0xd1, 0xd5, 0xe3, 0xd8, 0x6f, 0x16, 0xa0, 0xdb, 0x9c, 0xfb, 0xc1, 0xd9, 0x5a, 0x1b, 0xf6, 0xa1,
-	0x99, 0x92, 0x64, 0x3c, 0x0c, 0xa2, 0x50, 0x9a, 0xd0, 0xf1, 0x1a, 0x82, 0x1e, 0x44, 0x61, 0xb9,
-	0x01, 0xf2, 0xea, 0xf7, 0x9f, 0x9a, 0x99, 0x51, 0xae, 0xc5, 0x2c, 0x19, 0xb0, 0x28, 0xf2, 0xe3,
-	0x30, 0x73, 0xb6, 0x7a, 0x76, 0xbf, 0xe5, 0xe5, 0x34, 0xbe, 0xbe, 0x60, 0xc6, 0x9a, 0x19, 0x45,
-	0x0e, 0x7f, 0xb5, 0xc2, 0xf0, 0x77, 0x1f, 0xf6, 0x54, 0x5d, 0x3e, 0xa2, 0x71, 0xc8, 0x9e, 0x57,
-	0x79, 0xd0, 0x85, 0xfa, 0x19, 0xa1, 0xa3, 0x33, 0x6e, 0xfa, 0xb5, 0xa2, 0x84, 0xf9, 0xcf, 0x69,
-	0xc8, 0xcf, 0x74, 0x0f, 0x50, 0x04, 0xbe, 0x0d, 0x7b, 0xc7, 0x2f, 0x48, 0x30, 0xe1, 0xeb, 0x7b,
-	0x4a, 0xd1, 0xa3, 0xda, 0x92, 0x47, 0x0f, 0x17, 0x45, 0xbc, 0x86, 0x4b, 0xe8, 0x3d, 0x68, 0x91,
-	0x17, 0x94, 0x0f, 0x03, 0x16, 0x12, 0x6d, 0x57, 0x53, 0x30, 0x06, 0x2c, 0x24, 0xf8, 0xd3, 0xe5,
-	0x31, 0xb5, 0x70, 0x9d, 0x05, 0x34, 0x4c, 0xcd, 0x75, 0x26, 0xd6, 0xf8, 0xb3, 0x92, 0xc9, 0xb8,
-	0x32, 0x19, 0xae, 0xfe, 0xd3, 0x00, 0x78, 0xac, 0xde, 0x16, 0xde, 0xbd, 0x01, 0xfa, 0x04, 0x36,
-	0xc5, 0xa8, 0x86, 0x3a, 0xba, 0x6c, 0xe4, 0xf3, 0xc2, 0x45, 0x9a, 0x2a, 0x4c, 0x71, 0x78, 0x03,
-	0x7d, 0x0e, 0x8d, 0x3b, 0x84, 0x8b, 0x81, 0xad, 0xe2, 0x78, 0x61, 0x96, 0xc3, 0x1b, 0xe8, 0x2b,
-	0x68, 0x9a, 0x1b, 0x19, 0x75, 0x97, 0x46, 0x01, 0x0d, 0xb6, 0xdb, 0x2d, 0x1f, 0x11, 0xf0, 0x06,
-	0x3a, 0x82, 0x4e, 0xf1, 0x3e, 0xaf, 0x94, 0xe0, 0x2e, 0xf1, 0x0b, 0x97, 0x3f, 0xde, 0x40, 0xc7,
-	0xd0, 0x2e, 0x34, 0x02, 0xb4, 0x5f, 0x79, 0x59, 0xba, 0xfb, 0x95, 0x7d, 0x03, 0x6f, 0xa0, 0xef,
-	0xa1, 0x53, 0x2c, 0x35, 0x64, 0x94, 0x96, 0x94, 0xb6, 0x5b, 0xb6, 0x37, 0x97, 0x74, 0x02, 0xed,
-	0x42, 0x0d, 0xe4, 0x06, 0xad, 0x96, 0xa7, 0x5b, 0xb2, 0x95, 0x8b, 0xe9, 0x5b, 0x57, 0x2c, 0x74,
-	0xdb, 0x14, 0xc5, 0x80, 0xc5, 0x19, 0x1b, 0xeb, 0xda, 0xc8, 0x6d, 0x2b, 0x29, 0x18, 0x77, 0x21,
-	0x6c, 0xca, 0xaf, 0x62, 0xfe, 0xe6, 0xdf, 0x96, 0xd4, 0x85, 0x5b, 0xb6, 0x37, 0xf7, 0xeb, 0x3b,
-	0x68, 0x17, 0x6e, 0xce, 0xdc, 0xaf, 0xd5, 0xdb, 0xf4, 0x25, 0xf8, 0x1c, 0x43, 0xa7, 0xf8, 0x6a,
-	0x9a, 0x23, 0xbd, 0xfa, 0x94, 0x72, 0xdf, 0xd5, 0x7b, 0xcb, 0xcf, 0x1e, 0xbc, 0x81, 0xee, 0xc2,
-	0xce, 0x62, 0x01, 0xa1, 0xf3, 0x73, 0xb5, 0xab, 0xcf, 0x3f, 0xb7, 0x7c, 0x77, 0x2e, 0xef, 0x11,
-	0x9c, 0x5b, 0xa9, 0x31, 0x74, 0xa0, 0x3f, 0xaa, 0x7a, 0x97, 0xba, 0x95, 0x07, 0xe6, 0x82, 0x2f,
-	0x83, 0x3d, 0xf0, 0x39, 0x3a, 0x97, 0xbb, 0x99, 0x7b, 0x57, 0x60, 0xe5, 0xc7, 0xaf, 0x58, 0xe8,
-	0x86, 0x7a, 0x7c, 0x3f, 0x60, 0x0a, 0x1f, 0x94, 0x1b, 0x9e, 0xff, 0x0d, 0x70, 0x8b, 0xbc, 0x42,
-	0xca, 0x7c, 0xbb, 0xfb, 0xf3, 0x8e, 0xf9, 0xbd, 0x70, 0x4b, 0x9e, 0x78, 0x52, 0x97, 0x7f, 0x17,
-	0xbe, 0xf8, 0x37, 0x00, 0x00, 0xff, 0xff, 0xe7, 0xe6, 0xa3, 0xa1, 0x77, 0x10, 0x00, 0x00,
+	// 1424 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x58, 0x5f, 0x73, 0xd3, 0x46,
+	0x10, 0x8f, 0xac, 0xc4, 0x76, 0xd6, 0x4e, 0x6a, 0xce, 0x21, 0x23, 0x54, 0x4a, 0x1c, 0x31, 0x1d,
+	0xc2, 0xb4, 0x15, 0x19, 0x4a, 0x29, 0x84, 0xf2, 0x00, 0x4e, 0xca, 0x64, 0x4a, 0x29, 0x23, 0x08,
+	0x1d, 0xfa, 0xe2, 0x39, 0xa4, 0x8b, 0x73, 0x83, 0xa5, 0xd3, 0x48, 0x67, 0x83, 0xdb, 0xe7, 0x3e,
+	0xf4, 0x7b, 0xf0, 0xca, 0xd7, 0xe8, 0xf7, 0xe8, 0x37, 0xe9, 0xdc, 0x1f, 0xd9, 0x92, 0x2d, 0xbb,
+	0xd0, 0xf4, 0xb1, 0x6f, 0xbb, 0xab, 0xdd, 0xbd, 0xdf, 0xed, 0xed, 0xee, 0xed, 0x09, 0xb6, 0xfb,
+	0x49, 0xec, 0xdf, 0xe8, 0x93, 0xe8, 0xc6, 0x18, 0x8f, 0x68, 0xc2, 0x03, 0x37, 0x4e, 0x18, 0x67,
+	0x4e, 0x0d, 0xd6, 0x8e, 0xc2, 0x98, 0x8f, 0x9d, 0xdf, 0xa0, 0xd1, 0x65, 0xf1, 0xf8, 0xa7, 0x98,
+	0x53, 0x16, 0xa5, 0x68, 0x13, 0x2a, 0x34, 0xb0, 0x8c, 0x8e, 0xb1, 0xb7, 0xee, 0x55, 0x68, 0x80,
+	0x10, 0xac, 0x06, 0x24, 0xe5, 0x56, 0x45, 0x4a, 0x24, 0x8d, 0x2c, 0xa8, 0xf9, 0x2c, 0xe2, 0x24,
+	0xe2, 0x96, 0xd9, 0x31, 0xf6, 0x9a, 0x5e, 0xc6, 0x22, 0x1b, 0xea, 0x6c, 0x44, 0x92, 0x84, 0x06,
+	0xc4, 0x5a, 0xed, 0x18, 0x7b, 0x75, 0x6f, 0xc2, 0x0b, 0x4f, 0x29, 0xfd, 0x95, 0x58, 0x6b, 0x1d,
+	0x63, 0xcf, 0xf4, 0x24, 0xed, 0xec, 0xa8, 0xc5, 0x7f, 0x24, 0x69, 0x8a, 0xfb, 0x04, 0xb5, 0xc0,
+	0x0c, 0xd3, 0xbe, 0x5e, 0x5d, 0x90, 0xce, 0x3e, 0x40, 0x17, 0xf3, 0x25, 0xe0, 0x62, 0xcc, 0xcf,
+	0x32, 0x70, 0x82, 0x76, 0x3a, 0xd2, 0x22, 0xf3, 0x28, 0xe0, 0x63, 0x8e, 0xa5, 0x4d, 0xd3, 0x93,
+	0xb4, 0x73, 0x08, 0xd6, 0x21, 0x4d, 0x7d, 0x16, 0x45, 0xc4, 0xe7, 0x4f, 0x08, 0x7f, 0xc3, 0x92,
+	0xd7, 0x8b, 0x56, 0xb0, 0xa0, 0x16, 0x29, 0x0d, 0xbd, 0x48, 0xc6, 0x3a, 0x14, 0x2e, 0x76, 0xcf,
+	0xe7, 0x42, 0x80, 0xa3, 0xf1, 0xe8, 0x96, 0x0c, 0xe2, 0xba, 0x27, 0x69, 0x2d, 0xbb, 0x2d, 0xa3,
+	0xa7, 0x64, 0xb7, 0x9d, 0x10, 0xda, 0x5d, 0x1c, 0xf3, 0x61, 0x42, 0x1e, 0x0d, 0x49, 0xba, 0x2c,
+	0x1a, 0x11, 0x0e, 0x49, 0x16, 0x0d, 0x41, 0x0b, 0xd9, 0x30, 0x25, 0x49, 0xb6, 0x84, 0xa0, 0xd1,
+	0x15, 0x00, 0x7d, 0x28, 0x01, 0x89, 0xf4, 0x31, 0xe5, 0x24, 0xce, 0x1f, 0x06, 0xb4, 0x4e, 0x52,
+	0x92, 0x1c, 0x87, 0xb8, 0x4f, 0xb2, 0x40, 0x7e, 0xc8, 0x62, 0xdb, 0x50, 0x0d, 0x68, 0xca, 0x13,
+	0xa6, 0x97, 0xd3, 0x1c, 0xfa, 0x1c, 0x36, 0x07, 0x98, 0x93, 0x94, 0xf7, 0x46, 0x24, 0x49, 0x29,
+	0x53, 0x8b, 0x9a, 0xde, 0x86, 0x92, 0xbe, 0x50, 0xc2, 0xd2, 0x04, 0xb9, 0x06, 0x8d, 0xa7, 0x34,
+	0xea, 0x67, 0x28, 0x2c, 0xa8, 0x65, 0x2e, 0x14, 0x94, 0x8c, 0x75, 0x30, 0x34, 0x8e, 0xa3, 0x53,
+	0xb6, 0x08, 0x6e, 0x0b, 0x4c, 0x3f, 0x1e, 0x4a, 0xb4, 0xa6, 0x27, 0x48, 0x01, 0x36, 0x24, 0x21,
+	0x4b, 0xc6, 0x12, 0xac, 0xe9, 0x69, 0x4e, 0x2c, 0x91, 0x72, 0x96, 0xe0, 0x3e, 0xd1, 0x28, 0x33,
+	0xd6, 0xd9, 0x85, 0x4f, 0x1e, 0x11, 0xbe, 0xec, 0x08, 0x9c, 0xf7, 0xab, 0x53, 0x9d, 0x45, 0x50,
+	0xb6, 0xa1, 0x9a, 0x72, 0xcc, 0x87, 0xa9, 0x8e, 0x9d, 0xe6, 0x44, 0x94, 0x78, 0x82, 0xa3, 0x94,
+	0xf2, 0x9e, 0xfe, 0xae, 0xa2, 0xb8, 0xa1, 0xa5, 0xcf, 0x94, 0xda, 0x0e, 0x34, 0xfc, 0x84, 0x60,
+	0x4e, 0x7a, 0x9c, 0x86, 0x19, 0x46, 0x50, 0xa2, 0xe7, 0x34, 0x24, 0x68, 0x17, 0x9a, 0x99, 0x1f,
+	0xa9, 0xa1, 0xc2, 0xd9, 0xd0, 0x32, 0xa9, 0xb2, 0x03, 0x8d, 0x61, 0x1c, 0x4c, 0x7c, 0x54, 0x95,
+	0x0f, 0x25, 0x92, 0x0a, 0x3a, 0x5c, 0xb5, 0xb2, 0x70, 0xd5, 0x17, 0x85, 0x6b, 0xbd, 0x10, 0x2e,
+	0x74, 0x09, 0xea, 0x54, 0x64, 0x50, 0x8f, 0x06, 0x16, 0xa8, 0x4f, 0x92, 0x3f, 0x0e, 0xd0, 0x67,
+	0x00, 0xea, 0x93, 0x4c, 0xa1, 0x86, 0xdc, 0xe6, 0xba, 0x94, 0x3c, 0x11, 0x79, 0x74, 0x00, 0x75,
+	0x5d, 0x22, 0xa9, 0xd5, 0xec, 0x98, 0x7b, 0x8d, 0x9b, 0x57, 0xdc, 0x99, 0xa8, 0xba, 0xba, 0xe8,
+	0xd2, 0xa3, 0x88, 0x27, 0x63, 0x6f, 0xa2, 0x8f, 0x6e, 0x41, 0x75, 0x80, 0x5f, 0x91, 0x41, 0x6a,
+	0x6d, 0x48, 0xcb, 0xcb, 0x73, 0x96, 0x8f, 0xe5, 0x67, 0x65, 0xa7, 0x75, 0xed, 0x7b, 0xb0, 0x51,
+	0x70, 0x28, 0x02, 0xf0, 0x9a, 0x8c, 0xb3, 0x4e, 0xf4, 0x9a, 0x8c, 0xd1, 0x16, 0xac, 0x8d, 0xf0,
+	0x60, 0x98, 0x65, 0xbc, 0x62, 0x0e, 0x2a, 0x77, 0x0c, 0xfb, 0x2e, 0x34, 0x72, 0x3e, 0x3f, 0xc6,
+	0xd4, 0x79, 0x67, 0xc0, 0xc5, 0x0c, 0xdf, 0xf1, 0xe1, 0x63, 0x3a, 0xcd, 0xac, 0x16, 0x98, 0x78,
+	0x30, 0x90, 0x5e, 0xea, 0x9e, 0x20, 0xd1, 0x7d, 0xa8, 0x9d, 0xd2, 0x01, 0x27, 0x89, 0x48, 0x1c,
+	0xb1, 0xb5, 0xab, 0x6e, 0xa9, 0xa9, 0xfb, 0xbd, 0xd2, 0x52, 0x3b, 0xcc, 0x6c, 0xec, 0x03, 0x68,
+	0xe6, 0x3f, 0x7c, 0x14, 0xcc, 0xeb, 0xb3, 0x28, 0x73, 0x0d, 0x9b, 0x06, 0xa9, 0x65, 0x74, 0x4c,
+	0xe1, 0x84, 0x06, 0xa9, 0x73, 0x1d, 0xda, 0x99, 0xea, 0xc9, 0xc9, 0xf1, 0x61, 0xae, 0x0f, 0x0f,
+	0x87, 0x93, 0x32, 0x90, 0xb4, 0xf3, 0xce, 0x04, 0xd4, 0x95, 0x79, 0x5b, 0xa8, 0x29, 0x9d, 0x7b,
+	0x46, 0x59, 0xee, 0x55, 0x0a, 0xb9, 0x57, 0x4c, 0x23, 0x73, 0x3e, 0x8d, 0x6a, 0x23, 0x36, 0x18,
+	0x86, 0x24, 0xb5, 0x56, 0x65, 0xc0, 0x3a, 0xee, 0xfc, 0x72, 0xee, 0x0b, 0xa5, 0xa2, 0xa3, 0xa5,
+	0x0d, 0x44, 0xf2, 0x06, 0x21, 0xed, 0x49, 0xcc, 0x6b, 0xaa, 0xd3, 0x04, 0x21, 0x3d, 0x19, 0xd2,
+	0x00, 0x7d, 0x3b, 0xc9, 0xb0, 0xaa, 0xf4, 0xba, 0x53, 0xe6, 0xb5, 0x24, 0xc9, 0x44, 0xd5, 0xe1,
+	0xc8, 0x27, 0xa2, 0x3e, 0x44, 0x4d, 0xd4, 0xa4, 0x5b, 0xc8, 0x44, 0xf9, 0xb2, 0x90, 0x2d, 0xbb,
+	0x9e, 0xdb, 0x8f, 0x68, 0xc7, 0xe2, 0x04, 0xf3, 0x60, 0xff, 0xe9, 0x04, 0xcd, 0xff, 0x28, 0x47,
+	0xff, 0x34, 0x00, 0x79, 0x44, 0x74, 0xe3, 0xa5, 0xb7, 0xcf, 0x87, 0x77, 0xd8, 0x92, 0x73, 0x99,
+	0xf7, 0x5f, 0x7e, 0x2e, 0xe7, 0x89, 0x81, 0xf3, 0x57, 0x31, 0xdf, 0xfe, 0xef, 0xcf, 0xff, 0xb6,
+	0x3f, 0xdf, 0x9f, 0xeb, 0xcf, 0xbb, 0xee, 0x7c, 0x60, 0x17, 0xb6, 0xe8, 0x62, 0x9a, 0x6f, 0xcc,
+	0xa6, 0xf9, 0x79, 0x7a, 0xb1, 0xf3, 0x12, 0xda, 0x5d, 0x16, 0xf1, 0x84, 0x0d, 0x96, 0x26, 0xeb,
+	0x65, 0x58, 0x67, 0x31, 0x49, 0xb0, 0xf8, 0xaa, 0x9d, 0x4c, 0x05, 0xc2, 0xfd, 0x29, 0x4b, 0x7c,
+	0xd5, 0x52, 0xea, 0x9e, 0x62, 0x9c, 0x6b, 0x45, 0xd7, 0x8b, 0x67, 0xd6, 0xdf, 0x0d, 0x40, 0x0f,
+	0x38, 0xc7, 0xfe, 0xd9, 0x52, 0x0c, 0x97, 0xa0, 0x9e, 0x90, 0x78, 0xd0, 0xf3, 0xc3, 0x40, 0x42,
+	0x68, 0x7a, 0x35, 0xc1, 0x77, 0xc3, 0xa0, 0x1c, 0x80, 0x9c, 0x8f, 0xf0, 0x69, 0x36, 0x58, 0x4b,
+	0x5a, 0x0c, 0xdc, 0x3e, 0x0b, 0x43, 0x1c, 0x05, 0xa9, 0xb5, 0x26, 0xbb, 0xf0, 0x84, 0x77, 0xee,
+	0x14, 0x60, 0x2c, 0x19, 0xe4, 0xe4, 0x84, 0x5c, 0xc9, 0x4d, 0xc8, 0xcf, 0xa0, 0xad, 0x2a, 0xf2,
+	0x67, 0x1a, 0x05, 0xec, 0xcd, 0xa2, 0x1d, 0x6c, 0x43, 0xf5, 0x8c, 0xd0, 0xfe, 0x19, 0xcf, 0xfa,
+	0xb2, 0xe2, 0x04, 0xfc, 0x37, 0x34, 0xe0, 0x67, 0xba, 0xee, 0x15, 0xe3, 0x3c, 0x80, 0xf6, 0xd1,
+	0x5b, 0xe2, 0x0f, 0xf9, 0xf2, 0x3e, 0x92, 0xdf, 0x51, 0x65, 0x66, 0x47, 0x2f, 0x8a, 0x2e, 0x3e,
+	0x62, 0x4b, 0xe8, 0x53, 0x58, 0x27, 0x6f, 0x29, 0xef, 0xf9, 0x2c, 0x20, 0x1a, 0x57, 0x5d, 0x08,
+	0xba, 0x2c, 0x20, 0xce, 0x17, 0xb3, 0xb3, 0x7c, 0xee, 0xda, 0xf2, 0x69, 0x90, 0x64, 0xd7, 0x96,
+	0xa0, 0x9d, 0x2f, 0x4b, 0x9e, 0x0f, 0x8b, 0x93, 0xa1, 0x0f, 0xcd, 0xa3, 0x11, 0x89, 0x96, 0x61,
+	0xe5, 0xe3, 0x78, 0x32, 0x47, 0x0b, 0x5a, 0xc4, 0x15, 0xfb, 0x32, 0x35, 0xf5, 0x1c, 0xad, 0x38,
+	0xb1, 0x07, 0xd1, 0x0f, 0x7a, 0x11, 0x8e, 0x98, 0x6e, 0x2c, 0x75, 0x21, 0x78, 0x82, 0x23, 0x76,
+	0xf3, 0x7d, 0x0d, 0xe0, 0xa5, 0x7a, 0xe2, 0x79, 0x4f, 0xbb, 0xe8, 0x0a, 0xac, 0x8a, 0xc1, 0x19,
+	0x55, 0x5d, 0xf9, 0xcc, 0xb3, 0x9b, 0x6e, 0x6e, 0x8e, 0x76, 0x56, 0xd0, 0x2e, 0xd4, 0x1e, 0x11,
+	0x2e, 0x46, 0xe6, 0x9c, 0x4a, 0x6e, 0x82, 0x76, 0x56, 0xd0, 0x3e, 0xd4, 0xb3, 0xab, 0x1c, 0xb5,
+	0xdc, 0x99, 0xd1, 0xd7, 0x6e, 0xcd, 0x0e, 0x56, 0xce, 0x0a, 0xba, 0x03, 0xcd, 0xfc, 0xe5, 0x5f,
+	0x62, 0xb5, 0xe5, 0x96, 0x4c, 0x07, 0xce, 0x0a, 0x7a, 0x08, 0x9b, 0xc5, 0x09, 0x03, 0x6d, 0x97,
+	0x4f, 0x37, 0xf6, 0xac, 0x7c, 0xea, 0xe3, 0x2e, 0x34, 0x72, 0x5d, 0x08, 0xb5, 0x4b, 0xee, 0x65,
+	0xbb, 0x5d, 0xd2, 0xa8, 0x9c, 0x15, 0xf4, 0x1d, 0x34, 0xf3, 0xb5, 0x8d, 0xb6, 0xdc, 0x92, 0x2e,
+	0x62, 0x17, 0xa5, 0x53, 0xeb, 0xfb, 0xd0, 0xc8, 0x15, 0x1a, 0x6a, 0xbb, 0xf3, 0xd5, 0x6f, 0x17,
+	0x84, 0x13, 0xd3, 0x3d, 0x63, 0xdf, 0x40, 0xdf, 0x64, 0xd5, 0xd6, 0x65, 0x51, 0xca, 0x06, 0xba,
+	0xe8, 0xd0, 0x96, 0x5b, 0x52, 0x83, 0xb6, 0x3e, 0x2c, 0x85, 0x39, 0x5f, 0x0c, 0x68, 0xcb, 0x2d,
+	0x29, 0x2f, 0xbb, 0x28, 0x9d, 0x62, 0x3e, 0x80, 0x46, 0xee, 0xd2, 0x45, 0xed, 0x92, 0x2b, 0x78,
+	0xe1, 0x7e, 0xef, 0x42, 0x33, 0xff, 0x1e, 0x15, 0xd1, 0x9a, 0x7f, 0x9e, 0xda, 0x17, 0xdc, 0xd9,
+	0x47, 0xa4, 0x3a, 0xe7, 0x62, 0xa5, 0xa1, 0x6d, 0xb7, 0xf4, 0x19, 0x6d, 0xcf, 0xca, 0xa7, 0x3e,
+	0x7e, 0x80, 0x0b, 0x73, 0x05, 0x88, 0x2e, 0xb9, 0x8b, 0xde, 0xf4, 0x76, 0xc9, 0xa7, 0xa9, 0xb3,
+	0xab, 0x60, 0x76, 0x31, 0x47, 0x0d, 0x77, 0xfa, 0x9b, 0xc1, 0x96, 0xcc, 0x44, 0x65, 0xdf, 0x40,
+	0x5f, 0xa9, 0xdf, 0x14, 0xcf, 0x99, 0xda, 0x6f, 0xd3, 0xcd, 0xfd, 0x31, 0xb1, 0x15, 0x97, 0x3b,
+	0x52, 0x74, 0x15, 0xaa, 0xb2, 0xe6, 0xd3, 0x49, 0x69, 0x6d, 0xb8, 0xf9, 0x26, 0x20, 0x7c, 0x3e,
+	0x6c, 0xfd, 0xb2, 0x99, 0xfd, 0x9a, 0xb9, 0x37, 0xc6, 0xa3, 0xf8, 0xd5, 0xab, 0xaa, 0xfc, 0x33,
+	0xf3, 0xf5, 0xdf, 0x01, 0x00, 0x00, 0xff, 0xff, 0x4f, 0xd8, 0xb0, 0xc3, 0xb3, 0x11, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -1739,6 +1851,7 @@ type YavirtdRPCClient interface {
 	GetInfo(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*InfoMessage, error)
 	GetGuest(ctx context.Context, in *GetGuestOptions, opts ...grpc.CallOption) (*GetGuestMessage, error)
 	GetGuestUUID(ctx context.Context, in *GetGuestOptions, opts ...grpc.CallOption) (*GetGuestUUIDMessage, error)
+	GetGuestIDList(ctx context.Context, in *GetGuestIDListOptions, opts ...grpc.CallOption) (*GetGuestIDListMessage, error)
 	CreateGuest(ctx context.Context, in *CreateGuestOptions, opts ...grpc.CallOption) (*CreateGuestMessage, error)
 	ControlGuest(ctx context.Context, in *ControlGuestOptions, opts ...grpc.CallOption) (*ControlGuestMessage, error)
 	AttachGuest(ctx context.Context, opts ...grpc.CallOption) (YavirtdRPC_AttachGuestClient, error)
@@ -1750,6 +1863,7 @@ type YavirtdRPCClient interface {
 	DisconnectNetwork(ctx context.Context, in *DisconnectNetworkOptions, opts ...grpc.CallOption) (*DisconnectNetworkMessage, error)
 	Cat(ctx context.Context, in *CatOptions, opts ...grpc.CallOption) (YavirtdRPC_CatClient, error)
 	CopyToGuest(ctx context.Context, opts ...grpc.CallOption) (YavirtdRPC_CopyToGuestClient, error)
+	Events(ctx context.Context, in *Empty, opts ...grpc.CallOption) (YavirtdRPC_EventsClient, error)
 }
 
 type yavirtdRPCClient struct {
@@ -1762,340 +1876,738 @@ func NewYavirtdRPCClient(cc grpc.ClientConnInterface) YavirtdRPCClient {
 
 func (c *yavirtdRPCClient) Ping(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*PingMessage, error) {
 	out := new(PingMessage)
-	err := c.cc.Invoke(ctx, "/yavpb.YavirtdRPC/Ping", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/YavirtdRPC/Ping", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
-	if !protoimpl.UnsafeEnabled {
-		file_grpc_gen_yavirtd_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Empty); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_grpc_gen_yavirtd_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CopyOptions); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_grpc_gen_yavirtd_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CopyMessage); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_grpc_gen_yavirtd_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CatOptions); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_grpc_gen_yavirtd_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CatMessage); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_grpc_gen_yavirtd_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DisconnectNetworkOptions); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_grpc_gen_yavirtd_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ConnectNetworkOptions); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_grpc_gen_yavirtd_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CaptureGuestOptions); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_grpc_gen_yavirtd_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UserImageMessage); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_grpc_gen_yavirtd_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PingMessage); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_grpc_gen_yavirtd_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*InfoMessage); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_grpc_gen_yavirtd_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetGuestOptions); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_grpc_gen_yavirtd_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetGuestMessage); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_grpc_gen_yavirtd_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetGuestUUIDMessage); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_grpc_gen_yavirtd_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateGuestOptions); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_grpc_gen_yavirtd_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ResizeGuestOptions); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_grpc_gen_yavirtd_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateGuestMessage); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_grpc_gen_yavirtd_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ControlGuestOptions); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_grpc_gen_yavirtd_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ControlGuestMessage); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_grpc_gen_yavirtd_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AttachGuestOptions); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_grpc_gen_yavirtd_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AttachGuestMessage); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_grpc_gen_yavirtd_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ResizeWindowOptions); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_grpc_gen_yavirtd_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ExecuteGuestOptions); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_grpc_gen_yavirtd_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ExecuteGuestMessage); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_grpc_gen_yavirtd_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ConnectNetworkMessage); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_grpc_gen_yavirtd_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DisconnectNetworkMessage); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
+	return out, nil
+}
+
+func (c *yavirtdRPCClient) GetInfo(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*InfoMessage, error) {
+	out := new(InfoMessage)
+	err := c.cc.Invoke(ctx, "/YavirtdRPC/GetInfo", in, out, opts...)
+	if err != nil {
+		return nil, err
 	}
-	type x struct{}
-	out := protoimpl.TypeBuilder{
-		File: protoimpl.DescBuilder{
-			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_grpc_gen_yavirtd_proto_rawDesc,
-			NumEnums:      0,
-			NumMessages:   31,
-			NumExtensions: 0,
-			NumServices:   1,
+	return out, nil
+}
+
+func (c *yavirtdRPCClient) GetGuest(ctx context.Context, in *GetGuestOptions, opts ...grpc.CallOption) (*GetGuestMessage, error) {
+	out := new(GetGuestMessage)
+	err := c.cc.Invoke(ctx, "/YavirtdRPC/GetGuest", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *yavirtdRPCClient) GetGuestUUID(ctx context.Context, in *GetGuestOptions, opts ...grpc.CallOption) (*GetGuestUUIDMessage, error) {
+	out := new(GetGuestUUIDMessage)
+	err := c.cc.Invoke(ctx, "/YavirtdRPC/GetGuestUUID", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *yavirtdRPCClient) GetGuestIDList(ctx context.Context, in *GetGuestIDListOptions, opts ...grpc.CallOption) (*GetGuestIDListMessage, error) {
+	out := new(GetGuestIDListMessage)
+	err := c.cc.Invoke(ctx, "/YavirtdRPC/GetGuestIDList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *yavirtdRPCClient) CreateGuest(ctx context.Context, in *CreateGuestOptions, opts ...grpc.CallOption) (*CreateGuestMessage, error) {
+	out := new(CreateGuestMessage)
+	err := c.cc.Invoke(ctx, "/YavirtdRPC/CreateGuest", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *yavirtdRPCClient) ControlGuest(ctx context.Context, in *ControlGuestOptions, opts ...grpc.CallOption) (*ControlGuestMessage, error) {
+	out := new(ControlGuestMessage)
+	err := c.cc.Invoke(ctx, "/YavirtdRPC/ControlGuest", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *yavirtdRPCClient) AttachGuest(ctx context.Context, opts ...grpc.CallOption) (YavirtdRPC_AttachGuestClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_YavirtdRPC_serviceDesc.Streams[0], "/YavirtdRPC/AttachGuest", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &yavirtdRPCAttachGuestClient{stream}
+	return x, nil
+}
+
+type YavirtdRPC_AttachGuestClient interface {
+	Send(*AttachGuestOptions) error
+	Recv() (*AttachGuestMessage, error)
+	grpc.ClientStream
+}
+
+type yavirtdRPCAttachGuestClient struct {
+	grpc.ClientStream
+}
+
+func (x *yavirtdRPCAttachGuestClient) Send(m *AttachGuestOptions) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *yavirtdRPCAttachGuestClient) Recv() (*AttachGuestMessage, error) {
+	m := new(AttachGuestMessage)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *yavirtdRPCClient) ResizeConsoleWindow(ctx context.Context, in *ResizeWindowOptions, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, "/YavirtdRPC/ResizeConsoleWindow", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *yavirtdRPCClient) ExecuteGuest(ctx context.Context, in *ExecuteGuestOptions, opts ...grpc.CallOption) (*ExecuteGuestMessage, error) {
+	out := new(ExecuteGuestMessage)
+	err := c.cc.Invoke(ctx, "/YavirtdRPC/ExecuteGuest", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *yavirtdRPCClient) ResizeGuest(ctx context.Context, in *ResizeGuestOptions, opts ...grpc.CallOption) (*ControlGuestMessage, error) {
+	out := new(ControlGuestMessage)
+	err := c.cc.Invoke(ctx, "/YavirtdRPC/ResizeGuest", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *yavirtdRPCClient) CaptureGuest(ctx context.Context, in *CaptureGuestOptions, opts ...grpc.CallOption) (*UserImageMessage, error) {
+	out := new(UserImageMessage)
+	err := c.cc.Invoke(ctx, "/YavirtdRPC/CaptureGuest", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *yavirtdRPCClient) ConnectNetwork(ctx context.Context, in *ConnectNetworkOptions, opts ...grpc.CallOption) (*ConnectNetworkMessage, error) {
+	out := new(ConnectNetworkMessage)
+	err := c.cc.Invoke(ctx, "/YavirtdRPC/ConnectNetwork", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *yavirtdRPCClient) DisconnectNetwork(ctx context.Context, in *DisconnectNetworkOptions, opts ...grpc.CallOption) (*DisconnectNetworkMessage, error) {
+	out := new(DisconnectNetworkMessage)
+	err := c.cc.Invoke(ctx, "/YavirtdRPC/DisconnectNetwork", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *yavirtdRPCClient) Cat(ctx context.Context, in *CatOptions, opts ...grpc.CallOption) (YavirtdRPC_CatClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_YavirtdRPC_serviceDesc.Streams[1], "/YavirtdRPC/Cat", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &yavirtdRPCCatClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type YavirtdRPC_CatClient interface {
+	Recv() (*CatMessage, error)
+	grpc.ClientStream
+}
+
+type yavirtdRPCCatClient struct {
+	grpc.ClientStream
+}
+
+func (x *yavirtdRPCCatClient) Recv() (*CatMessage, error) {
+	m := new(CatMessage)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *yavirtdRPCClient) CopyToGuest(ctx context.Context, opts ...grpc.CallOption) (YavirtdRPC_CopyToGuestClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_YavirtdRPC_serviceDesc.Streams[2], "/YavirtdRPC/CopyToGuest", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &yavirtdRPCCopyToGuestClient{stream}
+	return x, nil
+}
+
+type YavirtdRPC_CopyToGuestClient interface {
+	Send(*CopyOptions) error
+	CloseAndRecv() (*CopyMessage, error)
+	grpc.ClientStream
+}
+
+type yavirtdRPCCopyToGuestClient struct {
+	grpc.ClientStream
+}
+
+func (x *yavirtdRPCCopyToGuestClient) Send(m *CopyOptions) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *yavirtdRPCCopyToGuestClient) CloseAndRecv() (*CopyMessage, error) {
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	m := new(CopyMessage)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *yavirtdRPCClient) Events(ctx context.Context, in *Empty, opts ...grpc.CallOption) (YavirtdRPC_EventsClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_YavirtdRPC_serviceDesc.Streams[3], "/YavirtdRPC/Events", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &yavirtdRPCEventsClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type YavirtdRPC_EventsClient interface {
+	Recv() (*EventMessage, error)
+	grpc.ClientStream
+}
+
+type yavirtdRPCEventsClient struct {
+	grpc.ClientStream
+}
+
+func (x *yavirtdRPCEventsClient) Recv() (*EventMessage, error) {
+	m := new(EventMessage)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+// YavirtdRPCServer is the server API for YavirtdRPC service.
+type YavirtdRPCServer interface {
+	Ping(context.Context, *Empty) (*PingMessage, error)
+	GetInfo(context.Context, *Empty) (*InfoMessage, error)
+	GetGuest(context.Context, *GetGuestOptions) (*GetGuestMessage, error)
+	GetGuestUUID(context.Context, *GetGuestOptions) (*GetGuestUUIDMessage, error)
+	GetGuestIDList(context.Context, *GetGuestIDListOptions) (*GetGuestIDListMessage, error)
+	CreateGuest(context.Context, *CreateGuestOptions) (*CreateGuestMessage, error)
+	ControlGuest(context.Context, *ControlGuestOptions) (*ControlGuestMessage, error)
+	AttachGuest(YavirtdRPC_AttachGuestServer) error
+	ResizeConsoleWindow(context.Context, *ResizeWindowOptions) (*Empty, error)
+	ExecuteGuest(context.Context, *ExecuteGuestOptions) (*ExecuteGuestMessage, error)
+	ResizeGuest(context.Context, *ResizeGuestOptions) (*ControlGuestMessage, error)
+	CaptureGuest(context.Context, *CaptureGuestOptions) (*UserImageMessage, error)
+	ConnectNetwork(context.Context, *ConnectNetworkOptions) (*ConnectNetworkMessage, error)
+	DisconnectNetwork(context.Context, *DisconnectNetworkOptions) (*DisconnectNetworkMessage, error)
+	Cat(*CatOptions, YavirtdRPC_CatServer) error
+	CopyToGuest(YavirtdRPC_CopyToGuestServer) error
+	Events(*Empty, YavirtdRPC_EventsServer) error
+}
+
+// UnimplementedYavirtdRPCServer can be embedded to have forward compatible implementations.
+type UnimplementedYavirtdRPCServer struct {
+}
+
+func (*UnimplementedYavirtdRPCServer) Ping(ctx context.Context, req *Empty) (*PingMessage, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Ping not implemented")
+}
+func (*UnimplementedYavirtdRPCServer) GetInfo(ctx context.Context, req *Empty) (*InfoMessage, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetInfo not implemented")
+}
+func (*UnimplementedYavirtdRPCServer) GetGuest(ctx context.Context, req *GetGuestOptions) (*GetGuestMessage, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetGuest not implemented")
+}
+func (*UnimplementedYavirtdRPCServer) GetGuestUUID(ctx context.Context, req *GetGuestOptions) (*GetGuestUUIDMessage, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetGuestUUID not implemented")
+}
+func (*UnimplementedYavirtdRPCServer) GetGuestIDList(ctx context.Context, req *GetGuestIDListOptions) (*GetGuestIDListMessage, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetGuestIDList not implemented")
+}
+func (*UnimplementedYavirtdRPCServer) CreateGuest(ctx context.Context, req *CreateGuestOptions) (*CreateGuestMessage, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateGuest not implemented")
+}
+func (*UnimplementedYavirtdRPCServer) ControlGuest(ctx context.Context, req *ControlGuestOptions) (*ControlGuestMessage, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ControlGuest not implemented")
+}
+func (*UnimplementedYavirtdRPCServer) AttachGuest(srv YavirtdRPC_AttachGuestServer) error {
+	return status.Errorf(codes.Unimplemented, "method AttachGuest not implemented")
+}
+func (*UnimplementedYavirtdRPCServer) ResizeConsoleWindow(ctx context.Context, req *ResizeWindowOptions) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ResizeConsoleWindow not implemented")
+}
+func (*UnimplementedYavirtdRPCServer) ExecuteGuest(ctx context.Context, req *ExecuteGuestOptions) (*ExecuteGuestMessage, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ExecuteGuest not implemented")
+}
+func (*UnimplementedYavirtdRPCServer) ResizeGuest(ctx context.Context, req *ResizeGuestOptions) (*ControlGuestMessage, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ResizeGuest not implemented")
+}
+func (*UnimplementedYavirtdRPCServer) CaptureGuest(ctx context.Context, req *CaptureGuestOptions) (*UserImageMessage, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CaptureGuest not implemented")
+}
+func (*UnimplementedYavirtdRPCServer) ConnectNetwork(ctx context.Context, req *ConnectNetworkOptions) (*ConnectNetworkMessage, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ConnectNetwork not implemented")
+}
+func (*UnimplementedYavirtdRPCServer) DisconnectNetwork(ctx context.Context, req *DisconnectNetworkOptions) (*DisconnectNetworkMessage, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DisconnectNetwork not implemented")
+}
+func (*UnimplementedYavirtdRPCServer) Cat(req *CatOptions, srv YavirtdRPC_CatServer) error {
+	return status.Errorf(codes.Unimplemented, "method Cat not implemented")
+}
+func (*UnimplementedYavirtdRPCServer) CopyToGuest(srv YavirtdRPC_CopyToGuestServer) error {
+	return status.Errorf(codes.Unimplemented, "method CopyToGuest not implemented")
+}
+func (*UnimplementedYavirtdRPCServer) Events(req *Empty, srv YavirtdRPC_EventsServer) error {
+	return status.Errorf(codes.Unimplemented, "method Events not implemented")
+}
+
+func RegisterYavirtdRPCServer(s *grpc.Server, srv YavirtdRPCServer) {
+	s.RegisterService(&_YavirtdRPC_serviceDesc, srv)
+}
+
+func _YavirtdRPC_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(YavirtdRPCServer).Ping(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/YavirtdRPC/Ping",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(YavirtdRPCServer).Ping(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _YavirtdRPC_GetInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(YavirtdRPCServer).GetInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/YavirtdRPC/GetInfo",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(YavirtdRPCServer).GetInfo(ctx, req.(*Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _YavirtdRPC_GetGuest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetGuestOptions)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(YavirtdRPCServer).GetGuest(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/YavirtdRPC/GetGuest",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(YavirtdRPCServer).GetGuest(ctx, req.(*GetGuestOptions))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _YavirtdRPC_GetGuestUUID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetGuestOptions)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(YavirtdRPCServer).GetGuestUUID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/YavirtdRPC/GetGuestUUID",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(YavirtdRPCServer).GetGuestUUID(ctx, req.(*GetGuestOptions))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _YavirtdRPC_GetGuestIDList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetGuestIDListOptions)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(YavirtdRPCServer).GetGuestIDList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/YavirtdRPC/GetGuestIDList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(YavirtdRPCServer).GetGuestIDList(ctx, req.(*GetGuestIDListOptions))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _YavirtdRPC_CreateGuest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateGuestOptions)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(YavirtdRPCServer).CreateGuest(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/YavirtdRPC/CreateGuest",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(YavirtdRPCServer).CreateGuest(ctx, req.(*CreateGuestOptions))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _YavirtdRPC_ControlGuest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ControlGuestOptions)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(YavirtdRPCServer).ControlGuest(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/YavirtdRPC/ControlGuest",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(YavirtdRPCServer).ControlGuest(ctx, req.(*ControlGuestOptions))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _YavirtdRPC_AttachGuest_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(YavirtdRPCServer).AttachGuest(&yavirtdRPCAttachGuestServer{stream})
+}
+
+type YavirtdRPC_AttachGuestServer interface {
+	Send(*AttachGuestMessage) error
+	Recv() (*AttachGuestOptions, error)
+	grpc.ServerStream
+}
+
+type yavirtdRPCAttachGuestServer struct {
+	grpc.ServerStream
+}
+
+func (x *yavirtdRPCAttachGuestServer) Send(m *AttachGuestMessage) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *yavirtdRPCAttachGuestServer) Recv() (*AttachGuestOptions, error) {
+	m := new(AttachGuestOptions)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func _YavirtdRPC_ResizeConsoleWindow_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ResizeWindowOptions)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(YavirtdRPCServer).ResizeConsoleWindow(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/YavirtdRPC/ResizeConsoleWindow",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(YavirtdRPCServer).ResizeConsoleWindow(ctx, req.(*ResizeWindowOptions))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _YavirtdRPC_ExecuteGuest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ExecuteGuestOptions)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(YavirtdRPCServer).ExecuteGuest(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/YavirtdRPC/ExecuteGuest",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(YavirtdRPCServer).ExecuteGuest(ctx, req.(*ExecuteGuestOptions))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _YavirtdRPC_ResizeGuest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ResizeGuestOptions)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(YavirtdRPCServer).ResizeGuest(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/YavirtdRPC/ResizeGuest",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(YavirtdRPCServer).ResizeGuest(ctx, req.(*ResizeGuestOptions))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _YavirtdRPC_CaptureGuest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CaptureGuestOptions)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(YavirtdRPCServer).CaptureGuest(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/YavirtdRPC/CaptureGuest",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(YavirtdRPCServer).CaptureGuest(ctx, req.(*CaptureGuestOptions))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _YavirtdRPC_ConnectNetwork_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ConnectNetworkOptions)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(YavirtdRPCServer).ConnectNetwork(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/YavirtdRPC/ConnectNetwork",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(YavirtdRPCServer).ConnectNetwork(ctx, req.(*ConnectNetworkOptions))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _YavirtdRPC_DisconnectNetwork_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DisconnectNetworkOptions)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(YavirtdRPCServer).DisconnectNetwork(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/YavirtdRPC/DisconnectNetwork",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(YavirtdRPCServer).DisconnectNetwork(ctx, req.(*DisconnectNetworkOptions))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _YavirtdRPC_Cat_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(CatOptions)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(YavirtdRPCServer).Cat(m, &yavirtdRPCCatServer{stream})
+}
+
+type YavirtdRPC_CatServer interface {
+	Send(*CatMessage) error
+	grpc.ServerStream
+}
+
+type yavirtdRPCCatServer struct {
+	grpc.ServerStream
+}
+
+func (x *yavirtdRPCCatServer) Send(m *CatMessage) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func _YavirtdRPC_CopyToGuest_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(YavirtdRPCServer).CopyToGuest(&yavirtdRPCCopyToGuestServer{stream})
+}
+
+type YavirtdRPC_CopyToGuestServer interface {
+	SendAndClose(*CopyMessage) error
+	Recv() (*CopyOptions, error)
+	grpc.ServerStream
+}
+
+type yavirtdRPCCopyToGuestServer struct {
+	grpc.ServerStream
+}
+
+func (x *yavirtdRPCCopyToGuestServer) SendAndClose(m *CopyMessage) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *yavirtdRPCCopyToGuestServer) Recv() (*CopyOptions, error) {
+	m := new(CopyOptions)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func _YavirtdRPC_Events_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(Empty)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(YavirtdRPCServer).Events(m, &yavirtdRPCEventsServer{stream})
+}
+
+type YavirtdRPC_EventsServer interface {
+	Send(*EventMessage) error
+	grpc.ServerStream
+}
+
+type yavirtdRPCEventsServer struct {
+	grpc.ServerStream
+}
+
+func (x *yavirtdRPCEventsServer) Send(m *EventMessage) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+var _YavirtdRPC_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "YavirtdRPC",
+	HandlerType: (*YavirtdRPCServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Ping",
+			Handler:    _YavirtdRPC_Ping_Handler,
 		},
-		GoTypes:           file_grpc_gen_yavirtd_proto_goTypes,
-		DependencyIndexes: file_grpc_gen_yavirtd_proto_depIdxs,
-		MessageInfos:      file_grpc_gen_yavirtd_proto_msgTypes,
-	}.Build()
-	File_grpc_gen_yavirtd_proto = out.File
-	file_grpc_gen_yavirtd_proto_rawDesc = nil
-	file_grpc_gen_yavirtd_proto_goTypes = nil
-	file_grpc_gen_yavirtd_proto_depIdxs = nil
+		{
+			MethodName: "GetInfo",
+			Handler:    _YavirtdRPC_GetInfo_Handler,
+		},
+		{
+			MethodName: "GetGuest",
+			Handler:    _YavirtdRPC_GetGuest_Handler,
+		},
+		{
+			MethodName: "GetGuestUUID",
+			Handler:    _YavirtdRPC_GetGuestUUID_Handler,
+		},
+		{
+			MethodName: "GetGuestIDList",
+			Handler:    _YavirtdRPC_GetGuestIDList_Handler,
+		},
+		{
+			MethodName: "CreateGuest",
+			Handler:    _YavirtdRPC_CreateGuest_Handler,
+		},
+		{
+			MethodName: "ControlGuest",
+			Handler:    _YavirtdRPC_ControlGuest_Handler,
+		},
+		{
+			MethodName: "ResizeConsoleWindow",
+			Handler:    _YavirtdRPC_ResizeConsoleWindow_Handler,
+		},
+		{
+			MethodName: "ExecuteGuest",
+			Handler:    _YavirtdRPC_ExecuteGuest_Handler,
+		},
+		{
+			MethodName: "ResizeGuest",
+			Handler:    _YavirtdRPC_ResizeGuest_Handler,
+		},
+		{
+			MethodName: "CaptureGuest",
+			Handler:    _YavirtdRPC_CaptureGuest_Handler,
+		},
+		{
+			MethodName: "ConnectNetwork",
+			Handler:    _YavirtdRPC_ConnectNetwork_Handler,
+		},
+		{
+			MethodName: "DisconnectNetwork",
+			Handler:    _YavirtdRPC_DisconnectNetwork_Handler,
+		},
+	},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "AttachGuest",
+			Handler:       _YavirtdRPC_AttachGuest_Handler,
+			ServerStreams: true,
+			ClientStreams: true,
+		},
+		{
+			StreamName:    "Cat",
+			Handler:       _YavirtdRPC_Cat_Handler,
+			ServerStreams: true,
+		},
+		{
+			StreamName:    "CopyToGuest",
+			Handler:       _YavirtdRPC_CopyToGuest_Handler,
+			ClientStreams: true,
+		},
+		{
+			StreamName:    "Events",
+			Handler:       _YavirtdRPC_Events_Handler,
+			ServerStreams: true,
+		},
+	},
+	Metadata: "grpc/gen/yavirtd.proto",
 }
