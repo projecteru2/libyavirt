@@ -105,7 +105,7 @@ func (c *HTTPClient) ConnectNetwork(ctx context.Context, args types.ConnectNetwo
 }
 
 func (c *HTTPClient) GetGuestIDList(ctx context.Context, args types.GetGuestIDListReq) (ids []string, err error) {
-	_, err = c.Post(ctx, "guests/list/id", args, &ids)
+	_, err = c.Post(ctx, "/guests/list", args, &ids)
 	return
 }
 
