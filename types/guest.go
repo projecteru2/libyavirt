@@ -97,7 +97,7 @@ type Guest struct {
 	ImageUser string
 	Networks  map[string]string
 	Labels    map[string]string
-	IPList    []string
+	IPs       []string
 	Hostname  string
 	Running   bool
 }

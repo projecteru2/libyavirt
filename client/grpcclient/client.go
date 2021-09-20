@@ -63,7 +63,7 @@ func (c *GRPCClient) GetGuest(ctx context.Context, ID string) (guest types.Guest
 		ImageName: msg.ImageName,
 		Networks:  msg.Networks,
 		Labels:    msg.Labels,
-		IPList:    msg.IpList,
+		IPs:       msg.Ips,
 		Hostname:  msg.Hostname,
 		Running:   msg.Running,
 	}, nil
