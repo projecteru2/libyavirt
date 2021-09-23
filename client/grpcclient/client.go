@@ -2,6 +2,7 @@ package grpcclient
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"io"
 
@@ -290,4 +291,28 @@ func (c *GRPCClient) Events(ctx context.Context, filters map[string]string) (<-c
 	}()
 
 	return msgChan, errChan
+}
+
+// NetworkList list all networks.
+func (c *GRPCClient) NetworkList(ctx context.Context, drivers []string) ([]*types.Network, error) {
+	opts := &yavpb.NetworkListOptions{Drivers: drivers}
+	msg, err := c.client.NetworkList(ctx, opts)
+	if err != nil {
+		return nil, err
+	}
+
+	var cidr []string
+	var networks []*types.Network
+
+	for name, cidrsJson := range msg.Networks {
+		if err := json.Unmarshal(cidrsJson, &cidr); err != nil {
+			return nil, err
+		}
+
+		network := &types.Network{Name: name}
+		network.Subnets = append(network.Subnets, cidr[:]...)
+		networks = append(networks, network)
+	}
+
+	return networks, nil
 }
