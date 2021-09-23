@@ -21,9 +21,18 @@ service YavirtdRPC {
   rpc Cat(CatOptions) returns (stream CatMessage) {};
   rpc CopyToGuest(stream CopyOptions) returns (CopyMessage) {};
   rpc Events(EventsOptions) returns (stream EventMessage) {};
+  rpc NetworkList(NetworkListOptions) returns (NetworkListMessage) {};
 }
 
 message Empty {}
+
+message NetworkListOptions{
+  repeated string drivers = 1;
+}
+
+message NetworkListMessage{
+  map<string, bytes> networks = 1;
+}
 
 message CopyOptions{
   string id = 1;

@@ -32,6 +32,7 @@ type Client interface {
 	Cat(context.Context, string, string) (io.ReadCloser, error)
 	Events(context.Context, map[string]string) (<-chan types.EventMessage, <-chan error)
 	CopyToGuest(ctx context.Context, ID, dest string, content io.Reader, AllowOverwriteDirWithFile, CopyUIDGID bool) error
+	NetworkList(ctx context.Context, drivers []string) ([]*types.Network, error)
 }
 
 // New .
