@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net/url"
 
 	"github.com/projecteru2/libyavirt/types"
 )
@@ -105,7 +106,11 @@ func (c *HTTPClient) ConnectNetwork(ctx context.Context, args types.ConnectNetwo
 }
 
 func (c *HTTPClient) GetGuestIDList(ctx context.Context, args types.GetGuestIDListReq) (ids []string, err error) {
-	_, err = c.Post(ctx, "/guests/list", args, &ids)
+	params := url.Values{}
+	for key, value := range args.Filters {
+		params.Set(key, value)
+	}
+	_, err = c.Get(ctx, fmt.Sprintf("/guests?%s", params.Encode()), &ids)
 	return
 }
 
