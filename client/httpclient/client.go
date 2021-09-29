@@ -1,10 +1,7 @@
 package httpclient
 
 import (
-	"context"
-	"errors"
 	"fmt"
-	"io"
 	"net"
 	"net/http"
 	"runtime"

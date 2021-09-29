@@ -32,6 +32,12 @@ func (c *HTTPClient) StartGuest(ctx context.Context, id string) (types.Msg, erro
 	return c.ctrl(ctx, "/guests/start", id, false)
 }
 
+// WaitGuest .
+func (c *HTTPClient) WaitGuest(ctx context.Context, ID string, force bool) (msg types.WaitResult, err error) {
+	err = errors.New("not and will not implemented")
+	return
+}
+
 func (c *HTTPClient) ctrl(ctx context.Context, path, id string, force bool) (reply types.Msg, err error) {
 	var args = types.GuestReq{ID: id, Force: force}
 	_, err = c.Post(ctx, path, args, &reply)
@@ -79,6 +85,16 @@ func (c *HTTPClient) ExecuteGuest(ctx context.Context, id string, cmds []string)
 	args.ID = id
 	args.Commands = cmds
 	_, err = c.Post(ctx, "/guests/execute", args, &reply)
+	return
+}
+
+// CopyToGuest .
+func (c *HTTPClient) CopyToGuest(ctx context.Context, ID, dest string, content io.Reader, AllowOverwriteDirWithFile, CopyUIDGID bool) error {
+	return errors.New("not and will not implemented")
+}
+
+// ExecExitCode .
+func (c *HTTPClient) ExecExitCode(ctx context.Context, ID string, pid int) (exitCode int, err error) {
 	return
 }
 

@@ -29,10 +29,11 @@ type Client interface {
 	CaptureGuest(context.Context, types.CaptureGuestReq) (types.UserImage, error)
 	ConnectNetwork(context.Context, types.ConnectNetworkReq) (string, error)
 	DisconnectNetwork(context.Context, types.DisconnectNetworkReq) (string, error)
-	Cat(context.Context, string, string) (io.ReadCloser, error)
+	Cat(ctx context.Context, ID, path string) (io.ReadCloser, error)
 	Events(context.Context, map[string]string) (<-chan types.EventMessage, <-chan error)
 	CopyToGuest(ctx context.Context, ID, dest string, content io.Reader, AllowOverwriteDirWithFile, CopyUIDGID bool) error
 	NetworkList(ctx context.Context, drivers []string) ([]*types.Network, error)
+	WaitGuest(ctx context.Context, ID string, force bool) (types.WaitResult, error)
 }
 
 // New .

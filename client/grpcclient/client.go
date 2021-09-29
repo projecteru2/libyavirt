@@ -118,17 +118,31 @@ func (c *GRPCClient) CreateGuest(ctx context.Context, args types.CreateGuestReq)
 
 // StartGuest .
 func (c *GRPCClient) StartGuest(ctx context.Context, ID string) (msg types.Msg, err error) {
-	return c.controlGuest(ctx, ID, "start", false)
+	return c.controlGuest(ctx, ID, types.OpStart, false)
 }
 
 // StopGuest .
 func (c *GRPCClient) StopGuest(ctx context.Context, ID string, force bool) (msg types.Msg, err error) {
-	return c.controlGuest(ctx, ID, "stop", force)
+	return c.controlGuest(ctx, ID, types.OpStop, force)
+}
+
+// WaitGuest .
+func (c *GRPCClient) WaitGuest(ctx context.Context, ID string, force bool) (msg types.WaitResult, err error) {
+	var result *yavpb.WaitGuestMessage
+	result, err = c.client.WaitGuest(ctx, &yavpb.WaitGuestOptions{Id: ID})
+	if err != nil {
+		return
+	}
+
+	msg.Msg = result.Msg
+	msg.Code = result.Code
+
+	return
 }
 
 // DestroyGuest .
 func (c *GRPCClient) DestroyGuest(ctx context.Context, ID string, force bool) (msg types.Msg, err error) {
-	return c.controlGuest(ctx, ID, "destroy", force)
+	return c.controlGuest(ctx, ID, types.OpDestroy, force)
 }
 
 func (c *GRPCClient) controlGuest(ctx context.Context, ID, operation string, force bool) (msg types.Msg, err error) {
