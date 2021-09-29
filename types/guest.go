@@ -17,6 +17,16 @@ const (
 	BufferSize = 1024 * 1024
 )
 
+// Guest Operations
+const (
+	// OpStart .
+	OpStart = "start"
+	// OpStop .
+	OpStop = "stop"
+	// OpDestroy .
+	OpDestroy = "destroy"
+)
+
 // EruID .
 func EruID(id string) string {
 	if strings.HasPrefix(id, "guest-") {

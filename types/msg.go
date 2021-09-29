@@ -9,3 +9,8 @@ type Msg struct {
 func NewMsg(msg string) Msg {
 	return Msg{Msg: msg}
 }
+
+type WaitResult struct {
+	Msg  string
+	Code int64
+}
