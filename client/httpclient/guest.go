@@ -2,9 +2,10 @@ package httpclient
 
 import (
 	"context"
-	"errors"
+	"encoding/json"
 	"fmt"
 	"io"
+	"net/http"
 	"net/url"
 
 	"github.com/projecteru2/libyavirt/types"
@@ -105,6 +106,7 @@ func (c *HTTPClient) ConnectNetwork(ctx context.Context, args types.ConnectNetwo
 	return
 }
 
+// GetGuestIDList .
 func (c *HTTPClient) GetGuestIDList(ctx context.Context, args types.GetGuestIDListReq) (ids []string, err error) {
 	params := url.Values{}
 	for key, value := range args.Filters {
@@ -114,15 +116,57 @@ func (c *HTTPClient) GetGuestIDList(ctx context.Context, args types.GetGuestIDLi
 	return
 }
 
-// Events not implemented for http client
+// Events .
 func (c *HTTPClient) Events(ctx context.Context, filters map[string]string) (<-chan types.EventMessage, <-chan error) {
 	msgChan := make(chan types.EventMessage)
 	errChan := make(chan error)
 
 	go func() {
 		defer close(errChan)
-		defer close(msgChan)
-		errChan <- errors.New("events not implemented for http client")
+
+		params := url.Values{}
+		for key, value := range filters {
+			params.Set(key, value)
+		}
+
+		req, err := http.NewRequestWithContext(ctx, "GET", c.getPath(fmt.Sprintf("/events?%s", params.Encode())), nil)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		req.URL.Host = c.addr
+		req.URL.Scheme = c.scheme
+
+		resp, err := http.DefaultClient.Do(req)
+		if err != nil {
+			errChan <- err
+			return
+		}
+		defer resp.Body.Close()
+
+		decoder := json.NewDecoder(resp.Body)
+
+		for {
+			select {
+			case <-ctx.Done():
+				errChan <- ctx.Err()
+				return
+			default:
+				var event types.EventMessage
+				if err := decoder.Decode(&event); err != nil {
+					errChan <- err
+					return
+				}
+
+				select {
+				case msgChan <- event:
+				case <-ctx.Done():
+					errChan <- ctx.Err()
+					return
+				}
+			}
+		}
 	}()
+
 	return msgChan, errChan
 }
