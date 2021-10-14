@@ -35,6 +35,7 @@ message CopyOptions{
 
 message CopyMessage{
   string msg = 1;
+  bool failed = 2;
 }
 
 message CatOptions {
