@@ -2,10 +2,13 @@ package grpcclient
 
 import (
 	"context"
+	"errors"
+	"io"
+
+	"google.golang.org/grpc"
+
 	yavpb "github.com/projecteru2/libyavirt/grpc/gen"
 	"github.com/projecteru2/libyavirt/types"
-	"google.golang.org/grpc"
-	"io"
 )
 
 // GRPCClient .
@@ -249,9 +252,13 @@ func (c *GRPCClient) CopyToGuest(ctx context.Context, ID, dest string, content i
 			return err
 		}
 	}
-	if _, err := copyClient.CloseAndRecv(); err != nil {
+	msg, err := copyClient.CloseAndRecv()
+	if err != nil {
 		return err
-	} // wait for transmission complete
+	}
+	if msg.Failed {
+		return errors.New(msg.Msg)
+	}
 	return nil
 }
 
