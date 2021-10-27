@@ -19,15 +19,6 @@ type HTTPClient struct {
 	defaultHeaders map[string]string
 }
 
-// CopyToGuest .
-func (c *HTTPClient) CopyToGuest(ctx context.Context, ID, dest string, content io.Reader, AllowOverwriteDirWithFile, CopyUIDGID bool) error {
-	return errors.New("not and will not implemented")
-}
-
-func (c *HTTPClient) ExecExitCode(ctx context.Context, ID string, pid int) (exitCode int, err error) {
-	return
-}
-
 // New .
 func New(addr, ver string) (*HTTPClient, error) {
 	if len(addr) < 1 {
