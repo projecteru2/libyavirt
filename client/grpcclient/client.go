@@ -330,3 +330,13 @@ func (c *GRPCClient) NetworkList(ctx context.Context, drivers []string) ([]*type
 
 	return networks, nil
 }
+
+func (c *GRPCClient) Log(ctx context.Context, n int, ID string) ([]string, error) {
+	opts := &yavpb.LogOptions{N: int64(n), Id: ID}
+	msg, err := c.client.Log(ctx, opts)
+	if err != nil {
+		return nil, err
+	}
+
+	return msg.Logs, nil
+}

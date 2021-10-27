@@ -23,6 +23,7 @@ service YavirtdRPC {
   rpc Events(EventsOptions) returns (stream EventMessage) {};
   rpc WaitGuest(WaitGuestOptions) returns (WaitGuestMessage) {};
   rpc NetworkList(NetworkListOptions) returns (NetworkListMessage) {};
+  rpc Log(LogOptions) returns(LogMessage) {};
 }
 
 message Empty {}
@@ -239,4 +240,13 @@ message EventMessage {
   string type = 2;
   string action = 3;
   int64 time_nano = 4;
+}
+
+message LogOptions{
+  string id = 1;
+  int64 n = 2;
+}
+
+message LogMessage{
+  repeated string logs = 1;
 }

@@ -3,6 +3,7 @@ package httpclient
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -95,7 +96,12 @@ func (c *HTTPClient) CopyToGuest(ctx context.Context, ID, dest string, content i
 
 // ExecExitCode .
 func (c *HTTPClient) ExecExitCode(ctx context.Context, ID string, pid int) (exitCode int, err error) {
-	return
+	return -1, errors.New("not and will not implemented")
+}
+
+// Log .
+func (c *HTTPClient) Log(ctx context.Context, n int, ID string) ([]string, error) {
+	return nil, errors.New("not and will not implemented")
 }
 
 // ResizeGuest .
