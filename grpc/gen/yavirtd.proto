@@ -149,6 +149,8 @@ message CreateGuestOptions {
   map<string, string> labels = 6;
   string ancestor_id = 7;
   string image_user = 8;
+  repeated string cmd = 9;
+  bool lambda = 10;
 }
 
 message ResizeGuestOptions {
