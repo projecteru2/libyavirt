@@ -340,3 +340,53 @@ func (c *GRPCClient) Log(ctx context.Context, n int, ID string) ([]string, error
 
 	return msg.Logs, nil
 }
+
+// ListSnapshot .
+func (c *GRPCClient) ListSnapshot(ctx context.Context, ID, volID string) (msg types.Msg, err error) {
+	opts := &yavpb.ListSnapshotOptions{
+		Id:    ID,
+		VolId: volID,
+	}
+	if m, err := c.client.ListSnapshot(ctx, opts); err == nil {
+		msg.Msg = m.Msg
+	}
+	return
+}
+
+// CreateSnapshot .
+func (c *GRPCClient) CreateSnapshot(ctx context.Context, ID, volID string) (msg types.Msg, err error) {
+	opts := &yavpb.CreateSnapshotOptions{
+		Id:    ID,
+		VolId: volID,
+	}
+	if m, err := c.client.CreateSnapshot(ctx, opts); err == nil {
+		msg.Msg = m.Msg
+	}
+	return
+}
+
+// CommitSnapshot .
+func (c *GRPCClient) CommitSnapshot(ctx context.Context, ID, volID, snapID string) (msg types.Msg, err error) {
+	opts := &yavpb.CommitSnapshotOptions{
+		Id:     ID,
+		VolId:  volID,
+		SnapId: snapID,
+	}
+	if m, err := c.client.CommitSnapshot(ctx, opts); err == nil {
+		msg.Msg = m.Msg
+	}
+	return
+}
+
+// RestoreSnapshot .
+func (c *GRPCClient) RestoreSnapshot(ctx context.Context, ID, volID, snapID string) (msg types.Msg, err error) {
+	opts := &yavpb.RestoreSnapshotOptions{
+		Id:     ID,
+		VolId:  volID,
+		SnapId: snapID,
+	}
+	if m, err := c.client.RestoreSnapshot(ctx, opts); err == nil {
+		msg.Msg = m.Msg
+	}
+	return
+}

@@ -231,3 +231,29 @@ func (r DisconnectNetworkReq) GetGrpcOpts() *yavpb.DisconnectNetworkOptions {
 type GetGuestIDListReq struct {
 	Filters map[string]string
 }
+
+// ListSnapshotReq .
+type ListSnapshotReq struct {
+	ID    string `uri:"id" binding:"required"`
+	VolID string
+}
+
+// CreateSnapshotReq .
+type CreateSnapshotReq struct {
+	ID    string `uri:"id" binding:"required"`
+	VolID string
+}
+
+// CommitSnapshotReq .
+type CommitSnapshotReq struct {
+	ID     string `uri:"id" binding:"required"`
+	VolID  string
+	SnapID string
+}
+
+// RestoreSnapshotReq .
+type RestoreSnapshotReq struct {
+	ID     string `uri:"id" binding:"required"`
+	VolID  string
+	SnapID string
+}

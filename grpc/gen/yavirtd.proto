@@ -24,6 +24,10 @@ service YavirtdRPC {
   rpc WaitGuest(WaitGuestOptions) returns (WaitGuestMessage) {};
   rpc NetworkList(NetworkListOptions) returns (NetworkListMessage) {};
   rpc Log(LogOptions) returns(LogMessage) {};
+  rpc ListSnapshot(ListSnapshotOptions) returns (ListSnapshotMessage) {};
+  rpc CreateSnapshot(CreateSnapshotOptions) returns (CreateSnapshotMessage) {};
+  rpc CommitSnapshot(CommitSnapshotOptions) returns (CommitSnapshotMessage) {};
+  rpc RestoreSnapshot(RestoreSnapshotOptions) returns (RestoreSnapshotMessage) {};
 }
 
 message Empty {}
@@ -251,4 +255,42 @@ message LogOptions{
 
 message LogMessage{
   repeated string logs = 1;
+}
+
+message ListSnapshotOptions {
+  string id = 1;
+  string vol_id = 2;
+}
+
+message ListSnapshotMessage {
+  string msg = 1;
+}
+
+message CreateSnapshotOptions {
+  string id = 1;
+  string vol_id = 2;
+}
+
+message CreateSnapshotMessage {
+  string msg = 1;
+}
+
+message CommitSnapshotOptions {
+  string id = 1;
+  string vol_id = 2;
+  string snap_id = 3;
+}
+
+message CommitSnapshotMessage {
+  string msg = 1;
+}
+
+message RestoreSnapshotOptions {
+  string id = 1;
+  string vol_id = 2;
+  string snap_id = 3;
+}
+
+message RestoreSnapshotMessage {
+  string msg = 1;
 }
