@@ -192,3 +192,45 @@ func (c *HTTPClient) Events(ctx context.Context, filters map[string]string) (<-c
 
 	return msgChan, errChan
 }
+
+// ListSnapshot .
+func (c *HTTPClient) ListSnapshot(ctx context.Context, ID, volID string) (reply types.Msg, err error) {
+	args := &types.ListSnapshotReq{
+		ID:    ID,
+		VolID: volID,
+	}
+	_, err = c.Post(ctx, "/guests/snapshot/list", args, &reply)
+	return
+}
+
+// CreateSnapshot .
+func (c *HTTPClient) CreateSnapshot(ctx context.Context, ID, volID string) (reply types.Msg, err error) {
+	args := &types.CreateSnapshotReq{
+		ID:    ID,
+		VolID: volID,
+	}
+	_, err = c.Post(ctx, "/guests/snapshot/create", args, &reply)
+	return
+}
+
+// CommitSnapshot .
+func (c *HTTPClient) CommitSnapshot(ctx context.Context, ID, volID, snapID string) (reply types.Msg, err error) {
+	args := &types.CommitSnapshotReq{
+		ID:     ID,
+		VolID:  volID,
+		SnapID: snapID,
+	}
+	_, err = c.Post(ctx, "/guests/snapshot/commit", args, &reply)
+	return
+}
+
+// RestoreSnapshot .
+func (c *HTTPClient) RestoreSnapshot(ctx context.Context, ID, volID, snapID string) (reply types.Msg, err error) {
+	args := &types.RestoreSnapshotReq{
+		ID:     ID,
+		VolID:  volID,
+		SnapID: snapID,
+	}
+	_, err = c.Post(ctx, "/guests/snapshot/restore", args, &reply)
+	return
+}
