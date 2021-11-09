@@ -2,9 +2,11 @@ package grpcclient
 
 import (
 	"context"
+	"errors"
 	"io"
 
 	yavpb "github.com/projecteru2/libyavirt/grpc/gen"
+	"github.com/projecteru2/libyavirt/types"
 )
 
 // CatReadCloser .
@@ -45,4 +47,79 @@ func (c *GRPCClient) Cat(ctx context.Context, id, path string) (io.ReadCloser, e
 		Path: path,
 		cli:  stream,
 	}, nil
+}
+
+// LogReadCloser .
+type LogReadCloser struct {
+	ID     string
+	N      int
+	client yavpb.YavirtdRPC_LogClient
+}
+
+// Read .
+func (c *LogReadCloser) Read(p []byte) (int, error) {
+	msg, err := c.client.Recv()
+	if err != nil {
+		return 0, err
+	}
+
+	return copy(p, msg.Data), nil
+}
+
+// Close .
+func (c *LogReadCloser) Close() error {
+	return c.client.CloseSend()
+}
+
+func (c *GRPCClient) Log(ctx context.Context, n int, id string) (io.ReadCloser, error) {
+	stream, err := c.client.Log(ctx, &yavpb.LogOptions{N: int64(n), Id: id})
+	if err != nil {
+		return nil, err
+	}
+
+	return &LogReadCloser{
+		ID:     id,
+		N:      n,
+		client: stream,
+	}, nil
+}
+
+// CopyToGuest .
+func (c *GRPCClient) CopyToGuest(ctx context.Context, ID, dest string, content io.Reader, AllowOverwriteDirWithFile, CopyUIDGID bool) error {
+	copyClient, err := c.client.CopyToGuest(ctx)
+	if err != nil {
+		return err
+	}
+
+	opts := &yavpb.CopyOptions{
+		Id:       ID,
+		Dest:     dest,
+		Override: AllowOverwriteDirWithFile,
+	}
+
+	buf := make([]byte, types.BufferSize)
+	for {
+		n, err := content.Read(buf)
+		if n > 0 {
+			opts.Size = int64(n)
+			opts.Content = buf[:n]
+			if err := copyClient.Send(opts); err != nil {
+				return err
+			}
+		}
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			return err
+		}
+	}
+	msg, err := copyClient.CloseAndRecv()
+	if err != nil {
+		return err
+	}
+	if msg.Failed {
+		return errors.New(msg.Msg)
+	}
+	return nil
 }

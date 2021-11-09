@@ -23,7 +23,7 @@ service YavirtdRPC {
   rpc Events(EventsOptions) returns (stream EventMessage) {};
   rpc WaitGuest(WaitGuestOptions) returns (WaitGuestMessage) {};
   rpc NetworkList(NetworkListOptions) returns (NetworkListMessage) {};
-  rpc Log(LogOptions) returns(LogMessage) {};
+  rpc Log(LogOptions) returns(stream LogMessage) {};
   rpc ListSnapshot(ListSnapshotOptions) returns (ListSnapshotMessage) {};
   rpc CreateSnapshot(CreateSnapshotOptions) returns (CreateSnapshotMessage) {};
   rpc CommitSnapshot(CommitSnapshotOptions) returns (CommitSnapshotMessage) {};
@@ -254,7 +254,7 @@ message LogOptions{
 }
 
 message LogMessage{
-  repeated string logs = 1;
+  bytes data = 1;
 }
 
 message ListSnapshotOptions {
