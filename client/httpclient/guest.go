@@ -100,7 +100,7 @@ func (c *HTTPClient) ExecExitCode(ctx context.Context, ID string, pid int) (exit
 }
 
 // Log .
-func (c *HTTPClient) Log(ctx context.Context, n int, ID string) ([]string, error) {
+func (c *HTTPClient) Log(ctx context.Context, n int, ID string) (io.ReadCloser, error) {
 	return nil, errors.New("not and will not implemented")
 }
 

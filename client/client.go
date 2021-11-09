@@ -34,7 +34,7 @@ type Client interface {
 	CopyToGuest(ctx context.Context, ID, dest string, content io.Reader, AllowOverwriteDirWithFile, CopyUIDGID bool) error
 	NetworkList(ctx context.Context, drivers []string) ([]*types.Network, error)
 	WaitGuest(ctx context.Context, ID string, force bool) (types.WaitResult, error)
-	Log(ctx context.Context, n int, ID string) ([]string, error)
+	Log(ctx context.Context, n int, ID string) (io.ReadCloser, error)
 	ListSnapshot(ctx context.Context, ID, volID string) (reply types.Msg, err error)
 	CreateSnapshot(ctx context.Context, ID, volID string) (reply types.Msg, err error)
 	CommitSnapshot(ctx context.Context, ID, volID, snapID string) (reply types.Msg, err error)

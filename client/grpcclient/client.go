@@ -3,8 +3,6 @@ package grpcclient
 import (
 	"context"
 	"encoding/json"
-	"errors"
-	"io"
 
 	"google.golang.org/grpc"
 
@@ -237,46 +235,6 @@ func (c *GRPCClient) DisconnectNetwork(ctx context.Context, args types.Disconnec
 	return
 }
 
-// CopyToGuest .
-func (c *GRPCClient) CopyToGuest(ctx context.Context, ID, dest string, content io.Reader, AllowOverwriteDirWithFile, CopyUIDGID bool) error {
-	copyClient, err := c.client.CopyToGuest(ctx)
-	if err != nil {
-		return err
-	}
-
-	opts := &yavpb.CopyOptions{
-		Id:       ID,
-		Dest:     dest,
-		Override: AllowOverwriteDirWithFile,
-	}
-
-	buf := make([]byte, types.BufferSize)
-	for {
-		n, err := content.Read(buf)
-		if n > 0 {
-			opts.Size = int64(n)
-			opts.Content = buf[:n]
-			if err := copyClient.Send(opts); err != nil {
-				return err
-			}
-		}
-		if err == io.EOF {
-			break
-		}
-		if err != nil {
-			return err
-		}
-	}
-	msg, err := copyClient.CloseAndRecv()
-	if err != nil {
-		return err
-	}
-	if msg.Failed {
-		return errors.New(msg.Msg)
-	}
-	return nil
-}
-
 func (c *GRPCClient) Events(ctx context.Context, filters map[string]string) (<-chan types.EventMessage, <-chan error) {
 	msgChan := make(chan types.EventMessage)
 	errChan := make(chan error)
@@ -329,16 +287,6 @@ func (c *GRPCClient) NetworkList(ctx context.Context, drivers []string) ([]*type
 	}
 
 	return networks, nil
-}
-
-func (c *GRPCClient) Log(ctx context.Context, n int, ID string) ([]string, error) {
-	opts := &yavpb.LogOptions{N: int64(n), Id: ID}
-	msg, err := c.client.Log(ctx, opts)
-	if err != nil {
-		return nil, err
-	}
-
-	return msg.Logs, nil
 }
 
 // ListSnapshot .
