@@ -290,14 +290,25 @@ func (c *GRPCClient) NetworkList(ctx context.Context, drivers []string) ([]*type
 }
 
 // ListSnapshot .
-func (c *GRPCClient) ListSnapshot(ctx context.Context, ID, volID string) (msg types.Msg, err error) {
+func (c *GRPCClient) ListSnapshot(ctx context.Context, ID, volID string) (snaps types.Snapshots, err error) {
 	opts := &yavpb.ListSnapshotOptions{
 		Id:    ID,
 		VolId: volID,
 	}
-	if m, err := c.client.ListSnapshot(ctx, opts); err == nil {
-		msg.Msg = m.Msg
+	m, err := c.client.ListSnapshot(ctx, opts)
+	if err != nil {
+		return
 	}
+
+	for _, v := range m.Snapshots {
+		snaps = append(snaps, &types.Snapshot{
+			VolID:       v.VolId,
+			VolMountDir: v.VolMountDir,
+			SnapID:      v.SnapId,
+			CreatedTime: v.CreatedTime,
+		})
+	}
+
 	return
 }
 

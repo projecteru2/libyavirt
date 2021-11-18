@@ -194,7 +194,7 @@ func (c *HTTPClient) Events(ctx context.Context, filters map[string]string) (<-c
 }
 
 // ListSnapshot .
-func (c *HTTPClient) ListSnapshot(ctx context.Context, ID, volID string) (reply types.Msg, err error) {
+func (c *HTTPClient) ListSnapshot(ctx context.Context, ID, volID string) (reply types.Snapshots, err error) {
 	args := &types.ListSnapshotReq{
 		ID:    ID,
 		VolID: volID,

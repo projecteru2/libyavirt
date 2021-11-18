@@ -262,8 +262,15 @@ message ListSnapshotOptions {
   string vol_id = 2;
 }
 
-message ListSnapshotMessage {
-  string msg = 1;
+message ListSnapshotMessageItem{
+  string vol_id = 1;
+  string vol_mount_dir = 2;
+  string snap_id = 3;
+  int64 created_time = 4;
+}
+
+message ListSnapshotMessage{
+  repeated ListSnapshotMessageItem snapshots = 1;
 }
 
 message CreateSnapshotOptions {

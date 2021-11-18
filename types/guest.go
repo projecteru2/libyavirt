@@ -232,6 +232,15 @@ type GetGuestIDListReq struct {
 	Filters map[string]string
 }
 
+type Snapshot struct {
+	VolID       string
+	VolMountDir string
+	SnapID      string
+	CreatedTime int64
+}
+
+type Snapshots []*Snapshot
+
 // ListSnapshotReq .
 type ListSnapshotReq struct {
 	ID    string `uri:"id" binding:"required"`
