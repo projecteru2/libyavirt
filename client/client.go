@@ -35,7 +35,7 @@ type Client interface {
 	NetworkList(ctx context.Context, drivers []string) ([]*types.Network, error)
 	WaitGuest(ctx context.Context, ID string, force bool) (types.WaitResult, error)
 	Log(ctx context.Context, n int, ID string) (io.ReadCloser, error)
-	ListSnapshot(ctx context.Context, ID, volID string) (reply types.Msg, err error)
+	ListSnapshot(ctx context.Context, ID, volID string) (reply types.Snapshots, err error)
 	CreateSnapshot(ctx context.Context, ID, volID string) (reply types.Msg, err error)
 	CommitSnapshot(ctx context.Context, ID, volID, snapID string) (reply types.Msg, err error)
 	RestoreSnapshot(ctx context.Context, ID, volID, snapID string) (reply types.Msg, err error)
