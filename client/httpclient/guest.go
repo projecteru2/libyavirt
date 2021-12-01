@@ -238,3 +238,7 @@ func (c *HTTPClient) RestoreSnapshot(ctx context.Context, ID, volID, snapID stri
 func (c *HTTPClient) PushImage(ctx context.Context, imgName, user string) (msg string, err error) {
 	return "", errors.New("not and will not implemented")
 }
+
+func (c *HTTPClient) RemoveImage(ctx context.Context, imgName, user string, force, prune bool) (removed []string, err error) {
+	return nil, errors.New("not and will not implemented")
+}

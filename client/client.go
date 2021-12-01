@@ -40,6 +40,7 @@ type Client interface {
 	CommitSnapshot(ctx context.Context, ID, volID, snapID string) (reply types.Msg, err error)
 	RestoreSnapshot(ctx context.Context, ID, volID, snapID string) (reply types.Msg, err error)
 	PushImage(ctx context.Context, imgName, user string) (msg string, err error)
+	RemoveImage(ctx context.Context, imgName, user string, force, prune bool) (removed []string, err error)
 }
 
 // New .

@@ -29,9 +29,21 @@ service YavirtdRPC {
   rpc CommitSnapshot(CommitSnapshotOptions) returns (CommitSnapshotMessage) {};
   rpc RestoreSnapshot(RestoreSnapshotOptions) returns (RestoreSnapshotMessage) {};
   rpc PushImage(PushImageOptions) returns (PushImageMessage) {};
+  rpc RemoveImage(RemoveImageOptions) returns (RemoveImageMessage);
 }
 
 message Empty {}
+
+message RemoveImageOptions{
+  string image = 1;
+  string user = 2;
+  bool force = 3;
+  bool prune = 4;
+}
+
+message RemoveImageMessage{
+  repeated string removed = 1;
+}
 
 message PushImageOptions{
   string imgName = 1;
