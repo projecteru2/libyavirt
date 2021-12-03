@@ -41,6 +41,7 @@ type Client interface {
 	RestoreSnapshot(ctx context.Context, ID, volID, snapID string) (reply types.Msg, err error)
 	PushImage(ctx context.Context, imgName, user string) (msg string, err error)
 	RemoveImage(ctx context.Context, imgName, user string, force, prune bool) (removed []string, err error)
+	ListImage(ctx context.Context, filter string) (images []types.SysImage, err error)
 }
 
 // New .
