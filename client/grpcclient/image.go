@@ -4,6 +4,7 @@ import (
 	"context"
 
 	yavpb "github.com/projecteru2/libyavirt/grpc/gen"
+	"github.com/projecteru2/libyavirt/types"
 )
 
 func (c *GRPCClient) PushImage(ctx context.Context, imgName, user string) (string, error) {
@@ -31,4 +32,27 @@ func (c *GRPCClient) RemoveImage(ctx context.Context, imgName, user string, forc
 	}
 
 	return msg.Removed, nil
+}
+
+func (c *GRPCClient) ListImage(ctx context.Context, filter string) ([]types.SysImage, error) {
+	opts := &yavpb.ListImageOptions{Filter: filter}
+
+	msg, err := c.client.ListImage(ctx, opts)
+	if err != nil {
+		return nil, err
+	}
+
+	images := []types.SysImage{}
+
+	for _, image := range msg.Images {
+		images = append(images, types.SysImage{
+			Name:   image.Name,
+			User:   image.User,
+			Distro: image.Distro,
+			Id:     image.Id,
+			Type:   image.Type,
+		})
+	}
+
+	return images, nil
 }

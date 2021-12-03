@@ -242,3 +242,7 @@ func (c *HTTPClient) PushImage(ctx context.Context, imgName, user string) (msg s
 func (c *HTTPClient) RemoveImage(ctx context.Context, imgName, user string, force, prune bool) (removed []string, err error) {
 	return nil, errors.New("not and will not implemented")
 }
+
+func (c *HTTPClient) ListImage(ctx context.Context, filter string) (images []types.SysImage, err error) {
+	return nil, errors.New("not and will not implemented")
+}

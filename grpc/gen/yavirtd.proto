@@ -30,9 +30,26 @@ service YavirtdRPC {
   rpc RestoreSnapshot(RestoreSnapshotOptions) returns (RestoreSnapshotMessage) {};
   rpc PushImage(PushImageOptions) returns (PushImageMessage) {};
   rpc RemoveImage(RemoveImageOptions) returns (RemoveImageMessage);
+  rpc ListImage(ListImageOptions) returns (ListImageMessage);
 }
 
 message Empty {}
+
+message ListImageOptions{
+  string filter = 1;
+}
+
+message ImageItem{
+  string name = 1;
+  string user = 2;
+  string distro = 3;
+  string id = 4;
+  string type = 5;
+}
+
+message ListImageMessage{
+  repeated ImageItem images = 1;
+}
 
 message RemoveImageOptions{
   string image = 1;
@@ -46,7 +63,7 @@ message RemoveImageMessage{
 }
 
 message PushImageOptions{
-  string imgName = 1;
+  string img_name = 1;
   string user = 2;
 }
 
