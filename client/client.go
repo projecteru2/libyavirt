@@ -42,6 +42,7 @@ type Client interface {
 	PushImage(ctx context.Context, imgName, user string) (msg string, err error)
 	RemoveImage(ctx context.Context, imgName, user string, force, prune bool) (removed []string, err error)
 	ListImage(ctx context.Context, filter string) (images []types.SysImage, err error)
+	PullImage(ctx context.Context, imgName string, all bool) (result string, err error)
 }
 
 // New .

@@ -56,3 +56,14 @@ func (c *GRPCClient) ListImage(ctx context.Context, filter string) ([]types.SysI
 
 	return images, nil
 }
+
+func (c *GRPCClient) PullImage(ctx context.Context, imgName string, all bool) (result string, err error) {
+	opts := &yavpb.PullImageOptions{Name: imgName, All: all}
+
+	msg, err := c.client.PullImage(ctx, opts)
+	if err != nil {
+		return "", err
+	}
+
+	return msg.Result, nil
+}
