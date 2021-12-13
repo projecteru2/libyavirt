@@ -31,9 +31,19 @@ service YavirtdRPC {
   rpc PushImage(PushImageOptions) returns (PushImageMessage) {};
   rpc RemoveImage(RemoveImageOptions) returns (RemoveImageMessage);
   rpc ListImage(ListImageOptions) returns (ListImageMessage);
+  rpc PullImage(PullImageOptions) returns (PullImageMessage);
 }
 
 message Empty {}
+
+message PullImageOptions{
+  string name = 1;
+  bool all = 2;
+}
+
+message PullImageMessage{
+  string result = 1;
+}
 
 message ListImageOptions{
   string filter = 1;
