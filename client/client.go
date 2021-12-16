@@ -43,6 +43,7 @@ type Client interface {
 	RemoveImage(ctx context.Context, imgName, user string, force, prune bool) (removed []string, err error)
 	ListImage(ctx context.Context, filter string) (images []types.SysImage, err error)
 	PullImage(ctx context.Context, imgName string, all bool) (result string, err error)
+	DigestImage(ctx context.Context, image string, local bool) (digests []string, err error)
 }
 
 // New .
