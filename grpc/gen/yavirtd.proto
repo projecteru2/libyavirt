@@ -32,6 +32,7 @@ service YavirtdRPC {
   rpc RemoveImage(RemoveImageOptions) returns (RemoveImageMessage);
   rpc ListImage(ListImageOptions) returns (ListImageMessage);
   rpc PullImage(PullImageOptions) returns (PullImageMessage);
+  rpc DigestImage(DigestImageOptions) returns (DigestImageMessage);
 }
 
 message Empty {}
@@ -349,4 +350,13 @@ message RestoreSnapshotOptions {
 
 message RestoreSnapshotMessage {
   string msg = 1;
+}
+
+message DigestImageOptions{
+  bool local = 1;
+  string image_name = 2;
+}
+
+message DigestImageMessage{
+  repeated string digests = 1;
 }

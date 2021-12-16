@@ -250,3 +250,7 @@ func (c *HTTPClient) ListImage(ctx context.Context, filter string) (images []typ
 func (c *HTTPClient) PullImage(ctx context.Context, imgName string, all bool) (result string, err error) {
 	return result, errors.New("not and will not implemented")
 }
+
+func (c *HTTPClient) DigestImage(ctx context.Context, image string, local bool) (digests []string, err error) {
+	return nil, errors.New("not and will not implemented")
+}

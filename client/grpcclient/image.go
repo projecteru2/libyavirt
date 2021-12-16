@@ -67,3 +67,14 @@ func (c *GRPCClient) PullImage(ctx context.Context, imgName string, all bool) (r
 
 	return msg.Result, nil
 }
+
+func (c *GRPCClient) DigestImage(ctx context.Context, image string, local bool) (digests []string, err error) {
+	opts := &yavpb.DigestImageOptions{ImageName: image, Local: local}
+
+	msg, err := c.client.DigestImage(ctx, opts)
+	if err != nil {
+		return nil, err
+	}
+
+	return msg.Digests, nil
+}
