@@ -36,7 +36,7 @@ func (c *AttachGuestClient) Close() error {
 }
 
 // AttachGuest .
-func (c *GRPCClient) AttachGuest(ctx context.Context, ID string, cmds []string, flags types.AttachGuestFlags) (stream io.ReadWriteCloser, err error) {
+func (c *GRPCClient) AttachGuest(ctx context.Context, ID string, cmds []string, flags types.AttachGuestFlags) (execID string, stream io.ReadWriteCloser, err error) {
 	resp, err := c.client.AttachGuest(ctx)
 	if err != nil {
 		return
@@ -49,10 +49,18 @@ func (c *GRPCClient) AttachGuest(ctx context.Context, ID string, cmds []string, 
 		Commands: cmds,
 	}
 
-	return &AttachGuestClient{
+	if err = resp.Send(opts); err != nil {
+		return "", nil, err
+	}
+	msg, err := resp.Recv()
+	if err != nil {
+		return "", nil, err
+	}
+
+	return msg.Id, &AttachGuestClient{
 		ID:     ID,
 		client: resp,
-	}, resp.Send(opts)
+	}, nil
 }
 
 // ResizeConsoleWindow .
