@@ -3,12 +3,15 @@ package grpcclient
 import (
 	"context"
 	"encoding/json"
+	"sync"
 
 	"google.golang.org/grpc"
 
 	yavpb "github.com/projecteru2/libyavirt/grpc/gen"
 	"github.com/projecteru2/libyavirt/types"
 )
+
+var grpcClientCache = sync.Map{}
 
 // GRPCClient .
 type GRPCClient struct {
@@ -17,6 +20,9 @@ type GRPCClient struct {
 
 // New .
 func New(addr string) (*GRPCClient, error) {
+	if client, ok := grpcClientCache.Load(addr); ok {
+		return client.(*GRPCClient), nil
+	}
 	opts := []grpc.DialOption{grpc.WithInsecure()}
 	conn, err := grpc.Dial(addr, opts...)
 	if err != nil {
@@ -24,7 +30,9 @@ func New(addr string) (*GRPCClient, error) {
 	}
 
 	client := yavpb.NewYavirtdRPCClient(conn)
-	return &GRPCClient{client}, nil
+	grpcClient := &GRPCClient{client: client}
+	grpcClientCache.Store(addr, grpcClient)
+	return grpcClient, nil
 }
 
 // Info .
@@ -40,6 +48,11 @@ func (c *GRPCClient) Info(ctx context.Context) (info types.HostInfo, err error) 
 		Mem:     msg.Memory,
 		Storage: msg.Memory,
 	}, nil
+}
+
+// Close .
+func (c *GRPCClient) Close() error {
+	return nil // grpc will manage the connections, don't have to close it here
 }
 
 // GetGuest .
