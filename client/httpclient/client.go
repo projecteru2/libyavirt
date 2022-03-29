@@ -8,6 +8,8 @@ import (
 	"time"
 )
 
+var client = defaultHttphttpClient()
+
 // HTTPClient .
 type HTTPClient struct {
 	addr   string
@@ -33,7 +35,7 @@ func New(addr, ver string) (*HTTPClient, error) {
 		scheme: "http",
 		ver:    ver,
 
-		http: defaultHttphttpClient(),
+		http: client,
 
 		defaultHeaders: map[string]string{
 			"Content-Type": "application/json",
