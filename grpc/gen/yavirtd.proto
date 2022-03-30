@@ -229,6 +229,7 @@ message CreateGuestMessage {
   string image_name = 11;
   map<string, string> networks = 12;
   string image_user = 13;
+  map<string, string> labels = 14;
 }
 
 message ControlGuestOptions {

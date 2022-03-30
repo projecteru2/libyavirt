@@ -124,6 +124,7 @@ func (c *GRPCClient) CreateGuest(ctx context.Context, args types.CreateGuestReq)
 		ImageName: msg.ImageName,
 		ImageUser: msg.ImageUser,
 		Networks:  msg.Networks,
+		Labels:    msg.Labels,
 	}, nil
 }
 
