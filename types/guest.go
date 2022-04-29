@@ -41,7 +41,7 @@ type CreateGuestReq struct {
 	Mem        int64
 	ImageName  string
 	ImageUser  string
-	Volumes    map[string]int64
+	Volumes    []string
 	DmiUUID    string
 	Labels     map[string]string
 	AncestorID string
@@ -189,7 +189,7 @@ type ResizeGuestReq struct {
 	GuestReq
 	CPU     int
 	Mem     int64
-	Volumes map[string]int64
+	Volumes []string
 }
 
 // GetGrpcOpts .
