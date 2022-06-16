@@ -56,8 +56,8 @@ func (c *GRPCClient) Close() error {
 }
 
 // GetGuest .
-func (c *GRPCClient) GetGuest(ctx context.Context, ID string) (guest types.Guest, err error) {
-	msg, err := c.client.GetGuest(ctx, &yavpb.GetGuestOptions{Id: ID})
+func (c *GRPCClient) GetGuest(ctx context.Context, id string) (guest types.Guest, err error) {
+	msg, err := c.client.GetGuest(ctx, &yavpb.GetGuestOptions{Id: id})
 	if err != nil {
 		return
 	}
@@ -85,8 +85,8 @@ func (c *GRPCClient) GetGuest(ctx context.Context, ID string) (guest types.Guest
 }
 
 // GetGuestUUID .
-func (c *GRPCClient) GetGuestUUID(ctx context.Context, ID string) (uuid string, err error) {
-	msg, err := c.client.GetGuestUUID(ctx, &yavpb.GetGuestOptions{Id: ID})
+func (c *GRPCClient) GetGuestUUID(ctx context.Context, id string) (uuid string, err error) {
+	msg, err := c.client.GetGuestUUID(ctx, &yavpb.GetGuestOptions{Id: id})
 	if err != nil {
 		return
 	}
@@ -129,19 +129,19 @@ func (c *GRPCClient) CreateGuest(ctx context.Context, args types.CreateGuestReq)
 }
 
 // StartGuest .
-func (c *GRPCClient) StartGuest(ctx context.Context, ID string) (msg types.Msg, err error) {
-	return c.controlGuest(ctx, ID, types.OpStart, false)
+func (c *GRPCClient) StartGuest(ctx context.Context, id string) (msg types.Msg, err error) {
+	return c.controlGuest(ctx, id, types.OpStart, false)
 }
 
 // StopGuest .
-func (c *GRPCClient) StopGuest(ctx context.Context, ID string, force bool) (msg types.Msg, err error) {
-	return c.controlGuest(ctx, ID, types.OpStop, force)
+func (c *GRPCClient) StopGuest(ctx context.Context, id string, force bool) (msg types.Msg, err error) {
+	return c.controlGuest(ctx, id, types.OpStop, force)
 }
 
 // WaitGuest .
-func (c *GRPCClient) WaitGuest(ctx context.Context, ID string, force bool) (msg types.WaitResult, err error) {
+func (c *GRPCClient) WaitGuest(ctx context.Context, id string, force bool) (msg types.WaitResult, err error) {
 	var result *yavpb.WaitGuestMessage
-	result, err = c.client.WaitGuest(ctx, &yavpb.WaitGuestOptions{Id: ID})
+	result, err = c.client.WaitGuest(ctx, &yavpb.WaitGuestOptions{Id: id})
 	if err != nil {
 		return
 	}
@@ -153,13 +153,13 @@ func (c *GRPCClient) WaitGuest(ctx context.Context, ID string, force bool) (msg 
 }
 
 // DestroyGuest .
-func (c *GRPCClient) DestroyGuest(ctx context.Context, ID string, force bool) (msg types.Msg, err error) {
-	return c.controlGuest(ctx, ID, types.OpDestroy, force)
+func (c *GRPCClient) DestroyGuest(ctx context.Context, id string, force bool) (msg types.Msg, err error) {
+	return c.controlGuest(ctx, id, types.OpDestroy, force)
 }
 
-func (c *GRPCClient) controlGuest(ctx context.Context, ID, operation string, force bool) (msg types.Msg, err error) {
+func (c *GRPCClient) controlGuest(ctx context.Context, id, operation string, force bool) (msg types.Msg, err error) {
 	opts := &yavpb.ControlGuestOptions{
-		Id:        ID,
+		Id:        id,
 		Operation: operation,
 		Force:     force,
 	}
@@ -181,9 +181,9 @@ func (c *GRPCClient) ResizeGuest(ctx context.Context, args types.ResizeGuestReq)
 }
 
 // ExecuteGuest .
-func (c *GRPCClient) ExecuteGuest(ctx context.Context, ID string, cmd []string) (msg types.ExecuteGuestMessage, err error) {
+func (c *GRPCClient) ExecuteGuest(ctx context.Context, id string, cmd []string) (msg types.ExecuteGuestMessage, err error) {
 	opts := &yavpb.ExecuteGuestOptions{
-		Id:       ID,
+		Id:       id,
 		Commands: cmd,
 	}
 	m, err := c.client.ExecuteGuest(ctx, opts)
@@ -198,9 +198,9 @@ func (c *GRPCClient) ExecuteGuest(ctx context.Context, ID string, cmd []string) 
 }
 
 // ExecExitCode .
-func (c *GRPCClient) ExecExitCode(ctx context.Context, ID string, pid int) (exitCode int, err error) {
+func (c *GRPCClient) ExecExitCode(ctx context.Context, id string, pid int) (exitCode int, err error) {
 	opts := &yavpb.ExecExitCodeOptions{
-		Id:  ID,
+		Id:  id,
 		Pid: int64(pid),
 	}
 	m, err := c.client.ExecExitCode(ctx, opts)
@@ -212,7 +212,7 @@ func (c *GRPCClient) ExecExitCode(ctx context.Context, ID string, pid int) (exit
 
 // CaptureGuest .
 func (c *GRPCClient) CaptureGuest(ctx context.Context, args types.CaptureGuestReq) (uimg types.UserImage, err error) {
-	msg := &yavpb.UserImageMessage{}
+	var msg *yavpb.UserImageMessage
 	if msg, err = c.client.CaptureGuest(ctx, args.GetGrpcOpts()); err != nil {
 		return
 	}
@@ -227,7 +227,7 @@ func (c *GRPCClient) CaptureGuest(ctx context.Context, args types.CaptureGuestRe
 
 // ConnectNetwork .
 func (c *GRPCClient) ConnectNetwork(ctx context.Context, args types.ConnectNetworkReq) (cidr string, err error) {
-	msg := &yavpb.ConnectNetworkMessage{}
+	var msg *yavpb.ConnectNetworkMessage
 	if msg, err = c.client.ConnectNetwork(ctx, args.GetGrpcOpts()); err != nil {
 		return
 	}
@@ -239,7 +239,7 @@ func (c *GRPCClient) ConnectNetwork(ctx context.Context, args types.ConnectNetwo
 
 // DisconnectNetwork .
 func (c *GRPCClient) DisconnectNetwork(ctx context.Context, args types.DisconnectNetworkReq) (message string, err error) {
-	msg := &yavpb.DisconnectNetworkMessage{}
+	var msg *yavpb.DisconnectNetworkMessage
 	if msg, err = c.client.DisconnectNetwork(ctx, args.GetGrpcOpts()); err != nil {
 		return
 	}
@@ -290,13 +290,13 @@ func (c *GRPCClient) NetworkList(ctx context.Context, drivers []string) ([]*type
 	var cidr []string
 	var networks []*types.Network
 
-	for name, cidrsJson := range msg.Networks {
-		if err := json.Unmarshal(cidrsJson, &cidr); err != nil {
+	for name, cidrsJSON := range msg.Networks {
+		if err := json.Unmarshal(cidrsJSON, &cidr); err != nil {
 			return nil, err
 		}
 
 		network := &types.Network{Name: name}
-		network.Subnets = append(network.Subnets, cidr[:]...)
+		network.Subnets = append(network.Subnets, cidr...)
 		networks = append(networks, network)
 	}
 
@@ -304,9 +304,9 @@ func (c *GRPCClient) NetworkList(ctx context.Context, drivers []string) ([]*type
 }
 
 // ListSnapshot .
-func (c *GRPCClient) ListSnapshot(ctx context.Context, ID, volID string) (snaps types.Snapshots, err error) {
+func (c *GRPCClient) ListSnapshot(ctx context.Context, id, volID string) (snaps types.Snapshots, err error) {
 	opts := &yavpb.ListSnapshotOptions{
-		Id:    ID,
+		Id:    id,
 		VolId: volID,
 	}
 	m, err := c.client.ListSnapshot(ctx, opts)
@@ -327,9 +327,9 @@ func (c *GRPCClient) ListSnapshot(ctx context.Context, ID, volID string) (snaps 
 }
 
 // CreateSnapshot .
-func (c *GRPCClient) CreateSnapshot(ctx context.Context, ID, volID string) (msg types.Msg, err error) {
+func (c *GRPCClient) CreateSnapshot(ctx context.Context, id, volID string) (msg types.Msg, err error) {
 	opts := &yavpb.CreateSnapshotOptions{
-		Id:    ID,
+		Id:    id,
 		VolId: volID,
 	}
 	if m, err := c.client.CreateSnapshot(ctx, opts); err == nil {
@@ -339,9 +339,9 @@ func (c *GRPCClient) CreateSnapshot(ctx context.Context, ID, volID string) (msg 
 }
 
 // CommitSnapshot .
-func (c *GRPCClient) CommitSnapshot(ctx context.Context, ID, volID, snapID string) (msg types.Msg, err error) {
+func (c *GRPCClient) CommitSnapshot(ctx context.Context, id, volID, snapID string) (msg types.Msg, err error) {
 	opts := &yavpb.CommitSnapshotOptions{
-		Id:     ID,
+		Id:     id,
 		VolId:  volID,
 		SnapId: snapID,
 	}
@@ -352,9 +352,9 @@ func (c *GRPCClient) CommitSnapshot(ctx context.Context, ID, volID, snapID strin
 }
 
 // RestoreSnapshot .
-func (c *GRPCClient) RestoreSnapshot(ctx context.Context, ID, volID, snapID string) (msg types.Msg, err error) {
+func (c *GRPCClient) RestoreSnapshot(ctx context.Context, id, volID, snapID string) (msg types.Msg, err error) {
 	opts := &yavpb.RestoreSnapshotOptions{
-		Id:     ID,
+		Id:     id,
 		VolId:  volID,
 		SnapId: snapID,
 	}

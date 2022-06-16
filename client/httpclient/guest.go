@@ -34,7 +34,7 @@ func (c *HTTPClient) StartGuest(ctx context.Context, id string) (types.Msg, erro
 }
 
 // WaitGuest .
-func (c *HTTPClient) WaitGuest(ctx context.Context, ID string, force bool) (msg types.WaitResult, err error) {
+func (c *HTTPClient) WaitGuest(ctx context.Context, id string, force bool) (msg types.WaitResult, err error) {
 	err = errors.New("not and will not implemented")
 	return
 }
@@ -90,17 +90,17 @@ func (c *HTTPClient) ExecuteGuest(ctx context.Context, id string, cmds []string)
 }
 
 // CopyToGuest .
-func (c *HTTPClient) CopyToGuest(ctx context.Context, ID, dest string, content io.Reader, AllowOverwriteDirWithFile, CopyUIDGID bool) error {
+func (c *HTTPClient) CopyToGuest(ctx context.Context, id, dest string, content io.Reader, allowOverwriteDirWithFile, copyUIDGID bool) error {
 	return errors.New("not and will not implemented")
 }
 
 // ExecExitCode .
-func (c *HTTPClient) ExecExitCode(ctx context.Context, ID string, pid int) (exitCode int, err error) {
+func (c *HTTPClient) ExecExitCode(ctx context.Context, id string, pid int) (exitCode int, err error) {
 	return -1, errors.New("not and will not implemented")
 }
 
 // Log .
-func (c *HTTPClient) Log(ctx context.Context, n int, ID string) (io.ReadCloser, error) {
+func (c *HTTPClient) Log(ctx context.Context, n int, id string) (io.ReadCloser, error) {
 	return nil, errors.New("not and will not implemented")
 }
 
@@ -194,9 +194,9 @@ func (c *HTTPClient) Events(ctx context.Context, filters map[string]string) (<-c
 }
 
 // ListSnapshot .
-func (c *HTTPClient) ListSnapshot(ctx context.Context, ID, volID string) (reply types.Snapshots, err error) {
+func (c *HTTPClient) ListSnapshot(ctx context.Context, id, volID string) (reply types.Snapshots, err error) {
 	args := &types.ListSnapshotReq{
-		ID:    ID,
+		ID:    id,
 		VolID: volID,
 	}
 	_, err = c.Post(ctx, "/guests/snapshot/list", args, &reply)
@@ -204,9 +204,9 @@ func (c *HTTPClient) ListSnapshot(ctx context.Context, ID, volID string) (reply 
 }
 
 // CreateSnapshot .
-func (c *HTTPClient) CreateSnapshot(ctx context.Context, ID, volID string) (reply types.Msg, err error) {
+func (c *HTTPClient) CreateSnapshot(ctx context.Context, id, volID string) (reply types.Msg, err error) {
 	args := &types.CreateSnapshotReq{
-		ID:    ID,
+		ID:    id,
 		VolID: volID,
 	}
 	_, err = c.Post(ctx, "/guests/snapshot/create", args, &reply)
@@ -214,9 +214,9 @@ func (c *HTTPClient) CreateSnapshot(ctx context.Context, ID, volID string) (repl
 }
 
 // CommitSnapshot .
-func (c *HTTPClient) CommitSnapshot(ctx context.Context, ID, volID, snapID string) (reply types.Msg, err error) {
+func (c *HTTPClient) CommitSnapshot(ctx context.Context, id, volID, snapID string) (reply types.Msg, err error) {
 	args := &types.CommitSnapshotReq{
-		ID:     ID,
+		ID:     id,
 		VolID:  volID,
 		SnapID: snapID,
 	}
@@ -225,9 +225,9 @@ func (c *HTTPClient) CommitSnapshot(ctx context.Context, ID, volID, snapID strin
 }
 
 // RestoreSnapshot .
-func (c *HTTPClient) RestoreSnapshot(ctx context.Context, ID, volID, snapID string) (reply types.Msg, err error) {
+func (c *HTTPClient) RestoreSnapshot(ctx context.Context, id, volID, snapID string) (reply types.Msg, err error) {
 	args := &types.RestoreSnapshotReq{
-		ID:     ID,
+		ID:     id,
 		VolID:  volID,
 		SnapID: snapID,
 	}

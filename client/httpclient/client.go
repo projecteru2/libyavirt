@@ -65,6 +65,7 @@ func defaultHttphttpClient() *http.Client {
 	}
 }
 
+//nolint:gomnd // magic number
 func defaultPoolTransport() *http.Transport {
 	return &http.Transport{
 		DialContext: (&net.Dialer{

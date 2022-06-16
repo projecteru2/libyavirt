@@ -85,16 +85,16 @@ func (c *GRPCClient) Log(ctx context.Context, n int, id string) (io.ReadCloser, 
 }
 
 // CopyToGuest .
-func (c *GRPCClient) CopyToGuest(ctx context.Context, ID, dest string, content io.Reader, AllowOverwriteDirWithFile, CopyUIDGID bool) error {
+func (c *GRPCClient) CopyToGuest(ctx context.Context, id, dest string, content io.Reader, allowOverwriteDirWithFile, copyUIDGID bool) error {
 	copyClient, err := c.client.CopyToGuest(ctx)
 	if err != nil {
 		return err
 	}
 
 	opts := &yavpb.CopyOptions{
-		Id:       ID,
+		Id:       id,
 		Dest:     dest,
-		Override: AllowOverwriteDirWithFile,
+		Override: allowOverwriteDirWithFile,
 	}
 
 	buf := make([]byte, types.BufferSize)

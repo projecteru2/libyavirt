@@ -36,14 +36,14 @@ func (c *AttachGuestClient) Close() error {
 }
 
 // AttachGuest .
-func (c *GRPCClient) AttachGuest(ctx context.Context, ID string, cmds []string, flags types.AttachGuestFlags) (execID string, stream io.ReadWriteCloser, err error) {
+func (c *GRPCClient) AttachGuest(ctx context.Context, id string, cmds []string, flags types.AttachGuestFlags) (execID string, stream io.ReadWriteCloser, err error) {
 	resp, err := c.client.AttachGuest(ctx)
 	if err != nil {
 		return
 	}
 
 	opts := &yavpb.AttachGuestOptions{
-		Id:       ID,
+		Id:       id,
 		Force:    flags.Force,
 		Safe:     flags.Safe,
 		Commands: cmds,
@@ -58,15 +58,15 @@ func (c *GRPCClient) AttachGuest(ctx context.Context, ID string, cmds []string, 
 	}
 
 	return msg.Id, &AttachGuestClient{
-		ID:     ID,
+		ID:     id,
 		client: resp,
 	}, nil
 }
 
 // ResizeConsoleWindow .
-func (c *GRPCClient) ResizeConsoleWindow(ctx context.Context, ID string, height, width uint) error {
+func (c *GRPCClient) ResizeConsoleWindow(ctx context.Context, id string, height, width uint) error {
 	_, err := c.client.ResizeConsoleWindow(ctx, &yavpb.ResizeWindowOptions{
-		Id:     ID,
+		Id:     id,
 		Height: int64(height),
 		Width:  int64(width),
 	})

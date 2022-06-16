@@ -29,9 +29,7 @@ const (
 
 // EruID .
 func EruID(id string) string {
-	if strings.HasPrefix(id, "guest-") {
-		id = id[6:]
-	}
+	id = strings.TrimPrefix(id, "guest-")
 	return fmt.Sprintf("%s%032s", MagicPrefix, id)
 }
 
@@ -41,7 +39,7 @@ type CreateGuestReq struct {
 	Mem        int64
 	ImageName  string
 	ImageUser  string
-	Volumes    map[string]int64
+	Volumes    []string
 	DmiUUID    string
 	Labels     map[string]string
 	AncestorID string
@@ -81,9 +79,7 @@ type GuestReq struct {
 // VirtID .
 func (r GuestReq) VirtID() string {
 	var id = r.ID
-	if strings.HasPrefix(id, MagicPrefix) {
-		id = id[len(MagicPrefix):]
-	}
+	id = strings.TrimPrefix(id, MagicPrefix)
 
 	id = r.checkOldVersionID(id)
 
@@ -91,11 +87,11 @@ func (r GuestReq) VirtID() string {
 }
 
 func (r GuestReq) checkOldVersionID(id string) string {
-	var i64, err = strconv.ParseInt(id, 10, 64)
+	var i64, err = strconv.ParseInt(id, 10, 64) //nolint
 	switch {
 	case err != nil:
 		fallthrough
-	case i64 > 999999:
+	case i64 > 999999: //nolint
 		return id
 	default:
 		return fmt.Sprintf("guest-%06d", i64)
@@ -189,7 +185,7 @@ type ResizeGuestReq struct {
 	GuestReq
 	CPU     int
 	Mem     int64
-	Volumes map[string]int64
+	Volumes []string
 }
 
 // GetGrpcOpts .
