@@ -49,7 +49,7 @@ func (c *GRPCClient) ListImage(ctx context.Context, filter string) ([]types.SysI
 			Name:   image.Name,
 			User:   image.User,
 			Distro: image.Distro,
-			Id:     image.Id,
+			ID:     image.Id,
 			Type:   image.Type,
 		})
 	}

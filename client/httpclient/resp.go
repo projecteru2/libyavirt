@@ -4,6 +4,8 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/sirupsen/logrus"
 )
 
 // Resp .
@@ -23,5 +25,7 @@ func (r *Resp) close() {
 		r.body = nil
 	}()
 
-	io.Copy(ioutil.Discard, r.body)
+	if _, err := io.Copy(ioutil.Discard, r.body); err != nil {
+		logrus.Errorf("[libyavirt] Copy resp body error: %v", err)
+	}
 }

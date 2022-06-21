@@ -7,7 +7,7 @@ type SysImage struct {
 	Name   string
 	User   string
 	Distro string
-	Id     string
+	ID     string
 	Type   string
 }
 
@@ -16,7 +16,7 @@ func ToGRPCImageItem(img SysImage) *yavpb.ImageItem {
 		Name:   img.Name,
 		User:   img.User,
 		Distro: img.Distro,
-		Id:     img.Id,
+		Id:     img.ID,
 		Type:   img.Type,
 	}
 }

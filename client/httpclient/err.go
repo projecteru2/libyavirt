@@ -19,7 +19,7 @@ func (c *HTTPClient) procReqErr(err error) error {
 		switch {
 		case err.Timeout():
 			fallthrough
-		case !err.Temporary() && c.isConnRefusedErr(err):
+		case c.isConnRefusedErr(err):
 			return fmt.Errorf("cannot connect to yavirtd at %s", c.addr)
 		}
 	}

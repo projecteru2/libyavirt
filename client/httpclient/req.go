@@ -7,6 +7,8 @@ import (
 	"io"
 	"net/http"
 	"strings"
+
+	"github.com/juju/errors"
 )
 
 type headers = map[string][]string
@@ -57,6 +59,7 @@ func (c *HTTPClient) req(ctx context.Context, req *http.Request) (*Resp, error) 
 	if err != nil {
 		return nil, c.procReqErr(err)
 	}
+	defer rawResp.Body.Close()
 
 	var resp = &Resp{
 		body:       rawResp.Body,
@@ -91,10 +94,8 @@ func (c *HTTPClient) withDefaultHeaders(req *http.Request, hdrs headers) {
 		req.Header.Set(k, v)
 	}
 
-	if hdrs != nil {
-		for k, v := range hdrs {
-			req.Header[k] = v
-		}
+	for k, v := range hdrs {
+		req.Header[k] = v
 	}
 }
 
@@ -108,7 +109,9 @@ func (c *HTTPClient) requireOK(resp *Resp, err error) error {
 	}
 
 	var buf bytes.Buffer
-	io.Copy(&buf, resp.body)
+	if _, err = io.Copy(&buf, resp.body); err != nil {
+		return errors.Trace(err)
+	}
 
 	return fmt.Errorf("unexpected status code: %d (%s)", resp.statusCode, buf.Bytes())
 }
