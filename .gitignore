@@ -2,3 +2,4 @@
 *.swp
 vendor/
 cscope.*
+.DS_Store
