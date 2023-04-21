@@ -11,7 +11,7 @@ import (
 
 const (
 	// MagicPrefix .
-	MagicPrefix = "ERU-YET-ANOTHER-VIRT-20230421"
+	MagicPrefix = "00-ERU-YET-ANOTHER-VIRT-20230421"
 
 	// BufferSize for grpc send file 1 MB
 	BufferSize = 1024 * 1024
