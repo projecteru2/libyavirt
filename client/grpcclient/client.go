@@ -23,7 +23,7 @@ func New(addr string) (*GRPCClient, error) {
 	if client, ok := grpcClientCache.Load(addr); ok {
 		return client.(*GRPCClient), nil
 	}
-	opts := []grpc.DialOption{grpc.WithInsecure()}
+	opts := []grpc.DialOption{grpc.WithInsecure()} //nolint
 	conn, err := grpc.Dial(addr, opts...)
 	if err != nil {
 		return nil, err

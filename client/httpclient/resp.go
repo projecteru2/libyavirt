@@ -2,7 +2,7 @@ package httpclient
 
 import (
 	"io"
-	"io/ioutil"
+	"io/ioutil" //nolint
 	"net/http"
 )
 
