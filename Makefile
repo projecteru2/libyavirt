@@ -18,7 +18,11 @@ protoc:
 	sudo unzip -o /tmp/protoc-3.7.1-linux-x86_64.zip -d /usr/local 'include/*'
 
 grpc:
-	protoc --go_out=plugins=grpc:. grpc/gen/yavirtd.proto
+	protoc --go_out=. \
+			--go-grpc_out=. \
+			--go_opt=paths=source_relative \
+			--go-grpc_opt=require_unimplemented_servers=false,paths=source_relative \
+			grpc/gen/yavirtd.proto
 
 deps:
 	GO111MODULE=on go mod download
