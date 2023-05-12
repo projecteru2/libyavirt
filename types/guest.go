@@ -33,13 +33,20 @@ func EruID(id string) string {
 	return fmt.Sprintf("%s%032s", MagicPrefix, id)
 }
 
+// Volume .
+type Volume struct {
+	Mount    string
+	Capacity int64
+	IO       string
+}
+
 // CreateGuestReq .
 type CreateGuestReq struct {
 	CPU        int
 	Mem        int64
 	ImageName  string
 	ImageUser  string
-	Volumes    []string
+	Volumes    []Volume
 	DmiUUID    string
 	Labels     map[string]string
 	AncestorID string
@@ -55,12 +62,11 @@ func (r CreateGuestReq) AncestorVirtID() string {
 
 // GetGrpcOpts .
 func (r CreateGuestReq) GetGrpcOpts() *yavpb.CreateGuestOptions {
-	return &yavpb.CreateGuestOptions{
+	ret := &yavpb.CreateGuestOptions{
 		Cpu:        int64(r.CPU),
 		Memory:     r.Mem,
 		ImageName:  r.ImageName,
 		ImageUser:  r.ImageUser,
-		Volumes:    r.Volumes,
 		DmiUuid:    r.DmiUUID,
 		Labels:     r.Labels,
 		AncestorId: r.AncestorID,
@@ -68,6 +74,13 @@ func (r CreateGuestReq) GetGrpcOpts() *yavpb.CreateGuestOptions {
 		Lambda:     r.Lambda,
 		Stdin:      r.Stdin,
 	}
+	ret.Volumes = make([]*yavpb.Volume, len(r.Volumes))
+	for i, vol := range r.Volumes {
+		ret.Volumes[i].Mount = vol.Mount
+		ret.Volumes[i].Capacity = vol.Capacity
+		ret.Volumes[i].Io = vol.IO
+	}
+	return ret
 }
 
 // GuestReq .
@@ -185,17 +198,23 @@ type ResizeGuestReq struct {
 	GuestReq
 	CPU     int
 	Mem     int64
-	Volumes []string
+	Volumes []Volume
 }
 
 // GetGrpcOpts .
 func (r ResizeGuestReq) GetGrpcOpts() *yavpb.ResizeGuestOptions {
-	return &yavpb.ResizeGuestOptions{
-		Id:      r.ID,
-		Cpu:     int64(r.CPU),
-		Memory:  r.Mem,
-		Volumes: r.Volumes,
+	ret := &yavpb.ResizeGuestOptions{
+		Id:     r.ID,
+		Cpu:    int64(r.CPU),
+		Memory: r.Mem,
 	}
+	ret.Volumes = make([]*yavpb.Volume, len(r.Volumes))
+	for i, vol := range r.Volumes {
+		ret.Volumes[i].Mount = vol.Mount
+		ret.Volumes[i].Capacity = vol.Capacity
+		ret.Volumes[i].Io = vol.IO
+	}
+	return ret
 }
 
 // ConnectNetworkReq .
