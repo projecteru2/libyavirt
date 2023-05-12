@@ -46,6 +46,7 @@ type CreateGuestReq struct {
 	Cmd        []string
 	Lambda     bool
 	Stdin      bool
+	Resources  map[string][]byte
 }
 
 // AncestorVirtID .
@@ -67,6 +68,7 @@ func (r CreateGuestReq) GetGrpcOpts() *yavpb.CreateGuestOptions {
 		Cmd:        r.Cmd,
 		Lambda:     r.Lambda,
 		Stdin:      r.Stdin,
+		Resources:  r.Resources,
 	}
 }
 
