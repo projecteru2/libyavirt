@@ -16,6 +16,8 @@ protoc:
 	curl -Lv https://github.com/protocolbuffers/protobuf/releases/download/v3.7.1/protoc-3.7.1-linux-x86_64.zip -o /tmp/protoc-3.7.1-linux-x86_64.zip
 	sudo unzip -o /tmp/protoc-3.7.1-linux-x86_64.zip -d /usr/local bin/protoc
 	sudo unzip -o /tmp/protoc-3.7.1-linux-x86_64.zip -d /usr/local 'include/*'
+	go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
+	go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 
 grpc:
 	protoc --go_out=. \
@@ -25,9 +27,7 @@ grpc:
 			grpc/gen/yavirtd.proto
 
 deps:
-	GO111MODULE=on go mod download
-	GO111MODULE=on go mod vendor
-	go get github.com/golang/protobuf/protoc-gen-go@v1.3
+	go mod tidy
 
 test:
 ifdef RUN
