@@ -252,31 +252,46 @@ func (c *GRPCClient) DisconnectNetwork(ctx context.Context, args types.Disconnec
 func (c *GRPCClient) Events(ctx context.Context, filters map[string]string) (<-chan types.EventMessage, <-chan error) {
 	msgChan := make(chan types.EventMessage)
 	errChan := make(chan error)
+
 	go func() {
 		defer close(errChan)
 		defer close(msgChan)
 
+		// makes an eye here, uses the outer context in this goroutine.
 		client, err := c.client.Events(ctx, &yavpb.EventsOptions{Filters: filters})
 		if err != nil {
-			errChan <- err
+			sendEvent(ctx, errChan, err)
 			return
 		}
+
 		for {
 			msg, err := client.Recv()
 			if err != nil {
-				errChan <- err
+				sendEvent(ctx, errChan, err)
 				return
 			}
-			msgChan <- types.EventMessage{
+
+			if err := sendEvent(ctx, msgChan, types.EventMessage{
 				ID:       msg.Id,
 				Type:     msg.Type,
 				Action:   msg.Action,
 				TimeNano: msg.TimeNano,
+			}); err != nil {
+				return
 			}
 		}
 	}()
 
 	return msgChan, errChan
+}
+
+func sendEvent[T any](ctx context.Context, ch chan<- T, m T) (err error) {
+	select {
+	case ch <- m:
+	case <-ctx.Done():
+		err = ctx.Err()
+	}
+	return
 }
 
 // NetworkList list all networks.
