@@ -206,6 +206,7 @@ message CreateGuestOptions {
   repeated string cmd = 9;
   bool lambda = 10;
   bool stdin = 11;
+  map<string, bytes> resources = 12;
 }
 
 message ResizeGuestOptions {
@@ -213,6 +214,7 @@ message ResizeGuestOptions {
   int64 cpu = 2;
   int64 memory = 3;
   repeated Volume volumes = 4;
+  map<string, bytes> raw_resources = 12;
 }
 
 message Volume {
