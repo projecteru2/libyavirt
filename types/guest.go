@@ -53,6 +53,7 @@ type CreateGuestReq struct {
 	Cmd        []string
 	Lambda     bool
 	Stdin      bool
+	Resources  map[string][]byte
 }
 
 // AncestorVirtID .
@@ -73,6 +74,7 @@ func (r CreateGuestReq) GetGrpcOpts() *yavpb.CreateGuestOptions {
 		Cmd:        r.Cmd,
 		Lambda:     r.Lambda,
 		Stdin:      r.Stdin,
+		Resources:  r.Resources,
 	}
 	ret.Volumes = make([]*yavpb.Volume, len(r.Volumes))
 	for i, vol := range r.Volumes {
@@ -196,17 +198,19 @@ func (r CaptureGuestReq) GetGrpcOpts() *yavpb.CaptureGuestOptions {
 // ResizeGuestReq .
 type ResizeGuestReq struct {
 	GuestReq
-	CPU     int
-	Mem     int64
-	Volumes []Volume
+	CPU       int
+	Mem       int64
+	Volumes   []Volume
+	Resources map[string][]byte
 }
 
 // GetGrpcOpts .
 func (r ResizeGuestReq) GetGrpcOpts() *yavpb.ResizeGuestOptions {
 	ret := &yavpb.ResizeGuestOptions{
-		Id:     r.ID,
-		Cpu:    int64(r.CPU),
-		Memory: r.Mem,
+		Id:        r.ID,
+		Cpu:       int64(r.CPU),
+		Memory:    r.Mem,
+		Resources: r.Resources,
 	}
 	ret.Volumes = make([]*yavpb.Volume, len(r.Volumes))
 	for i, vol := range r.Volumes {
