@@ -157,6 +157,7 @@ message InfoMessage {
   int64 cpu = 2;
   int64 memory = 3;
   int64 storage = 4;
+  map<string, bytes> resources = 5;
 }
 
 message GetGuestOptions {
