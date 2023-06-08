@@ -43,10 +43,11 @@ func (c *GRPCClient) Info(ctx context.Context) (info types.HostInfo, err error) 
 	}
 
 	return types.HostInfo{
-		ID:      msg.Id,
-		CPU:     int(msg.Cpu),
-		Mem:     msg.Memory,
-		Storage: msg.Memory,
+		ID:        msg.Id,
+		CPU:       int(msg.Cpu),
+		Mem:       msg.Memory,
+		Storage:   msg.Memory,
+		Resources: msg.Resources,
 	}, nil
 }
 
