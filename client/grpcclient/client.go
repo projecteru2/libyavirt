@@ -139,6 +139,16 @@ func (c *GRPCClient) StopGuest(ctx context.Context, id string, force bool) (msg 
 	return c.controlGuest(ctx, id, types.OpStop, force)
 }
 
+// SuspendGuest .
+func (c *GRPCClient) SuspendGuest(ctx context.Context, id string) (msg types.Msg, err error) {
+	return c.controlGuest(ctx, id, types.OpSuspend, false)
+}
+
+// ResumeGuest .
+func (c *GRPCClient) ResumeGuest(ctx context.Context, id string) (msg types.Msg, err error) {
+	return c.controlGuest(ctx, id, types.OpResume, false)
+}
+
 // WaitGuest .
 func (c *GRPCClient) WaitGuest(ctx context.Context, id string, force bool) (msg types.WaitResult, err error) {
 	var result *yavpb.WaitGuestMessage

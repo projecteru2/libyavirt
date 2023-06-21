@@ -33,6 +33,16 @@ func (c *HTTPClient) StartGuest(ctx context.Context, id string) (types.Msg, erro
 	return c.ctrl(ctx, "/guests/start", id, false)
 }
 
+// SuspendGuest .
+func (c *HTTPClient) SuspendGuest(ctx context.Context, id string) (types.Msg, error) {
+	return c.ctrl(ctx, "/guests/suspend", id, false)
+}
+
+// ResumeGuest .
+func (c *HTTPClient) ResumeGuest(ctx context.Context, id string) (types.Msg, error) {
+	return c.ctrl(ctx, "/guests/resume", id, false)
+}
+
 // WaitGuest .
 func (c *HTTPClient) WaitGuest(ctx context.Context, id string, force bool) (msg types.WaitResult, err error) {
 	err = errors.New("not and will not implemented")
