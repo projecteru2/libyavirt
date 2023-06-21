@@ -22,6 +22,8 @@ type Client interface {
 	StartGuest(ctx context.Context, id string) (types.Msg, error)
 	StopGuest(ctx context.Context, id string, force bool) (types.Msg, error)
 	DestroyGuest(ctx context.Context, id string, force bool) (types.Msg, error)
+	SuspendGuest(ctx context.Context, id string) (types.Msg, error)
+	ResumeGuest(ctx context.Context, id string) (types.Msg, error)
 	AttachGuest(ctx context.Context, id string, cmd []string, flag types.AttachGuestFlags) (string, io.ReadWriteCloser, error)
 	ResizeConsoleWindow(ctx context.Context, id string, height, width uint) error
 	ExecuteGuest(ctx context.Context, id string, cmd []string) (types.ExecuteGuestMessage, error)
