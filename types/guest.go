@@ -25,6 +25,10 @@ const (
 	OpStop = "stop"
 	// OpDestroy .
 	OpDestroy = "destroy"
+	// OpSuspend .
+	OpSuspend = "suspend"
+	// OpResume .
+	OpResume = "resume"
 )
 
 // EruID .
