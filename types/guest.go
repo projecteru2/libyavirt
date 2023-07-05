@@ -220,9 +220,11 @@ func (r ResizeGuestReq) GetGrpcOpts() *yavpb.ResizeGuestOptions {
 	}
 	ret.Volumes = make([]*yavpb.Volume, len(r.Volumes))
 	for i, vol := range r.Volumes {
-		ret.Volumes[i].Mount = vol.Mount
-		ret.Volumes[i].Capacity = vol.Capacity
-		ret.Volumes[i].Io = vol.IO
+		ret.Volumes[i] = &yavpb.Volume{
+			Mount:    vol.Mount,
+			Capacity: vol.Capacity,
+			Io:       vol.IO,
+		}
 	}
 	return ret
 }
