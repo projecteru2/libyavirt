@@ -50,8 +50,8 @@ type Client interface {
 }
 
 // New .
-func New(yavirtdURI string) (Client, error) {
-	u, err := url.Parse(yavirtdURI)
+func New(cfg *types.Config) (Client, error) {
+	u, err := url.Parse(cfg.URI)
 	if err != nil {
 		return nil, err
 	}
@@ -60,7 +60,7 @@ func New(yavirtdURI string) (Client, error) {
 	case "http":
 		return httpclient.New(u.Host, u.Path[1:])
 	case "grpc":
-		return grpcclient.New(u.Host)
+		return grpcclient.New(cfg)
 	}
-	return nil, errors.New("invalid yavirtdURI: " + yavirtdURI)
+	return nil, errors.New("invalid yavirtdURI: " + cfg.URI)
 }

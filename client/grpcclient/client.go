@@ -2,10 +2,17 @@ package grpcclient
 
 import (
 	"context"
+	"crypto/tls"
+	"crypto/x509"
 	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"net/url"
+	"os"
 	"sync"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 
 	yavpb "github.com/projecteru2/libyavirt/grpc/gen"
 	"github.com/projecteru2/libyavirt/types"
@@ -13,17 +20,64 @@ import (
 
 var grpcClientCache = sync.Map{}
 
+func loadTLSCredentials(ca string) (credentials.TransportCredentials, error) {
+	// Load certificate of the CA who signed server's certificate
+	pemServerCA, err := ioutil.ReadFile(ca)
+	if err != nil {
+		return nil, err
+	}
+
+	certPool := x509.NewCertPool()
+	if !certPool.AppendCertsFromPEM(pemServerCA) {
+		return nil, fmt.Errorf("failed to add server CA's certificate")
+	}
+
+	// Create the credentials and return it
+	config := &tls.Config{
+		RootCAs: certPool,
+	}
+
+	return credentials.NewTLS(config), nil
+}
+
+func fileExists(filename string) bool {
+	info, err := os.Stat(filename)
+	if os.IsNotExist(err) {
+		return false
+	}
+	return !info.IsDir()
+}
+
 // GRPCClient .
 type GRPCClient struct {
+	cfg    types.Config
 	client yavpb.YavirtdRPCClient
 }
 
 // New .
-func New(addr string) (*GRPCClient, error) {
+func New(cfg *types.Config) (*GRPCClient, error) {
+	u, _ := url.Parse(cfg.URI)
+	addr := u.Host
+
 	if client, ok := grpcClientCache.Load(addr); ok {
 		return client.(*GRPCClient), nil
 	}
-	opts := []grpc.DialOption{grpc.WithInsecure()}
+	opts := []grpc.DialOption{}
+	if fileExists(cfg.CA) {
+		tlsCredentials, err := loadTLSCredentials(cfg.CA)
+		if err != nil {
+			return nil, err
+		}
+		opts = append(opts, grpc.WithTransportCredentials(tlsCredentials))
+	} else {
+		opts = append(opts, grpc.WithInsecure())
+	}
+	username := u.User.Username()
+	password, pSet := u.User.Password()
+	if username != "" && pSet {
+		basicCred := types.NewBasicCredential(username, password)
+		opts = append(opts, grpc.WithPerRPCCredentials(basicCred))
+	}
 	conn, err := grpc.Dial(addr, opts...)
 	if err != nil {
 		return nil, err
