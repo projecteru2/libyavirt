@@ -7,7 +7,6 @@ import (
 	"net/url"
 
 	"github.com/projecteru2/libyavirt/client/grpcclient"
-	"github.com/projecteru2/libyavirt/client/httpclient"
 	"github.com/projecteru2/libyavirt/types"
 )
 
@@ -47,6 +46,7 @@ type Client interface {
 	ListImage(ctx context.Context, filter string) (images []types.SysImage, err error)
 	PullImage(ctx context.Context, imgName string, all bool) (result string, err error)
 	DigestImage(ctx context.Context, image string, local bool) (digests []string, err error)
+	RawEngine(ctx context.Context, req types.RawEngineReq) (resp types.RawEngineResp, err error)
 }
 
 // New .

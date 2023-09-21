@@ -443,3 +443,20 @@ func (c *GRPCClient) RestoreSnapshot(ctx context.Context, id, volID, snapID stri
 	}
 	return
 }
+
+func (c *GRPCClient) RawEngine(ctx context.Context, req types.RawEngineReq) (resp types.RawEngineResp, err error) {
+	opts := &yavpb.RawEngineOptions{
+		Id:     req.ID,
+		Op:     req.Op,
+		Params: req.Params,
+	}
+	pbResp, err := c.client.RawEngine(ctx, opts)
+	if err != nil {
+		return
+	}
+	resp = types.RawEngineResp{
+		ID:   pbResp.Id,
+		Data: pbResp.Data,
+	}
+	return
+}
