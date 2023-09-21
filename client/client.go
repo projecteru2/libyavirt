@@ -57,8 +57,6 @@ func New(cfg *types.Config) (Client, error) {
 	}
 
 	switch u.Scheme {
-	case "http":
-		return httpclient.New(u.Host, u.Path[1:])
 	case "grpc":
 		return grpcclient.New(cfg)
 	}
