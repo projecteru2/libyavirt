@@ -33,6 +33,7 @@ service YavirtdRPC {
   rpc ListImage(ListImageOptions) returns (ListImageMessage);
   rpc PullImage(PullImageOptions) returns (PullImageMessage);
   rpc DigestImage(DigestImageOptions) returns (DigestImageMessage);
+  rpc RawEngine(RawEngineOptions) returns (RawEngineMessage);
 }
 
 message Empty {}
@@ -370,4 +371,15 @@ message DigestImageOptions{
 
 message DigestImageMessage{
   repeated string digests = 1;
+}
+
+message RawEngineOptions{
+  string id = 1;
+  string op = 2;
+  bytes params = 3;
+}
+
+message RawEngineMessage{
+  string id = 1;
+  bytes data = 2;
 }

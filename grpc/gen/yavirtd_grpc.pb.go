@@ -52,6 +52,7 @@ type YavirtdRPCClient interface {
 	ListImage(ctx context.Context, in *ListImageOptions, opts ...grpc.CallOption) (*ListImageMessage, error)
 	PullImage(ctx context.Context, in *PullImageOptions, opts ...grpc.CallOption) (*PullImageMessage, error)
 	DigestImage(ctx context.Context, in *DigestImageOptions, opts ...grpc.CallOption) (*DigestImageMessage, error)
+	RawEngine(ctx context.Context, in *RawEngineOptions, opts ...grpc.CallOption) (*RawEngineMessage, error)
 }
 
 type yavirtdRPCClient struct {
@@ -448,6 +449,15 @@ func (c *yavirtdRPCClient) DigestImage(ctx context.Context, in *DigestImageOptio
 	return out, nil
 }
 
+func (c *yavirtdRPCClient) RawEngine(ctx context.Context, in *RawEngineOptions, opts ...grpc.CallOption) (*RawEngineMessage, error) {
+	out := new(RawEngineMessage)
+	err := c.cc.Invoke(ctx, "/YavirtdRPC/RawEngine", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // YavirtdRPCServer is the server API for YavirtdRPC service.
 // All implementations should embed UnimplementedYavirtdRPCServer
 // for forward compatibility
@@ -482,6 +492,7 @@ type YavirtdRPCServer interface {
 	ListImage(context.Context, *ListImageOptions) (*ListImageMessage, error)
 	PullImage(context.Context, *PullImageOptions) (*PullImageMessage, error)
 	DigestImage(context.Context, *DigestImageOptions) (*DigestImageMessage, error)
+	RawEngine(context.Context, *RawEngineOptions) (*RawEngineMessage, error)
 }
 
 // UnimplementedYavirtdRPCServer should be embedded to have forward compatible implementations.
@@ -577,6 +588,9 @@ func (UnimplementedYavirtdRPCServer) PullImage(context.Context, *PullImageOption
 }
 func (UnimplementedYavirtdRPCServer) DigestImage(context.Context, *DigestImageOptions) (*DigestImageMessage, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DigestImage not implemented")
+}
+func (UnimplementedYavirtdRPCServer) RawEngine(context.Context, *RawEngineOptions) (*RawEngineMessage, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RawEngine not implemented")
 }
 
 // UnsafeYavirtdRPCServer may be embedded to opt out of forward compatibility for this service.
@@ -1155,6 +1169,24 @@ func _YavirtdRPC_DigestImage_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _YavirtdRPC_RawEngine_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RawEngineOptions)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(YavirtdRPCServer).RawEngine(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/YavirtdRPC/RawEngine",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(YavirtdRPCServer).RawEngine(ctx, req.(*RawEngineOptions))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // YavirtdRPC_ServiceDesc is the grpc.ServiceDesc for YavirtdRPC service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1261,6 +1293,10 @@ var YavirtdRPC_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DigestImage",
 			Handler:    _YavirtdRPC_DigestImage_Handler,
+		},
+		{
+			MethodName: "RawEngine",
+			Handler:    _YavirtdRPC_RawEngine_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
