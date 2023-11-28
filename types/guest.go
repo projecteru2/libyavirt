@@ -34,6 +34,9 @@ const (
 // EruID .
 func EruID(id string) string {
 	id = strings.TrimPrefix(id, "guest-")
+	if strings.HasPrefix(id, MagicPrefix) {
+		return id
+	}
 	return fmt.Sprintf("%s%032s", MagicPrefix, id)
 }
 
